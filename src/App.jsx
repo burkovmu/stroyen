@@ -9,7 +9,7 @@ import CatalogFilters from './CatalogFilters';
 const AppContainer = styled.div`
   background: #ffffff;
   min-height: 100vh;
-  color: #2f5483;
+  color: #000000;
   font-family: 'Inter', sans-serif;
 `;
 
@@ -39,7 +39,7 @@ const LogoSection = styled.div`
 const Logo = styled(motion.div)`
   font-size: 1.2rem;
   font-weight: 300;
-  color: #2f5483;
+  color: #000000;
   letter-spacing: 1px;
   display: flex;
   align-items: center;
@@ -60,7 +60,7 @@ const Nav = styled.nav`
 `;
 
 const NavLink = styled(motion.a)`
-  color: #2f5483;
+  color: #000000;
   text-decoration: none;
   font-weight: 300;
   font-size: 0.9rem;
@@ -93,11 +93,11 @@ const SearchContainer = styled.div`
 `;
 
 const SearchInput = styled.input`
-  background: rgba(47, 84, 131, 0.05);
-  border: 1px solid rgba(47, 84, 131, 0.1);
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   padding: 0.4rem 1rem 0.4rem 2.2rem;
-  color: #2f5483;
+  color: #000000;
   font-size: 0.85rem;
   width: 180px;
   transition: all 0.3s ease;
@@ -105,12 +105,12 @@ const SearchInput = styled.input`
   height: 100%;
 
   &::placeholder {
-    color: rgba(47, 84, 131, 0.5);
+    color: rgba(0, 0, 0, 0.5);
   }
 
   &:focus {
     outline: none;
-    background: rgba(47, 84, 131, 0.08);
+    background: rgba(0, 0, 0, 0.08);
     width: 220px;
   }
 `;
@@ -118,7 +118,7 @@ const SearchInput = styled.input`
 const SearchIcon = styled.div`
   position: absolute;
   left: 0.8rem;
-  color: rgba(47, 84, 131, 0.7);
+  color: #2f5483;
   font-size: 0.9rem;
   display: flex;
   align-items: center;
@@ -129,25 +129,25 @@ const CitySelect = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #2f5483;
+  color: #000000;
   font-size: 0.85rem;
   font-weight: 300;
   cursor: pointer;
   padding: 0.4rem 1rem;
   border-radius: 20px;
-  background: rgba(47, 84, 131, 0.05);
-  border: 1px solid rgba(47, 84, 131, 0.1);
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   height: 35px;
   
   &:hover {
-    background: rgba(47, 84, 131, 0.08);
+    background: rgba(0, 0, 0, 0.08);
   }
 `;
 
 const CityIcon = styled.div`
   font-size: 0.9rem;
-  color: rgba(47, 84, 131, 0.7);
+  color: #2f5483;
   display: flex;
   align-items: center;
 `;
@@ -167,26 +167,26 @@ const PhoneNumber = styled.a`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #2f5483;
+  color: #000000;
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 400;
   padding: 0.4rem 1rem;
   border-radius: 20px;
-  background: rgba(47, 84, 131, 0.05);
-  border: 1px solid rgba(47, 84, 131, 0.1);
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   height: 35px;
   white-space: nowrap;
   
   &:hover {
-    background: rgba(47, 84, 131, 0.08);
+    background: rgba(0, 0, 0, 0.08);
   }
 `;
 
 const PhoneIcon = styled.div`
   font-size: 0.9rem;
-  color: rgba(47, 84, 131, 0.7);
+  color: #2f5483;
   display: flex;
   align-items: center;
 `;
@@ -366,7 +366,7 @@ const SectionTitle = styled(motion.h2)`
   font-weight: 300;
   text-align: center;
   margin-bottom: 6rem;
-  color: #2f5483;
+  color: #000000;
   letter-spacing: 0.03em;
   position: relative;
   width: 100%;
@@ -383,7 +383,7 @@ const SectionTitle = styled(motion.h2)`
     background: linear-gradient(
       to right,
       transparent,
-      #2f5483,
+      #000000,
       transparent
     );
     opacity: 0.4;
@@ -506,7 +506,7 @@ const FeatureIcon = styled.div`
 
 const FeatureTitle = styled.h3`
   font-size: 1.3rem;
-  color: #2f5483;
+  color: #000000;
   font-weight: 500;
   margin-bottom: 1rem;
   line-height: 1.4;
@@ -523,7 +523,7 @@ const FeatureTitle = styled.h3`
     transform: translateX(-50%);
     width: 40px;
     height: 2px;
-    background: rgba(47, 84, 131, 0.2);
+    background: rgba(0, 0, 0, 0.2);
     transition: all 0.4s ease;
   }
   
@@ -538,7 +538,7 @@ const FeatureTitle = styled.h3`
 `;
 
 const FeatureText = styled.p`
-  color: #2f5483;
+  color: #000000;
   line-height: 1.6;
   font-size: 1rem;
   font-weight: 300;
@@ -717,7 +717,7 @@ const AdvantageIcon = styled.div`
 
 const AdvantageTitle = styled.h3`
   font-size: 1.2rem;
-  color: #2f5483;
+  color: #000000;
   font-weight: 600;
   margin: 0 0 0.8rem 0;
   line-height: 1.4;
@@ -732,7 +732,7 @@ const AdvantageTitle = styled.h3`
     transform: translateX(-50%);
     width: 30px;
     height: 2px;
-    background: rgba(47, 84, 131, 0.2);
+    background: rgba(0, 0, 0, 0.2);
     transition: width 0.4s ease;
   }
   
@@ -744,7 +744,7 @@ const AdvantageTitle = styled.h3`
 `;
 
 const AdvantageDescription = styled.p`
-  color: #2f5483;
+  color: #000000;
   opacity: 0.8;
   font-size: 0.9rem;
   line-height: 1.5;
@@ -839,7 +839,7 @@ const ProductInfo = styled.div`
 
 const ProductTitle = styled.h3`
   font-size: 1.3rem;
-  color: #2f5483;
+  color: #000000;
   margin-bottom: 1.2rem;
   font-weight: 600;
   line-height: 1.4;
@@ -853,7 +853,7 @@ const ProductTitle = styled.h3`
     left: 0;
     width: 40px;
     height: 2px;
-    background: rgba(47, 84, 131, 0.2);
+    background: rgba(0, 0, 0, 0.2);
     transition: width 0.4s ease;
   }
 
@@ -865,7 +865,7 @@ const ProductTitle = styled.h3`
 `;
 
 const ProductDescription = styled.p`
-  color: #2f5483;
+  color: #000000;
   opacity: 0.8;
   margin-bottom: 2rem;
   font-size: 1rem;
@@ -1157,7 +1157,7 @@ const SocialLink = styled.a`
 
 const CartIcon = styled.div`
   font-size: 0.9rem;
-  color: rgba(47, 84, 131, 0.7);
+  color: #2f5483;
   display: flex;
   align-items: center;
 `;
