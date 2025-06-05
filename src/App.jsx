@@ -199,7 +199,7 @@ const Hero = styled(motion.section)`
   position: relative;
   overflow: hidden;
   padding-top: 80px;
-  background: url('/baner01.jpg') center center/cover no-repeat;
+  background: url('/banner01.jpg') center center/cover no-repeat;
 `;
 
 const HeroContent = styled(motion.div)`
@@ -1253,7 +1253,7 @@ function App() {
       >
         <LogoSection>
           <Logo>
-            <img src="/Стройэнергетика.png" alt="Стройэнергетика" />
+            <img src="/logo.png" alt="Стройэнергетика" />
           </Logo>
           <CitySelect>
             <CityIcon>
@@ -1784,7 +1784,7 @@ function App() {
         <FooterContent>
           <FooterColumn>
             <FooterLogo>
-              <img src="/Стройэнергетика.png" alt="Стройэнергетика" />
+              <img src="/logo.png" alt="Стройэнергетика" />
             </FooterLogo>
             <FooterDescription>
               Официальный дилер счетчиков электроэнергии с гарантией качества и профессиональной установкой. Работаем с 2010 года.
