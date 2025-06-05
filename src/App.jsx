@@ -19,7 +19,7 @@ const Header = styled(motion.header)`
   top: 0;
   left: 0;
   right: 0;
-  padding: 0.8rem 2rem;
+  padding: 1.2rem 2rem;
   display: grid;
   grid-template-columns: auto 2fr 1fr;
   align-items: center;
@@ -27,7 +27,7 @@ const Header = styled(motion.header)`
   backdrop-filter: blur(10px);
   z-index: 1000;
   box-shadow: 0 2px 20px rgba(47, 84, 131, 0.1);
-  height: 65px;
+  height: 85px;
 `;
 
 const LogoSection = styled.div`
