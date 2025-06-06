@@ -28,12 +28,29 @@ const Header = styled(motion.header)`
   z-index: 1000;
   box-shadow: 0 2px 20px rgba(47, 84, 131, 0.1);
   height: 85px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: auto 1fr auto;
+    padding: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    height: auto;
+    padding: 1rem;
+    gap: 1rem;
+  }
 `;
 
 const LogoSection = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
+
+  @media (max-width: 768px) {
+    justify-content: space-between;
+    width: 100%;
+  }
 `;
 
 const Logo = styled(motion.div)`
@@ -57,13 +74,21 @@ const Nav = styled.nav`
   align-items: center;
   gap: 3rem;
   height: 100%;
+
+  @media (max-width: 1200px) {
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const NavLink = styled(motion.a)`
   color: #000000;
   text-decoration: none;
   font-weight: 300;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   cursor: pointer;
   opacity: 0.9;
   letter-spacing: 0.5px;
@@ -83,6 +108,15 @@ const HeaderRight = styled.div`
   align-items: center;
   gap: 1.2rem;
   height: 100%;
+
+  @media (max-width: 1200px) {
+    gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    justify-content: space-between;
+    width: 100%;
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -90,39 +124,28 @@ const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   height: 35px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
-const SearchInput = styled.input`
+const SearchButton = styled(motion.button)`
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  padding: 0.4rem 1rem 0.4rem 2.2rem;
-  color: #000000;
-  font-size: 0.85rem;
-  width: 180px;
-  transition: all 0.3s ease;
-  font-weight: 300;
-  height: 100%;
-
-  &::placeholder {
-    color: rgba(0, 0, 0, 0.5);
-  }
-
-  &:focus {
-    outline: none;
-    background: rgba(0, 0, 0, 0.08);
-    width: 220px;
-  }
-`;
-
-const SearchIcon = styled.div`
-  position: absolute;
-  left: 0.8rem;
+  padding: 0.4rem 1rem;
   color: #2f5483;
   font-size: 0.9rem;
+  cursor: pointer;
+  height: 35px;
   display: flex;
   align-items: center;
-  height: 100%;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.08);
+  }
 `;
 
 const CitySelect = styled.div`
@@ -130,7 +153,7 @@ const CitySelect = styled.div`
   align-items: center;
   gap: 0.5rem;
   color: #000000;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 300;
   cursor: pointer;
   padding: 0.4rem 1rem;
@@ -142,6 +165,10 @@ const CitySelect = styled.div`
   
   &:hover {
     background: rgba(0, 0, 0, 0.08);
+  }
+
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
@@ -169,7 +196,7 @@ const PhoneNumber = styled.a`
   gap: 0.5rem;
   color: #000000;
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 400;
   padding: 0.4rem 1rem;
   border-radius: 20px;
@@ -182,6 +209,10 @@ const PhoneNumber = styled.a`
   &:hover {
     background: rgba(0, 0, 0, 0.08);
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const PhoneIcon = styled.div`
@@ -192,7 +223,7 @@ const PhoneIcon = styled.div`
 `;
 
 const Hero = styled(motion.section)`
-  height: 85vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -212,7 +243,7 @@ const HeroContent = styled(motion.div)`
 `;
 
 const Title = styled(motion.h1)`
-  font-size: 4.5rem;
+  font-size: 3.5rem;
   font-weight: 800;
   color: #ffffff;
   margin-bottom: 1.5rem;
@@ -223,7 +254,7 @@ const Title = styled(motion.h1)`
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   color: #ffffff;
   margin-bottom: 3rem;
   line-height: 1.6;
@@ -258,7 +289,7 @@ const BenefitItem = styled(motion.div)`
   align-items: center;
   gap: 1.2rem;
   color: #ffffff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   padding: 0.5rem 0;
   font-weight: 400;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -362,7 +393,7 @@ const Section = styled(motion.section)`
 `;
 
 const SectionTitle = styled(motion.h2)`
-  font-size: 2.6rem;
+  font-size: 2.2rem;
   font-weight: 300;
   text-align: center;
   margin-bottom: 6rem;
@@ -505,7 +536,7 @@ const FeatureIcon = styled.div`
 `;
 
 const FeatureTitle = styled.h3`
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #000000;
   font-weight: 500;
   margin-bottom: 1rem;
@@ -540,7 +571,7 @@ const FeatureTitle = styled.h3`
 const FeatureText = styled.p`
   color: #000000;
   line-height: 1.6;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 300;
   margin: 0;
   opacity: 0.7;
@@ -716,7 +747,7 @@ const AdvantageIcon = styled.div`
 `;
 
 const AdvantageTitle = styled.h3`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #000000;
   font-weight: 600;
   margin: 0 0 0.8rem 0;
@@ -746,7 +777,7 @@ const AdvantageTitle = styled.h3`
 const AdvantageDescription = styled.p`
   color: #000000;
   opacity: 0.8;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1.5;
   margin: 0;
   font-weight: 300;
@@ -838,7 +869,7 @@ const ProductInfo = styled.div`
 `;
 
 const ProductTitle = styled.h3`
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #000000;
   margin-bottom: 1.2rem;
   font-weight: 600;
@@ -868,7 +899,7 @@ const ProductDescription = styled.p`
   color: #000000;
   opacity: 0.8;
   margin-bottom: 2rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.6;
   transition: opacity 0.4s ease;
 
@@ -878,7 +909,7 @@ const ProductDescription = styled.p`
 `;
 
 const ProductPrice = styled.div`
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #2f5483;
   margin-bottom: 1.5rem;
@@ -1013,7 +1044,7 @@ const FooterLogo = styled.div`
 
 const FooterDescription = styled.p`
   color: rgba(255, 255, 255, 0.7);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
 `;
@@ -1030,7 +1061,7 @@ const FooterContactItem = styled.div`
   align-items: center;
   gap: 1rem;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
 
   svg {
@@ -1075,7 +1106,7 @@ const PaymentIcon = styled.div`
 `;
 
 const FooterTitle = styled.h4`
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #ffffff;
   margin-bottom: 1.5rem;
   font-weight: 500;
@@ -1096,7 +1127,7 @@ const FooterTitle = styled.h4`
 const FooterLink = styled.a`
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
   position: relative;
   padding-left: 0;
@@ -1236,6 +1267,48 @@ const CartButton = styled(motion.button)`
   &:hover {
     background: rgba(47, 84, 131, 0.08);
   }
+
+  @media (max-width: 768px) {
+    margin-left: auto;
+  }
+`;
+
+const ScrollIndicator = styled(motion.div)`
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  z-index: 2;
+
+  span {
+    font-size: 0.8rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
 `;
 
 function App() {
@@ -1265,19 +1338,16 @@ function App() {
           </CitySelect>
         </LogoSection>
         <Nav>
-          <NavLink whileHover={{ scale: 1.05 }}>Главная</NavLink>
           <NavLink whileHover={{ scale: 1.05 }}>Каталог</NavLink>
           <NavLink whileHover={{ scale: 1.05 }}>Информация</NavLink>
           <NavLink whileHover={{ scale: 1.05 }}>Клиентам</NavLink>
-          <NavLink whileHover={{ scale: 1.05 }}>О компании</NavLink>
           <NavLink whileHover={{ scale: 1.05 }}>Контакты</NavLink>
         </Nav>
         <HeaderRight>
           <SearchContainer>
-            <SearchIcon>
+            <SearchButton whileHover={{ scale: 1.05 }}>
               <FontAwesomeIcon icon={faSearch} />
-            </SearchIcon>
-            <SearchInput placeholder="Поиск..." />
+            </SearchButton>
           </SearchContainer>
           <CartButton whileHover={{ scale: 1.05 }}>
             <CartIcon>
@@ -1315,6 +1385,16 @@ function App() {
             <span>Смотреть каталог</span>
           </CTAButton>
         </HeroContent>
+        <ScrollIndicator
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.5 }}
+          onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+          </svg>
+        </ScrollIndicator>
       </Hero>
 
       <ProductsSection>
