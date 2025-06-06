@@ -816,34 +816,36 @@ const ProductCard = styled(motion.div)`
     position: absolute;
     top: 0;
     left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #2f5483, rgba(47, 84, 131, 0.5));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, rgba(47, 84, 131, 0.03), rgba(47, 84, 131, 0.08));
     opacity: 0;
     transition: opacity 0.4s ease;
   }
-
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 0;
-    background: #2f5483;
-    transition: height 0.4s ease;
-  }
-
+  
   &:hover {
-    box-shadow: 0 15px 35px rgba(47, 84, 131, 0.12);
-    z-index: 1;
-
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(47, 84, 131, 0.12);
+    border: 2px solid rgba(47, 84, 131, 0.2);
+    
     &:before {
       opacity: 1;
     }
-
+    
     &:after {
-      height: 100%;
+      opacity: 1;
     }
   }
 `;
@@ -878,12 +880,6 @@ const ProductTitle = styled.h3`
     background: rgba(0, 0, 0, 0.2);
     transition: width 0.4s ease;
   }
-
-  ${ProductCard}:hover & {
-    &:after {
-      width: 60px;
-    }
-  }
 `;
 
 const ProductDescription = styled.p`
@@ -893,10 +889,6 @@ const ProductDescription = styled.p`
   font-size: 0.9rem;
   line-height: 1.6;
   transition: opacity 0.4s ease;
-
-  ${ProductCard}:hover & {
-    opacity: 0.9;
-  }
 `;
 
 const ProductPrice = styled.div`
@@ -1398,7 +1390,6 @@ function App() {
         </SectionTitle>
         <ProductsGrid>
           <ProductCard
-            whileHover={{ scale: 1.02 }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -1411,22 +1402,12 @@ function App() {
               </div>
               <div>
                 <ProductPrice>2 450 ₽</ProductPrice>
-                <BuyButton
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>Купить</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14"/>
-                    <path d="M12 5l7 7-7 7"/>
-                  </svg>
-                </BuyButton>
+                <BuyButton>Купить</BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
 
           <ProductCard
-            whileHover={{ scale: 1.02 }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -1439,22 +1420,12 @@ function App() {
               </div>
               <div>
                 <ProductPrice>3 200 ₽</ProductPrice>
-                <BuyButton
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>Купить</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14"/>
-                    <path d="M12 5l7 7-7 7"/>
-                  </svg>
-                </BuyButton>
+                <BuyButton>Купить</BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
 
           <ProductCard
-            whileHover={{ scale: 1.02 }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -1467,22 +1438,12 @@ function App() {
               </div>
               <div>
                 <ProductPrice>1 850 ₽</ProductPrice>
-                <BuyButton
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>Купить</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14"/>
-                    <path d="M12 5l7 7-7 7"/>
-                  </svg>
-                </BuyButton>
+                <BuyButton>Купить</BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
 
           <ProductCard
-            whileHover={{ scale: 1.02 }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -1495,22 +1456,12 @@ function App() {
               </div>
               <div>
                 <ProductPrice>4 500 ₽</ProductPrice>
-                <BuyButton
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>Купить</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14"/>
-                    <path d="M12 5l7 7-7 7"/>
-                  </svg>
-                </BuyButton>
+                <BuyButton>Купить</BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
 
           <ProductCard
-            whileHover={{ scale: 1.02 }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -1523,22 +1474,12 @@ function App() {
               </div>
               <div>
                 <ProductPrice>2 100 ₽</ProductPrice>
-                <BuyButton
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>Купить</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14"/>
-                    <path d="M12 5l7 7-7 7"/>
-                  </svg>
-                </BuyButton>
+                <BuyButton>Купить</BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
 
           <ProductCard
-            whileHover={{ scale: 1.02 }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
@@ -1551,22 +1492,12 @@ function App() {
               </div>
               <div>
                 <ProductPrice>3 800 ₽</ProductPrice>
-                <BuyButton
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>Купить</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14"/>
-                    <path d="M12 5l7 7-7 7"/>
-                  </svg>
-                </BuyButton>
+                <BuyButton>Купить</BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
 
           <ProductCard
-            whileHover={{ scale: 1.02 }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
@@ -1579,22 +1510,12 @@ function App() {
               </div>
               <div>
                 <ProductPrice>4 200 ₽</ProductPrice>
-                <BuyButton
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>Купить</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14"/>
-                    <path d="M12 5l7 7-7 7"/>
-                  </svg>
-                </BuyButton>
+                <BuyButton>Купить</BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
 
           <ProductCard
-            whileHover={{ scale: 1.02 }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
@@ -1607,16 +1528,7 @@ function App() {
               </div>
               <div>
                 <ProductPrice>5 000 ₽</ProductPrice>
-                <BuyButton
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>Купить</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14"/>
-                    <path d="M12 5l7 7-7 7"/>
-                  </svg>
-                </BuyButton>
+                <BuyButton>Купить</BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
