@@ -267,7 +267,7 @@ const Subtitle = styled(motion.p)`
 const BenefitsContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.8rem;
   margin-bottom: 3.5rem;
   position: relative;
   
@@ -290,7 +290,7 @@ const BenefitItem = styled(motion.div)`
   gap: 1.2rem;
   color: #ffffff;
   font-size: 1rem;
-  padding: 0.5rem 0;
+  padding: 0.3rem 0;
   font-weight: 400;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   letter-spacing: 0.01em;
@@ -350,17 +350,8 @@ const CTAButton = styled(motion.button)`
   
   span {
     position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    
-    &:after {
-      content: '→';
-      font-size: 1.2rem;
-      transition: transform 0.3s ease;
-      opacity: 0.9;
-    }
+    z-index: 2;
+    transition: transform 0.3s ease;
   }
   
   &:hover span:after {
