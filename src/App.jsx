@@ -1447,20 +1447,7 @@ function App() {
       .catch(error => console.error('Ошибка загрузки товаров:', error));
   }, []);
 
-  // Обработчик клика вне области каталога
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      const catalogDropdown = event.target.closest('.catalog-dropdown');
-      if (!catalogDropdown && catalogDropdownOpen) {
-        setCatalogDropdownOpen(false);
-      }
-    };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [catalogDropdownOpen]);
 
 
 
@@ -1569,15 +1556,22 @@ function App() {
           <BottomHeader>
             <BottomHeaderContent>
               <BottomHeaderLeft>
-                <CatalogDropdown className="catalog-dropdown">
+                <CatalogDropdown 
+                  className="catalog-dropdown"
+                  onMouseEnter={() => setCatalogDropdownOpen(true)}
+                  onMouseLeave={() => setCatalogDropdownOpen(false)}
+                >
                   <CatalogButton 
-                    onClick={() => setCatalogDropdownOpen(!catalogDropdownOpen)}
                     whileHover={{ scale: 1.02 }}
                   >
                     Каталог товаров
                     <FontAwesomeIcon icon={faBars} />
                   </CatalogButton>
-                  <CatalogDropdownContent isOpen={catalogDropdownOpen}>
+                  <CatalogDropdownContent 
+                    isOpen={catalogDropdownOpen}
+                    onMouseEnter={() => setCatalogDropdownOpen(true)}
+                    onMouseLeave={() => setCatalogDropdownOpen(false)}
+                  >
                     <CatalogItem href="/catalog">Все товары</CatalogItem>
                     <CatalogItem href="/catalog?category=Однофазные счетчики">Однофазные счетчики</CatalogItem>
                     <CatalogItem href="/catalog?category=Трехфазные счетчики">Трехфазные счетчики</CatalogItem>

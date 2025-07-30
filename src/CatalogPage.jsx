@@ -56,8 +56,21 @@ const FiltersSection = styled.div`
   box-shadow: 0 2px 10px rgba(47, 84, 131, 0.05);
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 1rem;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+`;
+
+const DesktopFilters = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
@@ -68,8 +81,7 @@ const FiltersLeft = styled.div`
   flex-wrap: wrap;
 
   @media (max-width: 768px) {
-    width: 100%;
-    justify-content: space-between;
+    display: none;
   }
 `;
 
@@ -92,18 +104,270 @@ const FilterButton = styled(motion.button)`
   }
 `;
 
-const SortSelect = styled.select`
+const SortDropdown = styled.div`
+  position: relative;
+  display: inline-block;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const SortButton = styled(motion.button)`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.8rem 1.5rem;
+  background: rgba(47, 84, 131, 0.05);
   border: 1px solid rgba(47, 84, 131, 0.1);
   border-radius: 8px;
-  background: #ffffff;
   color: #2f5483;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
   
   &:hover {
-    border-color: rgba(47, 84, 131, 0.3);
+    background: rgba(47, 84, 131, 0.1);
+    transform: translateY(-1px);
+  }
+`;
+
+const SortDropdownContent = styled.div`
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid rgba(47, 84, 131, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(47, 84, 131, 0.15);
+  padding: 0.5rem;
+  min-width: 200px;
+  z-index: 1000;
+  opacity: ${props => props.isOpen ? 1 : 0};
+  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  transform: translateY(${props => props.isOpen ? '0' : '-10px'});
+  transition: all 0.3s ease;
+`;
+
+const SortOption = styled.button`
+  display: block;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background: none;
+  border: none;
+  color: #666666;
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(47, 84, 131, 0.1);
+    color: #2f5483;
+  }
+  
+  &.active {
+    background: rgba(47, 84, 131, 0.15);
+    color: #2f5483;
+    font-weight: 500;
+  }
+`;
+
+// Мобильные фильтры
+const MobileFiltersButton = styled(motion.button)`
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.6rem 1rem;
+  background: ${props => props.active ? 'rgba(47, 84, 131, 0.15)' : 'rgba(47, 84, 131, 0.05)'};
+  border: 1px solid ${props => props.active ? 'rgba(47, 84, 131, 0.3)' : 'rgba(47, 84, 131, 0.1)'};
+  border-radius: 6px;
+  color: #2f5483;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
+  
+  @media (max-width: 768px) {
+    display: flex;
+  }
+  
+  &:hover {
+    background: rgba(47, 84, 131, 0.1);
+    transform: translateY(-1px);
+  }
+`;
+
+const MobileFiltersOverlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: ${props => props.isOpen ? 'block' : 'none'};
+  }
+`;
+
+const MobileFiltersMenu = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 2001;
+  padding: 2rem;
+  overflow-y: auto;
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
+const MobileFiltersHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+`;
+
+const MobileFiltersTitle = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2f5483;
+  margin: 0;
+`;
+
+const MobileFiltersCloseButton = styled(motion.button)`
+  background: none;
+  border: none;
+  color: #666666;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333333;
+  }
+`;
+
+const MobileFilterSection = styled.div`
+  margin-bottom: 2rem;
+`;
+
+const MobileFilterSectionTitle = styled.h3`
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2f5483;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+`;
+
+const MobileFilterOption = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 0;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333333;
+  transition: color 0.3s ease;
+  border-bottom: 1px solid #f5f5f5;
+  
+  &:hover {
+    color: #2f5483;
+  }
+  
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
+const MobileFilterCheckbox = styled.input`
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: #2f5483;
+`;
+
+const MobilePriceRange = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+`;
+
+const MobilePriceInput = styled.input`
+  flex: 1;
+  padding: 0.8rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333333;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #2f5483;
+    box-shadow: 0 0 0 3px rgba(47, 84, 131, 0.1);
+  }
+  
+  &::placeholder {
+    color: #999999;
+  }
+`;
+
+const MobileFiltersActions = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+`;
+
+const MobileFilterActionButton = styled(motion.button)`
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &.primary {
+    background: #2f5483;
+    color: white;
+    
+    &:hover {
+      background: #1a2f4b;
+    }
+  }
+  
+  &.secondary {
+    background: transparent;
+    color: #2f5483;
+    border: 1px solid #2f5483;
+    
+    &:hover {
+      background: #2f5483;
+      color: white;
+    }
   }
 `;
 
@@ -612,12 +876,15 @@ function CatalogPage() {
   
   // Состояние открытых дропдаунов
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   // Закрытие дропдаунов при клике вне их
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!event.target.closest('.filter-dropdown')) {
+      if (!event.target.closest('.filter-dropdown') && !event.target.closest('.sort-dropdown')) {
         setOpenDropdown(null);
+        setSortDropdownOpen(false);
       }
     };
 
@@ -626,6 +893,11 @@ function CatalogPage() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  // Закрытие мобильных фильтров при клике на оверлей
+  const closeMobileFilters = () => {
+    setMobileFiltersOpen(false);
+  };
 
   useEffect(() => {
     // Загружаем товары из JSON файла
@@ -828,6 +1100,24 @@ function CatalogPage() {
     alert('Функция заказа под заказ будет добавлена позже. Свяжитесь с нами по телефону для уточнения деталей.');
   };
 
+  const handleSortChange = (newSortBy) => {
+    setSortBy(newSortBy);
+    setSortDropdownOpen(false);
+  };
+
+  const getSortLabel = () => {
+    switch (sortBy) {
+      case 'name':
+        return 'По названию';
+      case 'price-asc':
+        return 'По цене (возрастание)';
+      case 'price-desc':
+        return 'По цене (убывание)';
+      default:
+        return 'По названию';
+    }
+  };
+
   // Функция для генерации заголовка в зависимости от фильтров
   const getCatalogTitle = () => {
     if (filters.categories.length === 1 && filters.brands.length === 0) {
@@ -910,7 +1200,7 @@ function CatalogPage() {
         </CatalogHeader>
 
         <FiltersSection>
-          <FiltersLeft>
+          <DesktopFilters>
             <FilterDropdown className="filter-dropdown">
               <FilterButton 
                 active={filters.categories.length > 0 || filters.brands.length > 0}
@@ -1038,12 +1328,46 @@ function CatalogPage() {
                 Очистить все
               </ClearFiltersButton>
             )}
-          </FiltersLeft>
-          <SortSelect value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-            <option value="name">По названию</option>
-            <option value="price-asc">По цене (возрастание)</option>
-            <option value="price-desc">По цене (убывание)</option>
-          </SortSelect>
+          </DesktopFilters>
+
+          <MobileFiltersButton
+            active={hasActiveFilters()}
+            onClick={() => setMobileFiltersOpen(true)}
+            whileHover={{ scale: 1.02 }}
+          >
+            <FontAwesomeIcon icon={faFilter} />
+            Фильтры
+          </MobileFiltersButton>
+
+          <SortDropdown className="sort-dropdown">
+            <SortButton
+              onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
+              whileHover={{ scale: 1.02 }}
+            >
+              <FontAwesomeIcon icon={faSort} />
+              {getSortLabel()}
+            </SortButton>
+            <SortDropdownContent isOpen={sortDropdownOpen}>
+              <SortOption
+                className={sortBy === 'name' ? 'active' : ''}
+                onClick={() => handleSortChange('name')}
+              >
+                По названию
+              </SortOption>
+              <SortOption
+                className={sortBy === 'price-asc' ? 'active' : ''}
+                onClick={() => handleSortChange('price-asc')}
+              >
+                По цене (возрастание)
+              </SortOption>
+              <SortOption
+                className={sortBy === 'price-desc' ? 'active' : ''}
+                onClick={() => handleSortChange('price-desc')}
+              >
+                По цене (убывание)
+              </SortOption>
+            </SortDropdownContent>
+          </SortDropdown>
         </FiltersSection>
 
         {hasActiveFilters() && (
@@ -1222,6 +1546,170 @@ function CatalogPage() {
           </CustomOrderContent>
         </CustomOrderBanner>
       </CatalogContent>
+
+      {/* Мобильное меню фильтров */}
+      <MobileFiltersOverlay
+        isOpen={mobileFiltersOpen}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: mobileFiltersOpen ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        onClick={closeMobileFilters}
+      />
+      <MobileFiltersMenu
+        initial={{ x: '-100%' }}
+        animate={{ x: mobileFiltersOpen ? 0 : '-100%' }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        <MobileFiltersHeader>
+          <MobileFiltersTitle>Фильтры</MobileFiltersTitle>
+          <MobileFiltersCloseButton
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={closeMobileFilters}
+          >
+            ×
+          </MobileFiltersCloseButton>
+        </MobileFiltersHeader>
+
+        <MobileFilterSection>
+          <MobileFilterSectionTitle>Категории</MobileFilterSectionTitle>
+          {getUniqueValues('category').map(category => (
+            <MobileFilterOption key={category}>
+              <MobileFilterCheckbox
+                type="checkbox"
+                checked={filters.categories.includes(category)}
+                onChange={(e) => handleFilterChange('categories', category, e.target.checked)}
+              />
+              {category}
+            </MobileFilterOption>
+          ))}
+        </MobileFilterSection>
+
+        <MobileFilterSection>
+          <MobileFilterSectionTitle>Бренды</MobileFilterSectionTitle>
+          {getUniqueValues('brand').map(brand => (
+            <MobileFilterOption key={brand}>
+              <MobileFilterCheckbox
+                type="checkbox"
+                checked={filters.brands.includes(brand)}
+                onChange={(e) => handleFilterChange('brands', brand, e.target.checked)}
+              />
+              {brand}
+            </MobileFilterOption>
+          ))}
+        </MobileFilterSection>
+
+        <MobileFilterSection>
+          <MobileFilterSectionTitle>Цена</MobileFilterSectionTitle>
+          <MobilePriceRange>
+            <MobilePriceInput
+              type="number"
+              placeholder="От"
+              value={filters.priceRange.min}
+              onChange={(e) => handleFilterChange('priceRange', { min: e.target.value })}
+            />
+            <span>-</span>
+            <MobilePriceInput
+              type="number"
+              placeholder="До"
+              value={filters.priceRange.max}
+              onChange={(e) => handleFilterChange('priceRange', { max: e.target.value })}
+            />
+          </MobilePriceRange>
+        </MobileFilterSection>
+
+        <MobileFilterSection>
+          <MobileFilterSectionTitle>Количество фаз</MobileFilterSectionTitle>
+          {getUniqueValues('specifications.phases').map(phase => (
+            <MobileFilterOption key={phase}>
+              <MobileFilterCheckbox
+                type="checkbox"
+                checked={filters.phases.includes(phase)}
+                onChange={(e) => handleFilterChange('phases', phase, e.target.checked)}
+              />
+              {phase} фаза
+            </MobileFilterOption>
+          ))}
+        </MobileFilterSection>
+
+        <MobileFilterSection>
+          <MobileFilterSectionTitle>Напряжение</MobileFilterSectionTitle>
+          {getUniqueValues('specifications.voltage').map(voltage => (
+            <MobileFilterOption key={voltage}>
+              <MobileFilterCheckbox
+                type="checkbox"
+                checked={filters.voltage.includes(voltage)}
+                onChange={(e) => handleFilterChange('voltage', voltage, e.target.checked)}
+              />
+              {voltage}
+            </MobileFilterOption>
+          ))}
+        </MobileFilterSection>
+
+        <MobileFilterSection>
+          <MobileFilterSectionTitle>Класс точности</MobileFilterSectionTitle>
+          {getUniqueValues('specifications.accuracy').map(accuracy => (
+            <MobileFilterOption key={accuracy}>
+              <MobileFilterCheckbox
+                type="checkbox"
+                checked={filters.accuracy.includes(accuracy)}
+                onChange={(e) => handleFilterChange('accuracy', accuracy, e.target.checked)}
+              />
+              Класс {accuracy}
+            </MobileFilterOption>
+          ))}
+        </MobileFilterSection>
+
+        <MobileFilterSection>
+          <MobileFilterSectionTitle>Сортировка</MobileFilterSectionTitle>
+          <MobileFilterOption>
+            <MobileFilterCheckbox
+              type="radio"
+              name="sort"
+              checked={sortBy === 'name'}
+              onChange={() => handleSortChange('name')}
+            />
+            По названию
+          </MobileFilterOption>
+          <MobileFilterOption>
+            <MobileFilterCheckbox
+              type="radio"
+              name="sort"
+              checked={sortBy === 'price-asc'}
+              onChange={() => handleSortChange('price-asc')}
+            />
+            По цене (возрастание)
+          </MobileFilterOption>
+          <MobileFilterOption>
+            <MobileFilterCheckbox
+              type="radio"
+              name="sort"
+              checked={sortBy === 'price-desc'}
+              onChange={() => handleSortChange('price-desc')}
+            />
+            По цене (убывание)
+          </MobileFilterOption>
+        </MobileFilterSection>
+
+        <MobileFiltersActions>
+          <MobileFilterActionButton
+            className="secondary"
+            onClick={clearAllFilters}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Очистить все
+          </MobileFilterActionButton>
+          <MobileFilterActionButton
+            className="primary"
+            onClick={closeMobileFilters}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Применить
+          </MobileFilterActionButton>
+        </MobileFiltersActions>
+      </MobileFiltersMenu>
     </CatalogContainer>
   );
 }
