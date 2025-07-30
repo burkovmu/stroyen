@@ -10,6 +10,7 @@ import {
   faEnvelope,
   faCheck
 } from '@fortawesome/free-solid-svg-icons';
+import { useCart } from './CartContext';
 
 // Контейнер страницы
 const ProductDetailContainer = styled.div`
@@ -611,6 +612,7 @@ function ProductDetailPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { addToCart } = useCart();
 
   // Параллакс-скролл
   const containerRef = useRef(null);
@@ -655,8 +657,10 @@ function ProductDetailPage() {
   }, [id]);
 
   const handleAddToCart = () => {
-    // Здесь будет логика добавления в корзину
-    alert('Товар добавлен в корзину!');
+    if (product) {
+      addToCart(product);
+      alert('Товар добавлен в корзину!');
+    }
   };
 
   const handleContact = () => {

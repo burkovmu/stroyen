@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faSearch, faShoppingCart, faFilter, faSort, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { useCart } from './CartContext';
 
 const CatalogContainer = styled.div`
   background: #ffffff;
@@ -595,6 +596,7 @@ function CatalogPage() {
   const [displayedProducts, setDisplayedProducts] = useState(12);
   const [sortBy, setSortBy] = useState('name');
   const productsPerPage = 12;
+  const { addToCart } = useCart();
   
   // Состояние фильтров
   const [filters, setFilters] = useState({
@@ -1170,6 +1172,7 @@ function CatalogPage() {
                 
                 <ProductButtons>
                   <AddToCartButton
+                    onClick={() => addToCart(product)}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >

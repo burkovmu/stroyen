@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShieldAlt, faTruckFast, faTools, faHeadset, faPercent, faCertificate, faClipboardList, faComments, faTruck } from '@fortawesome/free-solid-svg-icons';
+import { useCart } from './CartContext';
 
 const Hero = styled(motion.section)`
   height: calc(100vh - 200px);
@@ -787,6 +788,75 @@ function HomePage() {
     triggerOnce: true,
     threshold: 0.1,
   });
+  const { addToCart } = useCart();
+
+  // Тестовые данные для товаров на главной странице
+  const homeProducts = [
+    {
+      id: 'mercury-201',
+      name: 'Счетчик электроэнергии Меркурий 201.8',
+      brand: 'Меркурий',
+      price: 2450,
+      description: 'Однофазный многотарифный счетчик с жидкокристаллическим дисплеем',
+      image: 'mercury-201.svg'
+    },
+    {
+      id: 'energomera-ce102m',
+      name: 'Счетчик электроэнергии Энергомера CE102M',
+      brand: 'Энергомера',
+      price: 3200,
+      description: 'Однофазный многотарифный счетчик с возможностью дистанционного снятия показаний',
+      image: 'energomera-ce102m.svg'
+    },
+    {
+      id: 'neva-103',
+      name: 'Счетчик электроэнергии Нева 103',
+      brand: 'Нева',
+      price: 1850,
+      description: 'Однофазный однотарифный счетчик с механическим отсчетным устройством',
+      image: 'neva-103.svg'
+    },
+    {
+      id: 'mercury-230',
+      name: 'Счетчик электроэнергии Меркурий 230',
+      brand: 'Меркурий',
+      price: 4200,
+      description: 'Трехфазный многотарифный счетчик с возможностью программирования',
+      image: 'mercury-230.svg'
+    },
+    {
+      id: 'agat-1-3',
+      name: 'Счетчик электроэнергии АГАТ 1-3',
+      brand: 'АГАТ',
+      price: 3800,
+      description: 'Однофазный счетчик с электромеханическим отсчетным устройством',
+      image: 'agat-1-3.svg'
+    },
+    {
+      id: 'agat-2-32',
+      name: 'Счетчик электроэнергии АГАТ 2-32',
+      brand: 'АГАТ',
+      price: 4500,
+      description: 'Однофазный счетчик с жидкокристаллическим дисплеем',
+      image: 'agat-2-32.svg'
+    },
+    {
+      id: 'energomera-ce208',
+      name: 'Счетчик электроэнергии Энергомера CE208',
+      brand: 'Энергомера',
+      price: 3800,
+      description: 'Однофазный многотарифный счетчик с возможностью программирования',
+      image: 'energomera-ce208.svg'
+    },
+    {
+      id: 'neva-303',
+      name: 'Счетчик электроэнергии Нева 303',
+      brand: 'Нева',
+      price: 2800,
+      description: 'Однофазный многотарифный счетчик с жидкокристаллическим дисплеем',
+      image: 'neva-303.svg'
+    }
+  ];
 
   return (
     <>
@@ -862,7 +932,9 @@ function HomePage() {
                   </div>
               <div>
                 <ProductPrice>2 450 ₽</ProductPrice>
-                <BuyButton>Купить</BuyButton>
+                <BuyButton onClick={() => addToCart(homeProducts[0])}>
+                  Купить
+                </BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
@@ -894,7 +966,9 @@ function HomePage() {
                   </div>
               <div>
                 <ProductPrice>3 200 ₽</ProductPrice>
-                <BuyButton>Купить</BuyButton>
+                <BuyButton onClick={() => addToCart(homeProducts[1])}>
+                  Купить
+                </BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
@@ -926,7 +1000,9 @@ function HomePage() {
                   </div>
               <div>
                 <ProductPrice>1 850 ₽</ProductPrice>
-                <BuyButton>Купить</BuyButton>
+                <BuyButton onClick={() => addToCart(homeProducts[2])}>
+                  Купить
+                </BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
@@ -958,7 +1034,9 @@ function HomePage() {
                   </div>
               <div>
                 <ProductPrice>4 500 ₽</ProductPrice>
-                <BuyButton>Купить</BuyButton>
+                <BuyButton onClick={() => addToCart(homeProducts[5])}>
+                  Купить
+                </BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
@@ -1022,7 +1100,9 @@ function HomePage() {
                   </div>
               <div>
                 <ProductPrice>3 800 ₽</ProductPrice>
-                <BuyButton>Купить</BuyButton>
+                <BuyButton onClick={() => addToCart(homeProducts[4])}>
+                  Купить
+                </BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
@@ -1053,8 +1133,10 @@ function HomePage() {
                     <ProductDescription>Трехфазный многотарифный счетчик с жидкокристаллическим дисплеем</ProductDescription>
                   </div>
               <div>
-                <ProductPrice>4 200 ₽</ProductPrice>
-                <BuyButton>Купить</BuyButton>
+                <ProductPrice>2 800 ₽</ProductPrice>
+                <BuyButton onClick={() => addToCart(homeProducts[7])}>
+                  Купить
+                </BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>
@@ -1086,7 +1168,9 @@ function HomePage() {
                   </div>
               <div>
                 <ProductPrice>5 000 ₽</ProductPrice>
-                <BuyButton>Купить</BuyButton>
+                <BuyButton onClick={() => addToCart(homeProducts[6])}>
+                  Купить
+                </BuyButton>
               </div>
             </ProductInfo>
           </ProductCard>

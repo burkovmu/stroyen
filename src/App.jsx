@@ -8,6 +8,8 @@ import CatalogFilters from './CatalogFilters';
 import CatalogPage from './CatalogPage';
 import HomePage from './HomePage';
 import ProductDetailPage from './ProductDetailPage';
+import { CartProvider, useCart } from './CartContext';
+import CartModalComponent from './CartModal';
 
 const GlobalBackground = styled.div`
   background: #ffffff;
@@ -550,16 +552,22 @@ const CartButton = styled(motion.button)`
   background: #2f5483;
   border: none;
   padding: 0.8rem 1.2rem;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(47, 84, 131, 0.2);
   
   &:hover {
     background: #1a2f4b;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(47, 84, 131, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 
   @media (max-width: 768px) {
@@ -582,19 +590,46 @@ const CartText = styled.span`
 
 const CartCount = styled.div`
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -6px;
+  right: -6px;
   background: #ff4757;
   color: white;
   font-size: 0.7rem;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 500;
+  font-weight: 600;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(255, 71, 87, 0.3);
+  animation: ${props => props.count > 0 ? 'pulse 0.6s ease-in-out' : 'none'};
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
 `;
+
+const CartButtonWithContext = ({ onOpenCart }) => {
+  const { getTotalItems } = useCart();
+  const totalItems = getTotalItems();
+  
+  return (
+    <CartButton 
+      whileHover={{ scale: 1.02 }}
+      onClick={onOpenCart}
+    >
+      <CartIcon>
+        <FontAwesomeIcon icon={faShoppingCart} />
+      </CartIcon>
+      <CartText>Корзина</CartText>
+      {totalItems > 0 && <CartCount count={totalItems}>{totalItems}</CartCount>}
+    </CartButton>
+  );
+};
 
 // Футер
 const Footer = styled.footer`
@@ -802,6 +837,7 @@ function App() {
   const [headerSearchQuery, setHeaderSearchQuery] = useState('');
   const [headerSearchSuggestions, setHeaderSearchSuggestions] = useState(false);
   const [products, setProducts] = useState([]);
+  const [cartModalOpen, setCartModalOpen] = useState(false);
 
   useEffect(() => {
     // Загружаем товары для поиска в шапке
@@ -865,14 +901,15 @@ function App() {
   };
 
   return (
-    <Router>
-      <GlobalBackground>
-        <AppContainer>
-        <Header
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
+    <CartProvider>
+      <Router>
+        <GlobalBackground>
+          <AppContainer>
+          <Header
+            initial={{ y: -100 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
           <TopHeader>
             <TopHeaderContent>
               <TopHeaderLeft>
@@ -979,13 +1016,7 @@ function App() {
                   </HeaderSearchSuggestions>
                 </HeaderSearchContainer>
                 
-                <CartButton whileHover={{ scale: 1.02 }}>
-                  <CartIcon>
-                    <FontAwesomeIcon icon={faShoppingCart} />
-                  </CartIcon>
-                  <CartText>Корзина</CartText>
-                  <CartCount>3</CartCount>
-                </CartButton>
+                <CartButtonWithContext onOpenCart={() => setCartModalOpen(true)} />
               </BottomHeaderRight>
             </BottomHeaderContent>
           </BottomHeader>
@@ -1062,7 +1093,13 @@ function App() {
         </Footer>
       </AppContainer>
       </GlobalBackground>
+      
+      <CartModalComponent 
+        isOpen={cartModalOpen} 
+        onClose={() => setCartModalOpen(false)} 
+      />
     </Router>
+    </CartProvider>
   );
 }
 
