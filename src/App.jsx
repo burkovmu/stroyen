@@ -1217,6 +1217,588 @@ const FooterLogoWithNavigation = () => {
   );
 };
 
+// Модальное окно заказа звонка
+const CallbackModalOverlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+`;
+
+const CallbackModal = styled(motion.div)`
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+`;
+
+const CallbackModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+`;
+
+const CallbackModalTitle = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2f5483;
+  margin: 0;
+`;
+
+const CallbackModalCloseButton = styled(motion.button)`
+  background: none;
+  border: none;
+  color: #666666;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333333;
+  }
+`;
+
+const CallbackForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const CallbackFormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+const CallbackLabel = styled.label`
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333333;
+`;
+
+const CallbackInput = styled.input`
+  padding: 0.8rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333333;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #2f5483;
+    box-shadow: 0 0 0 3px rgba(47, 84, 131, 0.1);
+  }
+  
+  &::placeholder {
+    color: #999999;
+  }
+`;
+
+const CallbackTextarea = styled.textarea`
+  padding: 0.8rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333333;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #2f5483;
+    box-shadow: 0 0 0 3px rgba(47, 84, 131, 0.1);
+  }
+  
+  &::placeholder {
+    color: #999999;
+  }
+`;
+
+const CallbackFormActions = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+
+const CallbackSubmitButton = styled(motion.button)`
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: #2f5483;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: #1a2f4b;
+    transform: translateY(-1px);
+  }
+  
+  &:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+  }
+`;
+
+const CallbackCancelButton = styled(motion.button)`
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  color: #2f5483;
+  border: 1px solid #2f5483;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: #2f5483;
+    color: white;
+  }
+`;
+
+// Модальное окно заявки с загрузкой файлов
+const ApplicationModalOverlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+`;
+
+const ApplicationModal = styled(motion.div)`
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+`;
+
+const ApplicationModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+`;
+
+const ApplicationModalTitle = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2f5483;
+  margin: 0;
+`;
+
+const ApplicationModalCloseButton = styled(motion.button)`
+  background: none;
+  border: none;
+  color: #666666;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333333;
+  }
+`;
+
+const ApplicationForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const ApplicationFormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+const ApplicationLabel = styled.label`
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333333;
+`;
+
+const ApplicationInput = styled.input`
+  padding: 0.8rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333333;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #2f5483;
+    box-shadow: 0 0 0 3px rgba(47, 84, 131, 0.1);
+  }
+  
+  &::placeholder {
+    color: #999999;
+  }
+`;
+
+const ApplicationTextarea = styled.textarea`
+  padding: 0.8rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333333;
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #2f5483;
+    box-shadow: 0 0 0 3px rgba(47, 84, 131, 0.1);
+  }
+  
+  &::placeholder {
+    color: #999999;
+  }
+`;
+
+const FileUploadArea = styled.div`
+  border: 2px dashed #e9ecef;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+  &:hover {
+    border-color: #2f5483;
+    background: rgba(47, 84, 131, 0.05);
+  }
+  
+  &.drag-over {
+    border-color: #2f5483;
+    background: rgba(47, 84, 131, 0.1);
+  }
+`;
+
+const FileUploadText = styled.div`
+  color: #666666;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+`;
+
+const FileUploadSubtext = styled.div`
+  color: #999999;
+  font-size: 0.85rem;
+`;
+
+const FileInput = styled.input`
+  display: none;
+`;
+
+const FileList = styled.div`
+  margin-top: 1rem;
+`;
+
+const FileItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  border: 1px solid #e9ecef;
+`;
+
+const FileItemInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+`;
+
+const FileItemName = styled.span`
+  font-size: 0.9rem;
+  color: #333333;
+  font-weight: 500;
+`;
+
+const FileItemSize = styled.span`
+  font-size: 0.8rem;
+  color: #666666;
+`;
+
+const FileRemoveButton = styled(motion.button)`
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(220, 53, 69, 0.1);
+  }
+`;
+
+const ApplicationFormActions = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+
+const ApplicationSubmitButton = styled(motion.button)`
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: #2f5483;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: #1a2f4b;
+    transform: translateY(-1px);
+  }
+  
+  &:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+  }
+`;
+
+const ApplicationCancelButton = styled(motion.button)`
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  color: #2f5483;
+  border: 1px solid #2f5483;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: #2f5483;
+    color: white;
+  }
+`;
+
+// Стили для модального окна прайс-листа
+const PriceListModalOverlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+`;
+
+const PriceListModal = styled(motion.div)`
+  background: white;
+  border-radius: 16px;
+  padding: 0;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+`;
+
+const PriceListModalHeader = styled.div`
+  padding: 24px 24px 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 20px;
+`;
+
+const PriceListModalTitle = styled.h2`
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #212529;
+`;
+
+const PriceListModalCloseButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+
+  &:hover {
+    background: #f8f9fa;
+    color: #495057;
+  }
+`;
+
+const PriceListForm = styled.form`
+  padding: 24px;
+`;
+
+const PriceListFormGroup = styled.div`
+  margin-bottom: 20px;
+`;
+
+const PriceListLabel = styled.label`
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #495057;
+  font-size: 14px;
+`;
+
+const PriceListInput = styled.input`
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  }
+
+  &::placeholder {
+    color: #adb5bd;
+  }
+`;
+
+const PriceListTextarea = styled.textarea`
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  }
+
+  &::placeholder {
+    color: #adb5bd;
+  }
+`;
+
+const PriceListFormActions = styled.div`
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+`;
+
+const PriceListSubmitButton = styled.button`
+  padding: 12px 24px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+
+  &:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+  }
+`;
+
+const PriceListCancelButton = styled.button`
+  padding: 12px 24px;
+  background: #f8f9fa;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+
+  &:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+  }
+`;
+
 // Футер
 const Footer = styled.footer`
   background: linear-gradient(135deg, #2f5483 0%, #1a2f4b 100%);
@@ -1427,11 +2009,201 @@ function App() {
   const [cartModalOpen, setCartModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileCatalogOpen, setMobileCatalogOpen] = useState(false);
+  const [callbackModalOpen, setCallbackModalOpen] = useState(false);
+  const [callbackFormData, setCallbackFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [applicationModalOpen, setApplicationModalOpen] = useState(false);
+  const [applicationFormData, setApplicationFormData] = useState({
+    name: '',
+    company: '',
+    phone: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [applicationFiles, setApplicationFiles] = useState([]);
+  const [isApplicationSubmitting, setIsApplicationSubmitting] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
+  
+  // Состояния для модального окна прайс-листа
+  const [priceListModalOpen, setPriceListModalOpen] = useState(false);
+  const [priceListFormData, setPriceListFormData] = useState({
+    name: '',
+    company: '',
+    phone: '',
+    email: '',
+    message: ''
+  });
+  const [isPriceListSubmitting, setIsPriceListSubmitting] = useState(false);
   
   // Функция для закрытия мобильного меню
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
     setMobileCatalogOpen(false);
+  };
+
+  // Функции для модального окна заказа звонка
+  const openCallbackModal = () => {
+    setCallbackModalOpen(true);
+  };
+
+  const closeCallbackModal = () => {
+    setCallbackModalOpen(false);
+    setCallbackFormData({
+      name: '',
+      phone: '',
+      email: '',
+      message: ''
+    });
+    setIsSubmitting(false);
+  };
+
+  const handleCallbackFormChange = (field, value) => {
+    setCallbackFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleCallbackSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Имитация отправки формы
+    setTimeout(() => {
+      setIsSubmitting(false);
+      closeCallbackModal();
+      alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
+    }, 2000);
+  };
+
+  // Функции для модального окна заявки
+  const openApplicationModal = () => {
+    setApplicationModalOpen(true);
+  };
+
+  const closeApplicationModal = () => {
+    setApplicationModalOpen(false);
+    setApplicationFormData({
+      name: '',
+      company: '',
+      phone: '',
+      email: '',
+      subject: '',
+      message: ''
+    });
+    setApplicationFiles([]);
+    setIsApplicationSubmitting(false);
+    setDragOver(false);
+  };
+
+  const handleApplicationFormChange = (field, value) => {
+    setApplicationFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleFileSelect = (e) => {
+    const files = Array.from(e.target.files);
+    const newFiles = files.map(file => ({
+      id: Date.now() + Math.random(),
+      file: file,
+      name: file.name,
+      size: file.size,
+      type: file.type
+    }));
+    setApplicationFiles(prev => [...prev, ...newFiles]);
+  };
+
+  const handleFileRemove = (fileId) => {
+    setApplicationFiles(prev => prev.filter(file => file.id !== fileId));
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setDragOver(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setDragOver(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setDragOver(false);
+    
+    const files = Array.from(e.dataTransfer.files);
+    const newFiles = files.map(file => ({
+      id: Date.now() + Math.random(),
+      file: file,
+      name: file.name,
+      size: file.size,
+      type: file.type
+    }));
+    setApplicationFiles(prev => [...prev, ...newFiles]);
+  };
+
+  const formatFileSize = (bytes) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  const handleApplicationSubmit = async (e) => {
+    e.preventDefault();
+    setIsApplicationSubmitting(true);
+    
+    // Имитация отправки формы с файлами
+    setTimeout(() => {
+      setIsApplicationSubmitting(false);
+      closeApplicationModal();
+      alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+    }, 2000);
+  };
+
+  // Функции для модального окна прайс-листа
+  const openPriceListModal = () => {
+    setPriceListModalOpen(true);
+  };
+
+  const closePriceListModal = () => {
+    setPriceListModalOpen(false);
+    setPriceListFormData({
+      name: '',
+      company: '',
+      phone: '',
+      email: '',
+      message: ''
+    });
+    setIsPriceListSubmitting(false);
+  };
+
+  const handlePriceListFormChange = (field, value) => {
+    setPriceListFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handlePriceListSubmit = async (e) => {
+    e.preventDefault();
+    setIsPriceListSubmitting(true);
+    
+    // Имитация отправки формы
+    setTimeout(() => {
+      setIsPriceListSubmitting(false);
+      closePriceListModal();
+      alert('Спасибо! Ваша заявка на прайс-лист отправлена. Мы свяжемся с вами в ближайшее время.');
+    }, 2000);
   };
   
   // Функция для прокрутки вверх при переходе на главную
@@ -1528,14 +2300,26 @@ function App() {
                     <TopNavDropdownItem href="/services/commissioning">Наладка</TopNavDropdownItem>
                   </TopNavDropdownContent>
                 </TopNavDropdown>
-                <TopNavLink whileHover={{ scale: 1.02 }}>Прайс-лист</TopNavLink>
+                <TopNavLink 
+                  whileHover={{ scale: 1.02 }}
+                  onClick={openPriceListModal}
+                  style={{ cursor: 'pointer' }}
+                >
+                  Прайс-лист
+                </TopNavLink>
                 <TopNavLink whileHover={{ scale: 1.02 }}>Информация</TopNavLink>
                 <TopNavLink whileHover={{ scale: 1.02 }}>Контакты</TopNavLink>
-                <CallbackButtonSecondary whileHover={{ scale: 1.02 }}>
+                <CallbackButtonSecondary 
+                  whileHover={{ scale: 1.02 }}
+                  onClick={openCallbackModal}
+                >
                   <FontAwesomeIcon icon={faPhoneVolume} />
                   Заказать звонок
                 </CallbackButtonSecondary>
-                <CallbackButton whileHover={{ scale: 1.02 }}>
+                <CallbackButton 
+                  whileHover={{ scale: 1.02 }}
+                  onClick={openApplicationModal}
+                >
                   <FontAwesomeIcon icon={faPaperPlane} />
                   Отправить заявку
                 </CallbackButton>
@@ -1790,7 +2574,15 @@ function App() {
         
         <MobileMenuSection>
           <MobileMenuTitle>Информация</MobileMenuTitle>
-          <MobileMenuItem href="#" onClick={closeMobileMenu}>Прайс-лист</MobileMenuItem>
+          <MobileMenuItem 
+            href="#" 
+            onClick={() => {
+              closeMobileMenu();
+              openPriceListModal();
+            }}
+          >
+            Прайс-лист
+          </MobileMenuItem>
           <MobileMenuItem href="#" onClick={closeMobileMenu}>Информация</MobileMenuItem>
           <MobileMenuItem href="#" onClick={closeMobileMenu}>Контакты</MobileMenuItem>
         </MobileMenuSection>
@@ -1829,6 +2621,357 @@ function App() {
           </MobileActionButton>
         </MobileActionButtons>
       </MobileMenu>
+
+      {/* Модальное окно заказа звонка */}
+      {callbackModalOpen && (
+        <CallbackModalOverlay
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          onClick={closeCallbackModal}
+        >
+          <CallbackModal
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <CallbackModalHeader>
+              <CallbackModalTitle>Заказать звонок</CallbackModalTitle>
+              <CallbackModalCloseButton
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={closeCallbackModal}
+              >
+                ×
+              </CallbackModalCloseButton>
+            </CallbackModalHeader>
+
+            <CallbackForm onSubmit={handleCallbackSubmit}>
+              <CallbackFormGroup>
+                <CallbackLabel>Ваше имя *</CallbackLabel>
+                <CallbackInput
+                  type="text"
+                  placeholder="Введите ваше имя"
+                  value={callbackFormData.name}
+                  onChange={(e) => handleCallbackFormChange('name', e.target.value)}
+                  required
+                />
+              </CallbackFormGroup>
+
+              <CallbackFormGroup>
+                <CallbackLabel>Номер телефона *</CallbackLabel>
+                <CallbackInput
+                  type="tel"
+                  placeholder="+7 (999) 123-45-67"
+                  value={callbackFormData.phone}
+                  onChange={(e) => handleCallbackFormChange('phone', e.target.value)}
+                  required
+                />
+              </CallbackFormGroup>
+
+              <CallbackFormGroup>
+                <CallbackLabel>Email</CallbackLabel>
+                <CallbackInput
+                  type="email"
+                  placeholder="your@email.com"
+                  value={callbackFormData.email}
+                  onChange={(e) => handleCallbackFormChange('email', e.target.value)}
+                />
+              </CallbackFormGroup>
+
+              <CallbackFormGroup>
+                <CallbackLabel>Сообщение</CallbackLabel>
+                <CallbackTextarea
+                  placeholder="Опишите ваш вопрос или задачу..."
+                  value={callbackFormData.message}
+                  onChange={(e) => handleCallbackFormChange('message', e.target.value)}
+                />
+              </CallbackFormGroup>
+
+              <CallbackFormActions>
+                <CallbackCancelButton
+                  type="button"
+                  onClick={closeCallbackModal}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Отмена
+                </CallbackCancelButton>
+                <CallbackSubmitButton
+                  type="submit"
+                  disabled={isSubmitting}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {isSubmitting ? 'Отправка...' : 'Отправить'}
+                </CallbackSubmitButton>
+              </CallbackFormActions>
+            </CallbackForm>
+          </CallbackModal>
+        </CallbackModalOverlay>
+      )}
+
+      {/* Модальное окно заявки с загрузкой файлов */}
+      {applicationModalOpen && (
+        <ApplicationModalOverlay
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          onClick={closeApplicationModal}
+        >
+          <ApplicationModal
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ApplicationModalHeader>
+              <ApplicationModalTitle>Отправить заявку</ApplicationModalTitle>
+              <ApplicationModalCloseButton
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={closeApplicationModal}
+              >
+                ×
+              </ApplicationModalCloseButton>
+            </ApplicationModalHeader>
+
+            <ApplicationForm onSubmit={handleApplicationSubmit}>
+              <ApplicationFormGroup>
+                <ApplicationLabel>Ваше имя *</ApplicationLabel>
+                <ApplicationInput
+                  type="text"
+                  placeholder="Введите ваше имя"
+                  value={applicationFormData.name}
+                  onChange={(e) => handleApplicationFormChange('name', e.target.value)}
+                  required
+                />
+              </ApplicationFormGroup>
+
+              <ApplicationFormGroup>
+                <ApplicationLabel>Компания</ApplicationLabel>
+                <ApplicationInput
+                  type="text"
+                  placeholder="Название вашей компании"
+                  value={applicationFormData.company}
+                  onChange={(e) => handleApplicationFormChange('company', e.target.value)}
+                />
+              </ApplicationFormGroup>
+
+              <ApplicationFormGroup>
+                <ApplicationLabel>Номер телефона *</ApplicationLabel>
+                <ApplicationInput
+                  type="tel"
+                  placeholder="+7 (999) 123-45-67"
+                  value={applicationFormData.phone}
+                  onChange={(e) => handleApplicationFormChange('phone', e.target.value)}
+                  required
+                />
+              </ApplicationFormGroup>
+
+              <ApplicationFormGroup>
+                <ApplicationLabel>Email *</ApplicationLabel>
+                <ApplicationInput
+                  type="email"
+                  placeholder="your@email.com"
+                  value={applicationFormData.email}
+                  onChange={(e) => handleApplicationFormChange('email', e.target.value)}
+                  required
+                />
+              </ApplicationFormGroup>
+
+              <ApplicationFormGroup>
+                <ApplicationLabel>Тема заявки *</ApplicationLabel>
+                <ApplicationInput
+                  type="text"
+                  placeholder="Кратко опишите тему заявки"
+                  value={applicationFormData.subject}
+                  onChange={(e) => handleApplicationFormChange('subject', e.target.value)}
+                  required
+                />
+              </ApplicationFormGroup>
+
+              <ApplicationFormGroup>
+                <ApplicationLabel>Описание *</ApplicationLabel>
+                <ApplicationTextarea
+                  placeholder="Подробно опишите вашу задачу, требования или вопросы..."
+                  value={applicationFormData.message}
+                  onChange={(e) => handleApplicationFormChange('message', e.target.value)}
+                  required
+                />
+              </ApplicationFormGroup>
+
+              <ApplicationFormGroup>
+                <ApplicationLabel>Прикрепить файлы</ApplicationLabel>
+                <FileUploadArea
+                  className={dragOver ? 'drag-over' : ''}
+                  onDragOver={handleDragOver}
+                  onDragLeave={handleDragLeave}
+                  onDrop={handleDrop}
+                  onClick={() => document.getElementById('file-input').click()}
+                >
+                  <FileUploadText>
+                    Перетащите файлы сюда или нажмите для выбора
+                  </FileUploadText>
+                  <FileUploadSubtext>
+                    Поддерживаемые форматы: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, ZIP
+                  </FileUploadSubtext>
+                  <FileInput
+                    id="file-input"
+                    type="file"
+                    multiple
+                    onChange={handleFileSelect}
+                    accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.zip"
+                  />
+                </FileUploadArea>
+
+                {applicationFiles.length > 0 && (
+                  <FileList>
+                    {applicationFiles.map((file) => (
+                      <FileItem key={file.id}>
+                        <FileItemInfo>
+                          <FileItemName>{file.name}</FileItemName>
+                          <FileItemSize>({formatFileSize(file.size)})</FileItemSize>
+                        </FileItemInfo>
+                        <FileRemoveButton
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => handleFileRemove(file.id)}
+                        >
+                          ×
+                        </FileRemoveButton>
+                      </FileItem>
+                    ))}
+                  </FileList>
+                )}
+              </ApplicationFormGroup>
+
+              <ApplicationFormActions>
+                <ApplicationCancelButton
+                  type="button"
+                  onClick={closeApplicationModal}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Отмена
+                </ApplicationCancelButton>
+                <ApplicationSubmitButton
+                  type="submit"
+                  disabled={isApplicationSubmitting}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {isApplicationSubmitting ? 'Отправка...' : 'Отправить заявку'}
+                </ApplicationSubmitButton>
+              </ApplicationFormActions>
+            </ApplicationForm>
+          </ApplicationModal>
+        </ApplicationModalOverlay>
+      )}
+
+      {/* Модальное окно прайс-листа */}
+      {priceListModalOpen && (
+        <PriceListModalOverlay
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          onClick={closePriceListModal}
+        >
+          <PriceListModal
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <PriceListModalHeader>
+              <PriceListModalTitle>Заявка на прайс-лист</PriceListModalTitle>
+              <PriceListModalCloseButton
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={closePriceListModal}
+              >
+                ×
+              </PriceListModalCloseButton>
+            </PriceListModalHeader>
+
+            <PriceListForm onSubmit={handlePriceListSubmit}>
+              <PriceListFormGroup>
+                <PriceListLabel>Ваше имя *</PriceListLabel>
+                <PriceListInput
+                  type="text"
+                  placeholder="Введите ваше имя"
+                  value={priceListFormData.name}
+                  onChange={(e) => handlePriceListFormChange('name', e.target.value)}
+                  required
+                />
+              </PriceListFormGroup>
+
+              <PriceListFormGroup>
+                <PriceListLabel>Компания</PriceListLabel>
+                <PriceListInput
+                  type="text"
+                  placeholder="Название вашей компании"
+                  value={priceListFormData.company}
+                  onChange={(e) => handlePriceListFormChange('company', e.target.value)}
+                />
+              </PriceListFormGroup>
+
+              <PriceListFormGroup>
+                <PriceListLabel>Номер телефона *</PriceListLabel>
+                <PriceListInput
+                  type="tel"
+                  placeholder="+7 (999) 123-45-67"
+                  value={priceListFormData.phone}
+                  onChange={(e) => handlePriceListFormChange('phone', e.target.value)}
+                  required
+                />
+              </PriceListFormGroup>
+
+              <PriceListFormGroup>
+                <PriceListLabel>Email *</PriceListLabel>
+                <PriceListInput
+                  type="email"
+                  placeholder="your@email.com"
+                  value={priceListFormData.email}
+                  onChange={(e) => handlePriceListFormChange('email', e.target.value)}
+                  required
+                />
+              </PriceListFormGroup>
+
+              <PriceListFormGroup>
+                <PriceListLabel>Дополнительная информация</PriceListLabel>
+                <PriceListTextarea
+                  placeholder="Укажите интересующие вас категории товаров или особые требования..."
+                  value={priceListFormData.message}
+                  onChange={(e) => handlePriceListFormChange('message', e.target.value)}
+                />
+              </PriceListFormGroup>
+
+              <PriceListFormActions>
+                <PriceListCancelButton
+                  type="button"
+                  onClick={closePriceListModal}
+                >
+                  Отмена
+                </PriceListCancelButton>
+                <PriceListSubmitButton
+                  type="submit"
+                  disabled={isPriceListSubmitting}
+                >
+                  {isPriceListSubmitting ? 'Отправка...' : 'Отправить заявку'}
+                </PriceListSubmitButton>
+              </PriceListFormActions>
+            </PriceListForm>
+          </PriceListModal>
+        </PriceListModalOverlay>
+      )}
     </Router>
     </CartProvider>
     </NotificationProvider>
