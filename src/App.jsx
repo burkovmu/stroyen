@@ -2000,7 +2000,7 @@ const SocialLink = styled.a`
   }
 `;
 
-function App() {
+function AppContent() {
   const { addNotification } = useNotification();
   const [catalogDropdownOpen, setCatalogDropdownOpen] = useState(false);
   const [clientsDropdownOpen, setClientsDropdownOpen] = useState(false);
@@ -2257,12 +2257,10 @@ function App() {
   };
 
   return (
-    <NotificationProvider>
-      <CartProvider>
-        <Router>
-          <ScrollToTop />
-          <GlobalBackground>
-            <AppContainer>
+    <Router>
+      <ScrollToTop />
+      <GlobalBackground>
+        <AppContainer>
           <Header
             initial={{ y: -100 }}
             animate={{ y: 0 }}
@@ -2951,7 +2949,15 @@ function App() {
         </PriceListModalOverlay>
       )}
     </Router>
-    </CartProvider>
+  );
+}
+
+function App() {
+  return (
+    <NotificationProvider>
+      <CartProvider>
+        <AppContent />
+      </CartProvider>
     </NotificationProvider>
   );
 }
