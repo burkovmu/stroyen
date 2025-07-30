@@ -2012,9 +2012,7 @@ function App() {
   const [callbackModalOpen, setCallbackModalOpen] = useState(false);
   const [callbackFormData, setCallbackFormData] = useState({
     name: '',
-    phone: '',
-    email: '',
-    message: ''
+    phone: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [applicationModalOpen, setApplicationModalOpen] = useState(false);
@@ -2056,9 +2054,7 @@ function App() {
     setCallbackModalOpen(false);
     setCallbackFormData({
       name: '',
-      phone: '',
-      email: '',
-      message: ''
+      phone: ''
     });
     setIsSubmitting(false);
   };
@@ -2669,25 +2665,6 @@ function App() {
                   value={callbackFormData.phone}
                   onChange={(e) => handleCallbackFormChange('phone', e.target.value)}
                   required
-                />
-              </CallbackFormGroup>
-
-              <CallbackFormGroup>
-                <CallbackLabel>Email</CallbackLabel>
-                <CallbackInput
-                  type="email"
-                  placeholder="your@email.com"
-                  value={callbackFormData.email}
-                  onChange={(e) => handleCallbackFormChange('email', e.target.value)}
-                />
-              </CallbackFormGroup>
-
-              <CallbackFormGroup>
-                <CallbackLabel>Сообщение</CallbackLabel>
-                <CallbackTextarea
-                  placeholder="Опишите ваш вопрос или задачу..."
-                  value={callbackFormData.message}
-                  onChange={(e) => handleCallbackFormChange('message', e.target.value)}
                 />
               </CallbackFormGroup>
 
