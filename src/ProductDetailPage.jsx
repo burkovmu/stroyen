@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faShoppingCart, 
@@ -62,9 +62,10 @@ const ProductDetailContent = styled.div`
 // Левая колонка - изображение
 const ProductImageSection = styled.div`
   position: relative;
+  overflow: hidden;
 `;
 
-const ProductImage = styled.div`
+const ProductImage = styled(motion.div)`
   width: 100%;
   height: 400px;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -77,6 +78,7 @@ const ProductImage = styled.div`
   font-weight: bold;
   margin-bottom: 1rem;
   position: relative;
+  transform-style: preserve-3d;
 `;
 
 const DiscountBadge = styled.div`
@@ -107,7 +109,7 @@ const ProductCategory = styled.div`
   letter-spacing: 0.5px;
 `;
 
-const ProductTitle = styled.h1`
+const ProductTitle = styled(motion.h1)`
   font-size: 2.5rem;
   font-weight: 600;
   color: #333;
@@ -133,7 +135,7 @@ const ProductDescription = styled.p`
 `;
 
 // Полное описание
-const FullDescriptionSection = styled.div`
+const FullDescriptionSection = styled(motion.div)`
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
@@ -162,7 +164,7 @@ const FullDescriptionText = styled.div`
 `;
 
 // Похожие товары
-const SimilarProductsSection = styled.div`
+const SimilarProductsSection = styled(motion.div)`
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
@@ -464,6 +466,20 @@ function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Параллакс-скролл
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  // Трансформации для параллакс-эффекта
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const titleY = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const descriptionY = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const fullDescriptionY = useTransform(scrollYProgress, [0, 1], [0, -20]);
+  const similarProductsY = useTransform(scrollYProgress, [0, 1], [0, -15]);
+
   useEffect(() => {
     // Прокрутка к верху страницы при загрузке
     window.scrollTo(0, 0);
@@ -554,7 +570,7 @@ function ProductDetailPage() {
   }
 
   return (
-    <ProductDetailContainer>
+    <ProductDetailContainer ref={containerRef}>
       <Breadcrumbs>
         <BreadcrumbLink onClick={() => navigate('/')}>
           Главная
@@ -569,7 +585,7 @@ function ProductDetailPage() {
 
       <ProductDetailContent>
         <ProductImageSection>
-          <ProductImage>
+          <ProductImage style={{ y: imageY }}>
             <div style={{
               width: '100%',
               height: '100%',
@@ -592,9 +608,9 @@ function ProductDetailPage() {
 
         <ProductInfoSection>
           <ProductCategory>{product.category}</ProductCategory>
-          <ProductTitle>{product.name}</ProductTitle>
+          <ProductTitle style={{ y: titleY }}>{product.name}</ProductTitle>
           <ProductType>{product.type}</ProductType>
-          <ProductDescription>{product.description}</ProductDescription>
+          <ProductDescription style={{ y: descriptionY }}>{product.description}</ProductDescription>
 
           <PriceSection>
             {product.originalPrice ? (
@@ -731,7 +747,7 @@ function ProductDetailPage() {
       </ProductDetailContent>
       
       {product.fullDescription && (
-        <FullDescriptionSection>
+        <FullDescriptionSection style={{ y: fullDescriptionY }}>
           <FullDescriptionTitle>Подробное описание</FullDescriptionTitle>
           <FullDescriptionText>
             {product.fullDescription.split('\n').map((paragraph, index) => (
@@ -741,10 +757,10 @@ function ProductDetailPage() {
         </FullDescriptionSection>
       )}
 
-      {(() => {
+            {(() => {
         const similarProducts = getSimilarProducts();
         return similarProducts.length > 0 && (
-        <SimilarProductsSection>
+          <SimilarProductsSection style={{ y: similarProductsY }}>
           <SimilarProductsTitle>Похожие товары</SimilarProductsTitle>
           <SimilarProductsGrid>
             {similarProducts.map((similarProduct) => (
