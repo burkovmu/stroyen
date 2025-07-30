@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import { useNotification } from './Notification';
 
 const CartContext = createContext();
 
@@ -53,6 +54,7 @@ export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, {
     items: []
   });
+  const { addNotification } = useNotification();
 
   // Сохраняем корзину в localStorage
   useEffect(() => {
@@ -72,6 +74,9 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
     dispatch({ type: 'ADD_TO_CART', payload: product });
+    
+    // Показываем уведомление о добавлении товара
+    addNotification(`${product.name} добавлен в корзину`, 'success', 3000);
   };
 
   const removeFromCart = (productId) => {

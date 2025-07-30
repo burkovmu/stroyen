@@ -659,7 +659,6 @@ function ProductDetailPage() {
   const handleAddToCart = () => {
     if (product) {
       addToCart(product);
-      alert('Товар добавлен в корзину!');
     }
   };
 

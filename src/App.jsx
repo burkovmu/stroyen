@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faPhone, faSearch, faShoppingCart, faShare, faLink, faGlobe, faHashtag, faEnvelope, faClock, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faPhone, faSearch, faShoppingCart, faShare, faLink, faGlobe, faHashtag, faEnvelope, faClock, faChevronDown, faBars, faPhoneVolume, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CatalogFilters from './CatalogFilters';
 import CatalogPage from './CatalogPage';
 import HomePage from './HomePage';
 import ProductDetailPage from './ProductDetailPage';
 import { CartProvider, useCart } from './CartContext';
 import CartModalComponent from './CartModal';
+import { NotificationProvider } from './Notification';
 
 const GlobalBackground = styled.div`
   background: #ffffff;
@@ -170,6 +171,9 @@ const CallbackButton = styled(motion.button)`
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   
   &:hover {
     background: #1a2f4b;
@@ -188,6 +192,9 @@ const CallbackButtonSecondary = styled(motion.button)`
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   
   &:hover {
     background: #2f5483;
@@ -901,10 +908,11 @@ function App() {
   };
 
   return (
-    <CartProvider>
-      <Router>
-        <GlobalBackground>
-          <AppContainer>
+    <NotificationProvider>
+      <CartProvider>
+        <Router>
+          <GlobalBackground>
+            <AppContainer>
           <Header
             initial={{ y: -100 }}
             animate={{ y: 0 }}
@@ -949,9 +957,11 @@ function App() {
                 <TopNavLink whileHover={{ scale: 1.02 }}>Информация</TopNavLink>
                 <TopNavLink whileHover={{ scale: 1.02 }}>Контакты</TopNavLink>
                 <CallbackButtonSecondary whileHover={{ scale: 1.02 }}>
+                  <FontAwesomeIcon icon={faPhoneVolume} />
                   Заказать звонок
                 </CallbackButtonSecondary>
                 <CallbackButton whileHover={{ scale: 1.02 }}>
+                  <FontAwesomeIcon icon={faPaperPlane} />
                   Отправить заявку
                 </CallbackButton>
               </TopHeaderRight>
@@ -967,7 +977,7 @@ function App() {
                     whileHover={{ scale: 1.02 }}
                   >
                     Каталог товаров
-                    <FontAwesomeIcon icon={faSearch} />
+                    <FontAwesomeIcon icon={faBars} />
                   </CatalogButton>
                   <CatalogDropdownContent isOpen={catalogDropdownOpen}>
                     <CatalogItem href="/catalog">Все товары</CatalogItem>
@@ -1100,6 +1110,7 @@ function App() {
       />
     </Router>
     </CartProvider>
+    </NotificationProvider>
   );
 }
 

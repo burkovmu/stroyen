@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faTrash, faMinus, faPlus, faShoppingCart, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
+import { useNotification } from './Notification';
 
 const CartOverlay = styled(motion.div)`
   position: fixed;
@@ -372,6 +373,7 @@ const CheckoutButton = styled(CartButton)`
 
 const CartModalComponent = ({ isOpen, onClose }) => {
   const { items, removeFromCart, updateQuantity, clearCart, getTotalItems, getTotalPrice } = useCart();
+  const { addNotification } = useNotification();
   const [isRemoving, setIsRemoving] = useState(null);
 
   const handleQuantityChange = (productId, newQuantity) => {
@@ -382,16 +384,20 @@ const CartModalComponent = ({ isOpen, onClose }) => {
   };
 
   const handleRemoveItem = (productId) => {
+    const item = items.find(item => item.id === productId);
     setIsRemoving(productId);
     setTimeout(() => {
       removeFromCart(productId);
       setIsRemoving(null);
+      if (item) {
+        addNotification(`${item.name} удален из корзины`, 'warning', 2000);
+      }
     }, 200);
   };
 
   const handleCheckout = () => {
     // Здесь можно добавить логику оформления заказа
-    alert('Функция оформления заказа будет добавлена позже');
+    addNotification('Функция оформления заказа будет добавлена позже', 'info', 3000);
   };
 
   return (
@@ -493,7 +499,10 @@ const CartModalComponent = ({ isOpen, onClose }) => {
                 </CartTotal>
                 
                 <CartButtons>
-                  <ClearCartButton onClick={clearCart}>
+                  <ClearCartButton onClick={() => {
+                    clearCart();
+                    addNotification('Корзина полностью очищена', 'warning', 2000);
+                  }}>
                     <FontAwesomeIcon icon={faTrash} />
                     Очистить
                   </ClearCartButton>
