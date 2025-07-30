@@ -257,10 +257,15 @@ const SimilarProductButton = styled.button`
 
 // Секция "Почему Стройэнергетика?"
 const WhyStroyEnergySection = styled(motion.div)`
+  width: 100%;
+  background: #f8f9fa;
+  padding: 3rem 0;
+`;
+
+const WhyStroyEnergyContent = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 3rem 2rem;
-  background: #f8f9fa;
+  padding: 0 2rem;
 `;
 
 const WhyStroyEnergyTitle = styled.h3`
@@ -946,48 +951,50 @@ function ProductDetailPage() {
       })()}
 
       <WhyStroyEnergySection style={{ y: whyStroyEnergyY }}>
-        <WhyStroyEnergyTitle>Почему Стройэнергетика?</WhyStroyEnergyTitle>
-        <WhyStroyEnergyGrid>
-          <WhyStroyEnergyCard>
-            <WhyStroyEnergyCardHeader>
-              <WhyStroyEnergyCardNumber>01</WhyStroyEnergyCardNumber>
-              <WhyStroyEnergyCardTitle>20+ лет опыта</WhyStroyEnergyCardTitle>
-            </WhyStroyEnergyCardHeader>
-            <WhyStroyEnergyCardText>
-              Более двух десятилетий работы в энергетической отрасли. Мы знаем все о современных технологиях и требованиях рынка.
-            </WhyStroyEnergyCardText>
-          </WhyStroyEnergyCard>
+        <WhyStroyEnergyContent>
+          <WhyStroyEnergyTitle>Почему Стройэнергетика?</WhyStroyEnergyTitle>
+          <WhyStroyEnergyGrid>
+            <WhyStroyEnergyCard>
+              <WhyStroyEnergyCardHeader>
+                <WhyStroyEnergyCardNumber>01</WhyStroyEnergyCardNumber>
+                <WhyStroyEnergyCardTitle>20+ лет опыта</WhyStroyEnergyCardTitle>
+              </WhyStroyEnergyCardHeader>
+              <WhyStroyEnergyCardText>
+                Более двух десятилетий работы в энергетической отрасли. Мы знаем все о современных технологиях и требованиях рынка.
+              </WhyStroyEnergyCardText>
+            </WhyStroyEnergyCard>
 
-          <WhyStroyEnergyCard>
-            <WhyStroyEnergyCardHeader>
-              <WhyStroyEnergyCardNumber>02</WhyStroyEnergyCardNumber>
-              <WhyStroyEnergyCardTitle>Сертификация ГОСТ</WhyStroyEnergyCardTitle>
-            </WhyStroyEnergyCardHeader>
-            <WhyStroyEnergyCardText>
-              Все оборудование соответствует российским стандартам качества. Полная сертификация и соответствие требованиям.
-            </WhyStroyEnergyCardText>
-          </WhyStroyEnergyCard>
+            <WhyStroyEnergyCard>
+              <WhyStroyEnergyCardHeader>
+                <WhyStroyEnergyCardNumber>02</WhyStroyEnergyCardNumber>
+                <WhyStroyEnergyCardTitle>Сертификация ГОСТ</WhyStroyEnergyCardTitle>
+              </WhyStroyEnergyCardHeader>
+              <WhyStroyEnergyCardText>
+                Все оборудование соответствует российским стандартам качества. Полная сертификация и соответствие требованиям.
+              </WhyStroyEnergyCardText>
+            </WhyStroyEnergyCard>
 
-          <WhyStroyEnergyCard>
-            <WhyStroyEnergyCardHeader>
-              <WhyStroyEnergyCardNumber>03</WhyStroyEnergyCardNumber>
-              <WhyStroyEnergyCardTitle>Гарантия 16 лет</WhyStroyEnergyCardTitle>
-            </WhyStroyEnergyCardHeader>
-            <WhyStroyEnergyCardText>
-              Максимальная гарантия на оборудование. Мы уверены в качестве наших товаров и защищаем ваши инвестиции.
-            </WhyStroyEnergyCardText>
-          </WhyStroyEnergyCard>
+            <WhyStroyEnergyCard>
+              <WhyStroyEnergyCardHeader>
+                <WhyStroyEnergyCardNumber>03</WhyStroyEnergyCardNumber>
+                <WhyStroyEnergyCardTitle>Гарантия 16 лет</WhyStroyEnergyCardTitle>
+              </WhyStroyEnergyCardHeader>
+              <WhyStroyEnergyCardText>
+                Максимальная гарантия на оборудование. Мы уверены в качестве наших товаров и защищаем ваши инвестиции.
+              </WhyStroyEnergyCardText>
+            </WhyStroyEnergyCard>
 
-          <WhyStroyEnergyCard>
-            <WhyStroyEnergyCardHeader>
-              <WhyStroyEnergyCardNumber>04</WhyStroyEnergyCardNumber>
-              <WhyStroyEnergyCardTitle>Техподдержка 24/7</WhyStroyEnergyCardTitle>
-            </WhyStroyEnergyCardHeader>
-            <WhyStroyEnergyCardText>
-              Круглосуточная техническая поддержка. Наши специалисты всегда готовы помочь с любыми вопросами.
-            </WhyStroyEnergyCardText>
-          </WhyStroyEnergyCard>
-        </WhyStroyEnergyGrid>
+            <WhyStroyEnergyCard>
+              <WhyStroyEnergyCardHeader>
+                <WhyStroyEnergyCardNumber>04</WhyStroyEnergyCardNumber>
+                <WhyStroyEnergyCardTitle>Техподдержка 24/7</WhyStroyEnergyCardTitle>
+              </WhyStroyEnergyCardHeader>
+              <WhyStroyEnergyCardText>
+                Круглосуточная техническая поддержка. Наши специалисты всегда готовы помочь с любыми вопросами.
+              </WhyStroyEnergyCardText>
+            </WhyStroyEnergyCard>
+          </WhyStroyEnergyGrid>
+        </WhyStroyEnergyContent>
       </WhyStroyEnergySection>
 
       <CustomOrderBanner>
