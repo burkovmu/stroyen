@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -789,81 +789,112 @@ function HomePage() {
     triggerOnce: true,
     threshold: 0.1,
   });
-  const { addToCart, getTotalItems } = useCart();
+  const { addToCart, getTotalItems, getTotalPrice } = useCart();
   const navigate = useNavigate();
+  const [randomProducts, setRandomProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Автоматическая прокрутка вверх при загрузке главной страницы
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  // Тестовые данные для товаров на главной странице
-  const homeProducts = [
-    {
-      id: 'mercury-201',
-      name: 'Счетчик электроэнергии Меркурий 201.8',
-      brand: 'Меркурий',
-      price: 2450,
-      description: 'Однофазный многотарифный счетчик с жидкокристаллическим дисплеем',
-      image: 'mercury-201.svg'
-    },
-    {
-      id: 'energomera-ce102m',
-      name: 'Счетчик электроэнергии Энергомера CE102M',
-      brand: 'Энергомера',
-      price: 3200,
-      description: 'Однофазный многотарифный счетчик с возможностью дистанционного снятия показаний',
-      image: 'energomera-ce102m.svg'
-    },
-    {
-      id: 'neva-103',
-      name: 'Счетчик электроэнергии Нева 103',
-      brand: 'Нева',
-      price: 1850,
-      description: 'Однофазный однотарифный счетчик с механическим отсчетным устройством',
-      image: 'neva-103.svg'
-    },
-    {
-      id: 'mercury-230',
-      name: 'Счетчик электроэнергии Меркурий 230',
-      brand: 'Меркурий',
-      price: 4200,
-      description: 'Трехфазный многотарифный счетчик с возможностью программирования',
-      image: 'mercury-230.svg'
-    },
-    {
-      id: 'agat-1-3',
-      name: 'Счетчик электроэнергии АГАТ 1-3',
-      brand: 'АГАТ',
-      price: 3800,
-      description: 'Однофазный счетчик с электромеханическим отсчетным устройством',
-      image: 'agat-1-3.svg'
-    },
-    {
-      id: 'agat-2-32',
-      name: 'Счетчик электроэнергии АГАТ 2-32',
-      brand: 'АГАТ',
-      price: 4500,
-      description: 'Однофазный счетчик с жидкокристаллическим дисплеем',
-      image: 'agat-2-32.svg'
-    },
-    {
-      id: 'energomera-ce208',
-      name: 'Счетчик электроэнергии Энергомера CE208',
-      brand: 'Энергомера',
-      price: 3800,
-      description: 'Однофазный многотарифный счетчик с возможностью программирования',
-      image: 'energomera-ce208.svg'
-    },
-    {
-      id: 'neva-303',
-      name: 'Счетчик электроэнергии Нева 303',
-      brand: 'Нева',
-      price: 2800,
-      description: 'Однофазный многотарифный счетчик с жидкокристаллическим дисплеем',
-      image: 'neva-303.svg'
+  // Функция для получения рандомных товаров из каталога
+  const fetchRandomProducts = async () => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch('/catalog-products.json');
+      if (!response.ok) {
+        throw new Error('Не удалось загрузить данные');
+      }
+      const allProducts = await response.json();
+      
+      // Перемешиваем массив и берем первые 8 товаров
+      const shuffled = allProducts.sort(() => 0.5 - Math.random());
+      const selectedProducts = shuffled.slice(0, 8);
+      
+      setRandomProducts(selectedProducts);
+    } catch (error) {
+      console.error('Ошибка при загрузке товаров:', error);
+      setError('Не удалось загрузить товары. Попробуйте обновить страницу.');
+      // Fallback данные если не удалось загрузить
+      setRandomProducts([
+        {
+          id: 'agat-1-3',
+          name: 'АГАТ 1-3',
+          brand: 'АГАТ',
+          price: 3800,
+          description: 'Однофазный счетчик с электромеханическим отсчетным устройством',
+          image: 'agat-1-3.svg'
+        },
+        {
+          id: 'energomera-ce102m',
+          name: 'Энергомера CE102M',
+          brand: 'Энергомера',
+          price: 3200,
+          description: 'Однофазный многотарифный счетчик с возможностью дистанционного снятия показаний',
+          image: 'energomera-ce102m.svg'
+        },
+        {
+          id: 'mercury-201',
+          name: 'Меркурий 201.8',
+          brand: 'Меркурий',
+          price: 2450,
+          description: 'Однофазный многотарифный счетчик с жидкокристаллическим дисплеем',
+          image: 'mercury-201.svg'
+        },
+        {
+          id: 'neva-103',
+          name: 'Нева 103',
+          brand: 'Нева',
+          price: 1850,
+          description: 'Однофазный однотарифный счетчик с механическим отсчетным устройством',
+          image: 'neva-103.svg'
+        },
+        {
+          id: 'agat-2-32',
+          name: 'АГАТ 2-32',
+          brand: 'АГАТ',
+          price: 4500,
+          description: 'Однофазный счетчик с жидкокристаллическим дисплеем',
+          image: 'agat-2-32.svg'
+        },
+        {
+          id: 'energomera-ce208',
+          name: 'Энергомера CE208',
+          brand: 'Энергомера',
+          price: 3800,
+          description: 'Однофазный многотарифный счетчик с возможностью программирования',
+          image: 'energomera-ce208.svg'
+        },
+        {
+          id: 'mercury-230',
+          name: 'Меркурий 230',
+          brand: 'Меркурий',
+          price: 4200,
+          description: 'Трехфазный многотарифный счетчик с возможностью программирования',
+          image: 'mercury-230.svg'
+        },
+        {
+          id: 'neva-303',
+          name: 'Нева 303',
+          brand: 'Нева',
+          price: 2800,
+          description: 'Однофазный многотарифный счетчик с жидкокристаллическим дисплеем',
+          image: 'neva-303.svg'
+          }
+        ]);
+    } finally {
+      setIsLoading(false);
     }
-  ];
+  };
+
+  useEffect(() => {
+    fetchRandomProducts();
+  }, []);
 
   return (
     <>
@@ -904,21 +935,135 @@ function HomePage() {
       </Hero>
 
       <ProductsSection>
-        <SectionTitle
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Популярные модели
-        </SectionTitle>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center', 
+          marginBottom: '6rem',
+          flexWrap: 'wrap',
+          gap: '1rem'
+        }}>
+          <SectionTitle
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            style={{ marginBottom: 0 }}
+          >
+            Популярные модели
+          </SectionTitle>
+          {!isLoading && !error && (
+            <CTAButton
+              onClick={fetchRandomProducts}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              style={{ 
+                fontSize: '0.9rem', 
+                padding: '0.6rem 1.2rem',
+                background: 'rgba(47, 84, 131, 0.1)',
+                border: '1px solid rgba(47, 84, 131, 0.2)',
+                color: '#2f5483'
+              }}
+            >
+              Обновить товары
+            </CTAButton>
+          )}
+        </div>
         <ProductsGrid>
-          <ProductCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <ProductInfo>
-                                <div>
+          {isLoading ? (
+            // Индикатор загрузки
+            Array.from({ length: 8 }, (_, index) => (
+              <ProductCard
+                key={`loading-${index}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <ProductInfo>
+                  <div>
+                    <div style={{
+                      width: '100%',
+                      height: '120px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                      color: '#2f5483',
+                      fontSize: '1.5rem',
+                      fontWeight: 'bold',
+                      marginBottom: '1rem',
+                      borderRadius: '8px',
+                      animation: 'pulse 1.5s ease-in-out infinite'
+                    }}>
+                      Загрузка...
+                    </div>
+                    <ProductTitle style={{ 
+                      background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+                      backgroundSize: '200% 100%',
+                      animation: 'shimmer 1.5s infinite',
+                      borderRadius: '4px',
+                      height: '20px',
+                      marginBottom: '1rem'
+                    }}></ProductTitle>
+                    <ProductDescription style={{ 
+                      background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+                      backgroundSize: '200% 100%',
+                      animation: 'shimmer 1.5s infinite',
+                      borderRadius: '4px',
+                      height: '40px'
+                    }}></ProductDescription>
+                  </div>
+                  <div>
+                    <ProductPrice style={{ 
+                      background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+                      backgroundSize: '200% 100%',
+                      animation: 'shimmer 1.5s infinite',
+                      borderRadius: '4px',
+                      height: '24px',
+                      marginBottom: '1.5rem'
+                    }}></ProductPrice>
+                    <BuyButton style={{ 
+                      background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+                      backgroundSize: '200% 100%',
+                      animation: 'shimmer 1.5s infinite',
+                      borderRadius: '8px',
+                      height: '48px'
+                    }}></BuyButton>
+                  </div>
+                </ProductInfo>
+              </ProductCard>
+            ))
+          ) : error ? (
+            // Отображение ошибки
+            <div style={{
+              gridColumn: '1 / -1',
+              textAlign: 'center',
+              padding: '4rem 2rem',
+              background: '#f8f9fa',
+              borderRadius: '8px',
+              border: '1px solid #e9ecef'
+            }}>
+              <div style={{ fontSize: '1.2rem', color: '#6c757d', marginBottom: '1rem' }}>
+                {error}
+              </div>
+              <CTAButton
+                onClick={fetchRandomProducts}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                style={{ fontSize: '1rem', padding: '0.8rem 1.5rem' }}
+              >
+                Попробовать снова
+              </CTAButton>
+            </div>
+          ) : (
+            randomProducts.map((product, index) => (
+              <ProductCard
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <ProductInfo>
+                  <div>
                     <div style={{
                       width: '100%',
                       height: '120px',
@@ -932,255 +1077,21 @@ function HomePage() {
                       marginBottom: '1rem',
                       borderRadius: '8px'
                     }}>
-                      Меркурий
+                      {product.brand}
                     </div>
-                    <ProductTitle>Счетчик электроэнергии Меркурий 201.8</ProductTitle>
-                    <ProductDescription>Однофазный многотарифный счетчик с жидкокристаллическим дисплеем</ProductDescription>
+                    <ProductTitle>{product.name}</ProductTitle>
+                    <ProductDescription>{product.description}</ProductDescription>
                   </div>
-              <div>
-                <ProductPrice>2 450 ₽</ProductPrice>
-                <BuyButton onClick={() => addToCart(homeProducts[0])}>
-                  Купить
-                </BuyButton>
-              </div>
-            </ProductInfo>
-          </ProductCard>
-
-          <ProductCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <ProductInfo>
-                                <div>
-                    <div style={{
-                      width: '100%',
-                      height: '120px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                      color: '#2f5483',
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold',
-                      marginBottom: '1rem',
-                      borderRadius: '8px'
-                    }}>
-                      Энергомера
-                    </div>
-                    <ProductTitle>Счетчик электроэнергии Энергомера CE102M</ProductTitle>
-                    <ProductDescription>Однофазный многотарифный счетчик с возможностью дистанционного снятия показаний</ProductDescription>
+                  <div>
+                    <ProductPrice>{product.price.toLocaleString()} ₽</ProductPrice>
+                    <BuyButton onClick={() => addToCart(product)}>
+                      Купить
+                    </BuyButton>
                   </div>
-              <div>
-                <ProductPrice>3 200 ₽</ProductPrice>
-                <BuyButton onClick={() => addToCart(homeProducts[1])}>
-                  Купить
-                </BuyButton>
-              </div>
-            </ProductInfo>
-          </ProductCard>
-
-          <ProductCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <ProductInfo>
-                                <div>
-                    <div style={{
-                      width: '100%',
-                      height: '120px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                      color: '#2f5483',
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold',
-                      marginBottom: '1rem',
-                      borderRadius: '8px'
-                    }}>
-                      Нева
-                    </div>
-                    <ProductTitle>Счетчик электроэнергии Нева 103</ProductTitle>
-                    <ProductDescription>Однофазный однотарифный счетчик с механическим отсчетным устройством</ProductDescription>
-                  </div>
-              <div>
-                <ProductPrice>1 850 ₽</ProductPrice>
-                <BuyButton onClick={() => addToCart(homeProducts[2])}>
-                  Купить
-                </BuyButton>
-              </div>
-            </ProductInfo>
-          </ProductCard>
-
-          <ProductCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <ProductInfo>
-                                <div>
-                    <div style={{
-                      width: '100%',
-                      height: '120px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                      color: '#2f5483',
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold',
-                      marginBottom: '1rem',
-                      borderRadius: '8px'
-                    }}>
-                      Меркурий
-                    </div>
-                    <ProductTitle>Счетчик электроэнергии Меркурий 230</ProductTitle>
-                    <ProductDescription>Трехфазный многотарифный счетчик с возможностью программирования</ProductDescription>
-                  </div>
-              <div>
-                <ProductPrice>4 500 ₽</ProductPrice>
-                <BuyButton onClick={() => addToCart(homeProducts[5])}>
-                  Купить
-                </BuyButton>
-              </div>
-            </ProductInfo>
-          </ProductCard>
-
-          <ProductCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <ProductInfo>
-                                <div>
-                    <div style={{
-                      width: '100%',
-                      height: '120px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                      color: '#2f5483',
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold',
-                      marginBottom: '1rem',
-                      borderRadius: '8px'
-                    }}>
-                      Меркурий
-                    </div>
-                    <ProductTitle>Счетчик электроэнергии Меркурий 201.5</ProductTitle>
-                    <ProductDescription>Однофазный однотарифный счетчик с жидкокристаллическим дисплеем</ProductDescription>
-                  </div>
-              <div>
-                <ProductPrice>2 100 ₽</ProductPrice>
-                <BuyButton>Купить</BuyButton>
-              </div>
-            </ProductInfo>
-          </ProductCard>
-
-          <ProductCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            <ProductInfo>
-                                <div>
-                    <div style={{
-                      width: '100%',
-                      height: '120px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                      color: '#2f5483',
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold',
-                      marginBottom: '1rem',
-                      borderRadius: '8px'
-                    }}>
-                      Энергомера
-                    </div>
-                    <ProductTitle>Счетчик электроэнергии Энергомера CE301</ProductTitle>
-                    <ProductDescription>Трехфазный однотарифный счетчик с механическим отсчетным устройством</ProductDescription>
-                  </div>
-              <div>
-                <ProductPrice>3 800 ₽</ProductPrice>
-                <BuyButton onClick={() => addToCart(homeProducts[4])}>
-                  Купить
-                </BuyButton>
-              </div>
-            </ProductInfo>
-          </ProductCard>
-
-          <ProductCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            <ProductInfo>
-                                <div>
-                    <div style={{
-                      width: '100%',
-                      height: '120px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                      color: '#2f5483',
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold',
-                      marginBottom: '1rem',
-                      borderRadius: '8px'
-                    }}>
-                      Нева
-                    </div>
-                    <ProductTitle>Счетчик электроэнергии Нева 303</ProductTitle>
-                    <ProductDescription>Трехфазный многотарифный счетчик с жидкокристаллическим дисплеем</ProductDescription>
-                  </div>
-              <div>
-                <ProductPrice>2 800 ₽</ProductPrice>
-                <BuyButton onClick={() => addToCart(homeProducts[7])}>
-                  Купить
-                </BuyButton>
-              </div>
-            </ProductInfo>
-          </ProductCard>
-
-          <ProductCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-          >
-            <ProductInfo>
-                                <div>
-                    <div style={{
-                      width: '100%',
-                      height: '120px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                      color: '#2f5483',
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold',
-                      marginBottom: '1rem',
-                      borderRadius: '8px'
-                    }}>
-                      Меркурий
-                    </div>
-                    <ProductTitle>Счетчик электроэнергии Меркурий 231</ProductTitle>
-                    <ProductDescription>Трехфазный многотарифный счетчик с возможностью дистанционного снятия показаний</ProductDescription>
-                  </div>
-              <div>
-                <ProductPrice>5 000 ₽</ProductPrice>
-                <BuyButton onClick={() => addToCart(homeProducts[6])}>
-                  Купить
-                </BuyButton>
-              </div>
-            </ProductInfo>
-          </ProductCard>
+                </ProductInfo>
+              </ProductCard>
+            ))
+          )}
         </ProductsGrid>
       </ProductsSection>
 

@@ -32,4 +32,23 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(45deg, #2f5483, #69aaa5);
   opacity: 0.8;
+}
+
+/* Анимации для индикатора загрузки */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 } 
