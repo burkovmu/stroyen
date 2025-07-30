@@ -10,7 +10,7 @@ import HomePage from './HomePage';
 import ProductDetailPage from './ProductDetailPage';
 import { CartProvider, useCart } from './CartContext';
 import CartModalComponent from './CartModal';
-import { NotificationProvider } from './Notification';
+import { NotificationProvider, useNotification } from './Notification';
 import CheckoutPage from './CheckoutPage';
 import ThankYouPage from './ThankYouPage';
 
@@ -2001,6 +2001,7 @@ const SocialLink = styled.a`
 `;
 
 function App() {
+  const { addNotification } = useNotification();
   const [catalogDropdownOpen, setCatalogDropdownOpen] = useState(false);
   const [clientsDropdownOpen, setClientsDropdownOpen] = useState(false);
   const [headerSearchQuery, setHeaderSearchQuery] = useState('');
@@ -2074,7 +2075,7 @@ function App() {
     setTimeout(() => {
       setIsSubmitting(false);
       closeCallbackModal();
-      alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
+      addNotification('Спасибо! Мы свяжемся с вами в ближайшее время.', 'success', 5000);
     }, 2000);
   };
 
@@ -2162,7 +2163,7 @@ function App() {
     setTimeout(() => {
       setIsApplicationSubmitting(false);
       closeApplicationModal();
-      alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+      addNotification('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success', 5000);
     }, 2000);
   };
 
@@ -2198,7 +2199,7 @@ function App() {
     setTimeout(() => {
       setIsPriceListSubmitting(false);
       closePriceListModal();
-      alert('Спасибо! Ваша заявка на прайс-лист отправлена. Мы свяжемся с вами в ближайшее время.');
+      addNotification('Спасибо! Ваша заявка на прайс-лист отправлена. Мы свяжемся с вами в ближайшее время.', 'success', 5000);
     }, 2000);
   };
   

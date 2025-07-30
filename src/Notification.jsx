@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faTimes, faShoppingCart, faTrash, faInfo } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTimes, faShoppingCart, faTrash, faInfo, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 const NotificationContainer = styled(motion.div)`
   position: fixed;
@@ -142,7 +142,7 @@ export const NotificationProvider = ({ children }) => {
   const getNotificationIcon = (type) => {
     switch (type) {
       case 'success':
-        return faShoppingCart;
+        return faCheckCircle;
       case 'error':
         return faTimes;
       case 'info':
@@ -150,20 +150,20 @@ export const NotificationProvider = ({ children }) => {
       case 'warning':
         return faTrash;
       default:
-        return faShoppingCart;
+        return faCheckCircle;
     }
   };
 
   const getNotificationTitle = (type) => {
     switch (type) {
       case 'success':
-        return 'Товар добавлен в корзину';
+        return 'Успешно!';
       case 'error':
         return 'Ошибка';
       case 'info':
         return 'Информация';
       case 'warning':
-        return 'Товар удален из корзины';
+        return 'Предупреждение';
       default:
         return 'Уведомление';
     }
