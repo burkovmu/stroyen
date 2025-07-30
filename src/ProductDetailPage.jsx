@@ -259,76 +259,74 @@ const SimilarProductButton = styled.button`
 const WhyStroyEnergySection = styled(motion.div)`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 2rem;
-  background: #ffffff;
-  border-top: 1px solid #f0f0f0;
+  padding: 3rem 2rem;
+  background: #f8f9fa;
 `;
 
 const WhyStroyEnergyTitle = styled.h3`
-  font-size: 2.5rem;
-  font-weight: 300;
-  color: #2f5483;
-  margin-bottom: 3rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2rem;
   text-align: center;
-  letter-spacing: -0.5px;
-  
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
 `;
 
 const WhyStroyEnergyGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-  
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 `;
 
 const WhyStroyEnergyCard = styled.div`
-  text-align: center;
-  transition: transform 0.3s ease;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  transition: all 0.2s ease;
   
   &:hover {
-    transform: translateY(-4px);
+    border-color: #2f5483;
+    box-shadow: 0 2px 8px rgba(47, 84, 131, 0.1);
   }
 `;
 
-const WhyStroyEnergyIcon = styled.div`
-  width: 60px;
-  height: 60px;
+const WhyStroyEnergyCardHeader = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+`;
+
+const WhyStroyEnergyCardNumber = styled.div`
+  width: 40px;
+  height: 40px;
   background: #2f5483;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.5rem;
   color: white;
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-right: 1rem;
 `;
 
 const WhyStroyEnergyCardTitle = styled.h4`
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 600;
   color: #333;
-  margin-bottom: 0.75rem;
-  letter-spacing: -0.2px;
+  margin: 0;
 `;
 
 const WhyStroyEnergyCardText = styled.p`
   color: #666;
-  line-height: 1.5;
+  line-height: 1.6;
   font-size: 0.95rem;
-  font-weight: 300;
+  margin: 0;
 `;
 
 // Цена
@@ -880,50 +878,42 @@ function ProductDetailPage() {
         <WhyStroyEnergyTitle>Почему Стройэнергетика?</WhyStroyEnergyTitle>
         <WhyStroyEnergyGrid>
           <WhyStroyEnergyCard>
-            <WhyStroyEnergyIcon>20+</WhyStroyEnergyIcon>
-            <WhyStroyEnergyCardTitle>20+ лет на рынке</WhyStroyEnergyCardTitle>
+            <WhyStroyEnergyCardHeader>
+              <WhyStroyEnergyCardNumber>01</WhyStroyEnergyCardNumber>
+              <WhyStroyEnergyCardTitle>20+ лет опыта</WhyStroyEnergyCardTitle>
+            </WhyStroyEnergyCardHeader>
             <WhyStroyEnergyCardText>
-              Опыт и экспертиза в энергетической отрасли
+              Более двух десятилетий работы в энергетической отрасли. Мы знаем все о современных технологиях и требованиях рынка.
             </WhyStroyEnergyCardText>
           </WhyStroyEnergyCard>
 
           <WhyStroyEnergyCard>
-            <WhyStroyEnergyIcon>✓</WhyStroyEnergyIcon>
-            <WhyStroyEnergyCardTitle>Сертификация по ГОСТ</WhyStroyEnergyCardTitle>
+            <WhyStroyEnergyCardHeader>
+              <WhyStroyEnergyCardNumber>02</WhyStroyEnergyCardNumber>
+              <WhyStroyEnergyCardTitle>Сертификация ГОСТ</WhyStroyEnergyCardTitle>
+            </WhyStroyEnergyCardHeader>
             <WhyStroyEnergyCardText>
-              Соответствие российским стандартам качества
+              Все оборудование соответствует российским стандартам качества. Полная сертификация и соответствие требованиям.
             </WhyStroyEnergyCardText>
           </WhyStroyEnergyCard>
 
           <WhyStroyEnergyCard>
-            <WhyStroyEnergyIcon>🛡️</WhyStroyEnergyIcon>
-            <WhyStroyEnergyCardTitle>Гарантия 16 лет</WhyStroyEnergyCardTitle>
+            <WhyStroyEnergyCardHeader>
+              <WhyStroyEnergyCardNumber>03</WhyStroyEnergyCardNumber>
+              <WhyStroyEnergyCardTitle>Гарантия 16 лет</WhyStroyEnergyCardTitle>
+            </WhyStroyEnergyCardHeader>
             <WhyStroyEnergyCardText>
-              Максимальная защита ваших инвестиций
+              Максимальная гарантия на оборудование. Мы уверены в качестве наших товаров и защищаем ваши инвестиции.
             </WhyStroyEnergyCardText>
           </WhyStroyEnergyCard>
 
           <WhyStroyEnergyCard>
-            <WhyStroyEnergyIcon>📞</WhyStroyEnergyIcon>
-            <WhyStroyEnergyCardTitle>Техподдержка 24/7</WhyStroyEnergyCardTitle>
+            <WhyStroyEnergyCardHeader>
+              <WhyStroyEnergyCardNumber>04</WhyStroyEnergyCardNumber>
+              <WhyStroyEnergyCardTitle>Техподдержка 24/7</WhyStroyEnergyCardTitle>
+            </WhyStroyEnergyCardHeader>
             <WhyStroyEnergyCardText>
-              Круглосуточная помощь специалистов
-            </WhyStroyEnergyCardText>
-          </WhyStroyEnergyCard>
-
-          <WhyStroyEnergyCard>
-            <WhyStroyEnergyIcon>⚡</WhyStroyEnergyIcon>
-            <WhyStroyEnergyCardTitle>Современные решения</WhyStroyEnergyCardTitle>
-            <WhyStroyEnergyCardText>
-              Передовые технологии для вашего бизнеса
-            </WhyStroyEnergyCardText>
-          </WhyStroyEnergyCard>
-
-          <WhyStroyEnergyCard>
-            <WhyStroyEnergyIcon>🏆</WhyStroyEnergyIcon>
-            <WhyStroyEnergyCardTitle>Лучшие производители</WhyStroyEnergyCardTitle>
-            <WhyStroyEnergyCardText>
-              Проверенные партнеры и качество
+              Круглосуточная техническая поддержка. Наши специалисты всегда готовы помочь с любыми вопросами.
             </WhyStroyEnergyCardText>
           </WhyStroyEnergyCard>
         </WhyStroyEnergyGrid>
