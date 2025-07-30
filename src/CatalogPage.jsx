@@ -774,7 +774,17 @@ function CatalogPage() {
       if (field === 'specifications.accuracy') return product.specifications.accuracy;
       return product[field];
     });
-    return [...new Set(values)].sort();
+    
+    // Фильтруем пустые значения, значения "нет" и "не требуется"
+    const filteredValues = values.filter(value => 
+      value && 
+      value !== '' && 
+      value !== 'нет' && 
+      value !== 'не требуется' &&
+      value !== 'ТМ выход' // Исключаем простые интерфейсы
+    );
+    
+    return [...new Set(filteredValues)].sort();
   };
 
   // Фильтрация и сортировка товаров
@@ -1115,11 +1125,33 @@ function CatalogPage() {
                 <ProductDescription>{product.description}</ProductDescription>
                 
                 <ProductSpecs>
-                  <SpecTag>{product.specifications.phases} фаза</SpecTag>
-                  <SpecTag>{product.specifications.voltage}</SpecTag>
-                  <SpecTag>{product.specifications.accuracy} класс</SpecTag>
-                  {product.specifications.tariffs !== 'однотарифный' && (
+                  {/* Стандартные характеристики для счетчиков */}
+                  {product.specifications.phases && product.specifications.phases !== 'нет' && (
+                    <SpecTag>{product.specifications.phases} фаза</SpecTag>
+                  )}
+                  {product.specifications.voltage && product.specifications.voltage !== 'нет' && (
+                    <SpecTag>{product.specifications.voltage}</SpecTag>
+                  )}
+                  {product.specifications.accuracy && product.specifications.accuracy !== 'нет' && (
+                    <SpecTag>{product.specifications.accuracy} класс</SpecTag>
+                  )}
+                  {product.specifications.tariffs && product.specifications.tariffs !== 'однотарифный' && (
                     <SpecTag>Многотарифный</SpecTag>
+                  )}
+                  
+                  {/* Специальные характеристики для устройств сбора данных */}
+                  {product.category === 'Устройства сбора и передачи данных' && (
+                    <>
+                      {product.specifications.power_3phase && (
+                        <SpecTag>3×230/400В</SpecTag>
+                      )}
+                      {product.specifications.interfaces && typeof product.specifications.interfaces === 'object' && (
+                        <SpecTag>Wi-Fi, LTE</SpecTag>
+                      )}
+                      {product.specifications.temperature && (
+                        <SpecTag>-40...+55°C</SpecTag>
+                      )}
+                    </>
                   )}
                 </ProductSpecs>
                 

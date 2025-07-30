@@ -132,6 +132,35 @@ const ProductDescription = styled.p`
   margin-bottom: 1.5rem;
 `;
 
+// Полное описание
+const FullDescriptionSection = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+`;
+
+const FullDescriptionTitle = styled.h3`
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+`;
+
+const FullDescriptionText = styled.div`
+  color: #555;
+  line-height: 1.6;
+  font-size: 1rem;
+  
+  p {
+    margin-bottom: 1rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+`;
+
 // Цена
 const PriceSection = styled.div`
   display: flex;
@@ -449,6 +478,7 @@ function ProductDetailPage() {
               <DiscountBadge>-{product.discount}%</DiscountBadge>
             )}
           </ProductImage>
+          
         </ProductImageSection>
 
         <ProductInfoSection>
@@ -490,30 +520,85 @@ function ProductDetailPage() {
           <SpecificationsSection>
             <SpecificationsTitle>Технические характеристики</SpecificationsTitle>
             <SpecificationsGrid>
-              <SpecificationItem>
-                <SpecificationLabel>Фазы:</SpecificationLabel>
-                <SpecificationValue>{product.specifications.phases}</SpecificationValue>
-              </SpecificationItem>
-              <SpecificationItem>
-                <SpecificationLabel>Напряжение:</SpecificationLabel>
-                <SpecificationValue>{product.specifications.voltage}</SpecificationValue>
-              </SpecificationItem>
-              <SpecificationItem>
-                <SpecificationLabel>Ток:</SpecificationLabel>
-                <SpecificationValue>{product.specifications.current}</SpecificationValue>
-              </SpecificationItem>
-              <SpecificationItem>
-                <SpecificationLabel>Класс точности:</SpecificationLabel>
-                <SpecificationValue>{product.specifications.accuracy}</SpecificationValue>
-              </SpecificationItem>
-              <SpecificationItem>
-                <SpecificationLabel>Тарифность:</SpecificationLabel>
-                <SpecificationValue>{product.specifications.tariffs}</SpecificationValue>
-              </SpecificationItem>
-              <SpecificationItem>
-                <SpecificationLabel>Тип энергии:</SpecificationLabel>
-                <SpecificationValue>{product.specifications.energy_type}</SpecificationValue>
-              </SpecificationItem>
+              {/* Стандартные характеристики для счетчиков */}
+              {product.specifications.phases && product.specifications.phases !== 'нет' && (
+                <SpecificationItem>
+                  <SpecificationLabel>Фазы:</SpecificationLabel>
+                  <SpecificationValue>{product.specifications.phases}</SpecificationValue>
+                </SpecificationItem>
+              )}
+              {product.specifications.voltage && product.specifications.voltage !== 'нет' && (
+                <SpecificationItem>
+                  <SpecificationLabel>Напряжение:</SpecificationLabel>
+                  <SpecificationValue>{product.specifications.voltage}</SpecificationValue>
+                </SpecificationItem>
+              )}
+              {product.specifications.current && product.specifications.current !== 'нет' && (
+                <SpecificationItem>
+                  <SpecificationLabel>Ток:</SpecificationLabel>
+                  <SpecificationValue>{product.specifications.current}</SpecificationValue>
+                </SpecificationItem>
+              )}
+              {product.specifications.accuracy && product.specifications.accuracy !== 'нет' && (
+                <SpecificationItem>
+                  <SpecificationLabel>Класс точности:</SpecificationLabel>
+                  <SpecificationValue>{product.specifications.accuracy}</SpecificationValue>
+                </SpecificationItem>
+              )}
+              {product.specifications.tariffs && product.specifications.tariffs !== 'нет' && (
+                <SpecificationItem>
+                  <SpecificationLabel>Тарифность:</SpecificationLabel>
+                  <SpecificationValue>{product.specifications.tariffs}</SpecificationValue>
+                </SpecificationItem>
+              )}
+              {product.specifications.energy_type && product.specifications.energy_type !== 'нет' && (
+                <SpecificationItem>
+                  <SpecificationLabel>Тип энергии:</SpecificationLabel>
+                  <SpecificationValue>{product.specifications.energy_type}</SpecificationValue>
+                </SpecificationItem>
+              )}
+              
+              {/* Специальные характеристики для устройств сбора данных */}
+              {product.category === 'Устройства сбора и передачи данных' && (
+                <>
+                  {product.specifications.power_3phase && (
+                    <SpecificationItem>
+                      <SpecificationLabel>Питание 3-фазное:</SpecificationLabel>
+                      <SpecificationValue>{product.specifications.power_3phase}</SpecificationValue>
+                    </SpecificationItem>
+                  )}
+                  {product.specifications.power_1phase && (
+                    <SpecificationItem>
+                      <SpecificationLabel>Питание 1-фазное:</SpecificationLabel>
+                      <SpecificationValue>{product.specifications.power_1phase}</SpecificationValue>
+                    </SpecificationItem>
+                  )}
+                  {product.specifications.consumption && (
+                    <SpecificationItem>
+                      <SpecificationLabel>Потребление:</SpecificationLabel>
+                      <SpecificationValue>{product.specifications.consumption}</SpecificationValue>
+                    </SpecificationItem>
+                  )}
+                  {product.specifications.dimensions && (
+                    <SpecificationItem>
+                      <SpecificationLabel>Размеры:</SpecificationLabel>
+                      <SpecificationValue>{product.specifications.dimensions}</SpecificationValue>
+                    </SpecificationItem>
+                  )}
+                  {product.specifications.temperature && (
+                    <SpecificationItem>
+                      <SpecificationLabel>Температура:</SpecificationLabel>
+                      <SpecificationValue>{product.specifications.temperature}</SpecificationValue>
+                    </SpecificationItem>
+                  )}
+                  {product.specifications.supported_meters && (
+                    <SpecificationItem>
+                      <SpecificationLabel>Поддерживаемые счетчики:</SpecificationLabel>
+                      <SpecificationValue>{product.specifications.supported_meters}</SpecificationValue>
+                    </SpecificationItem>
+                  )}
+                </>
+              )}
             </SpecificationsGrid>
           </SpecificationsSection>
 
@@ -535,6 +620,17 @@ function ProductDetailPage() {
           </DeliveryInfo>
         </ProductInfoSection>
       </ProductDetailContent>
+      
+      {product.fullDescription && (
+        <FullDescriptionSection>
+          <FullDescriptionTitle>Подробное описание</FullDescriptionTitle>
+          <FullDescriptionText>
+            {product.fullDescription.split('\n').map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </FullDescriptionText>
+        </FullDescriptionSection>
+      )}
     </ProductDetailContainer>
   );
 }

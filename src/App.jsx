@@ -934,8 +934,9 @@ function App() {
                   </CatalogButton>
                   <CatalogDropdownContent isOpen={catalogDropdownOpen}>
                     <CatalogItem href="/catalog">Все товары</CatalogItem>
-                    <CatalogItem href="/catalog?category=Счетчики электроэнергии">Счетчики электроэнергии</CatalogItem>
-                    <CatalogItem href="/catalog?category=Коммуникационное оборудование">Коммуникационное оборудование</CatalogItem>
+                    <CatalogItem href="/catalog?category=Однофазные счетчики">Однофазные счетчики</CatalogItem>
+                    <CatalogItem href="/catalog?category=Трехфазные счетчики">Трехфазные счетчики</CatalogItem>
+                    <CatalogItem href="/catalog?category=Устройства сбора и передачи данных">Устройства сбора и передачи данных</CatalogItem>
                   </CatalogDropdownContent>
                 </CatalogDropdown>
               </BottomHeaderLeft>
