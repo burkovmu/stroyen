@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,6 +13,42 @@ import CartModalComponent from './CartModal';
 import { NotificationProvider } from './Notification';
 import CheckoutPage from './CheckoutPage';
 import ThankYouPage from './ThankYouPage';
+
+// Компонент для автоматической прокрутки вверх при переходе на главную
+const ScrollToTop = () => {
+  const location = window.location;
+  
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (window.location.pathname === '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+    
+    // Прокручиваем вверх при загрузке главной страницы
+    handleRouteChange();
+    
+    // Слушаем изменения в истории браузера
+    const handlePopState = () => {
+      handleRouteChange();
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+  
+  // Прокручиваем вверх при каждом рендере на главной странице
+  useEffect(() => {
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [location.pathname]);
+  
+  return null;
+};
 
 const GlobalBackground = styled.div`
   background: #ffffff;
@@ -128,6 +164,7 @@ const Logo = styled(motion.div)`
   letter-spacing: 1px;
   display: flex;
   align-items: center;
+  cursor: pointer;
   
   img {
     height: 40px;
@@ -640,6 +677,51 @@ const CartButtonWithContext = ({ onOpenCart }) => {
   );
 };
 
+// Компонент логотипа с навигацией
+const LogoWithNavigation = () => {
+  const navigate = useNavigate();
+  
+  const handleLogoClick = () => {
+    navigate('/');
+    // Прокручиваем страницу вверх с небольшой задержкой для корректной работы
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  };
+  
+  return (
+    <Logo 
+      whileHover={{ scale: 1.02 }}
+      onClick={handleLogoClick}
+    >
+      <img src="/logo.png" alt="Стройэнергетика" />
+    </Logo>
+  );
+};
+
+// Компонент логотипа в футере с навигацией
+const FooterLogoWithNavigation = () => {
+  const navigate = useNavigate();
+  
+  const handleLogoClick = () => {
+    navigate('/');
+    // Прокручиваем страницу вверх с небольшой задержкой для корректной работы
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  };
+  
+  return (
+    <FooterLogo 
+      as={motion.div}
+      whileHover={{ scale: 1.02 }}
+      onClick={handleLogoClick}
+    >
+      <img src="/logo.png" alt="Стройэнергетика" />
+    </FooterLogo>
+  );
+};
+
 // Футер
 const Footer = styled.footer`
   background: linear-gradient(135deg, #2f5483 0%, #1a2f4b 100%);
@@ -688,6 +770,7 @@ const FooterColumn = styled.div`
 
 const FooterLogo = styled.div`
   margin-bottom: 1.5rem;
+  cursor: pointer;
   
   img {
     height: 40px;
@@ -847,6 +930,11 @@ function App() {
   const [headerSearchSuggestions, setHeaderSearchSuggestions] = useState(false);
   const [products, setProducts] = useState([]);
   const [cartModalOpen, setCartModalOpen] = useState(false);
+  
+  // Функция для прокрутки вверх при переходе на главную
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     // Загружаем товары для поиска в шапке
@@ -913,6 +1001,7 @@ function App() {
     <NotificationProvider>
       <CartProvider>
         <Router>
+          <ScrollToTop />
           <GlobalBackground>
             <AppContainer>
           <Header
@@ -923,9 +1012,7 @@ function App() {
           <TopHeader>
             <TopHeaderContent>
               <TopHeaderLeft>
-                <Logo>
-                  <img src="/logo.png" alt="Стройэнергетика" />
-                </Logo>
+                <LogoWithNavigation />
                 <TopPhoneNumber href="tel:+79991234567">
                   <FontAwesomeIcon icon={faPhone} />
                   +7 (999) 123-45-67
@@ -1045,9 +1132,7 @@ function App() {
         <Footer>
           <FooterContent>
             <FooterColumn>
-              <FooterLogo>
-                <img src="/logo.png" alt="Стройэнергетика" />
-              </FooterLogo>
+              <FooterLogoWithNavigation />
               <FooterDescription>
                 Официальный дилер счетчиков электроэнергии с гарантией качества и профессиональной установкой. Работаем с 2010 года.
               </FooterDescription>

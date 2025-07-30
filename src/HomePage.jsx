@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -791,6 +791,11 @@ function HomePage() {
   });
   const { addToCart, getTotalItems } = useCart();
   const navigate = useNavigate();
+
+  // Автоматическая прокрутка вверх при загрузке главной страницы
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   // Тестовые данные для товаров на главной странице
   const homeProducts = [
