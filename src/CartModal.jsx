@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faTrash, faMinus, faPlus, faShoppingCart, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
 import { useNotification } from './Notification';
+import { useNavigate } from 'react-router-dom';
 
 const CartOverlay = styled(motion.div)`
   position: fixed;
@@ -374,6 +375,7 @@ const CheckoutButton = styled(CartButton)`
 const CartModalComponent = ({ isOpen, onClose }) => {
   const { items, removeFromCart, updateQuantity, clearCart, getTotalItems, getTotalPrice } = useCart();
   const { addNotification } = useNotification();
+  const navigate = useNavigate();
   const [isRemoving, setIsRemoving] = useState(null);
 
   const handleQuantityChange = (productId, newQuantity) => {
@@ -396,8 +398,8 @@ const CartModalComponent = ({ isOpen, onClose }) => {
   };
 
   const handleCheckout = () => {
-    // Здесь можно добавить логику оформления заказа
-    addNotification('Функция оформления заказа будет добавлена позже', 'info', 3000);
+    onClose(); // Закрываем модальное окно корзины
+    navigate('/checkout'); // Перенаправляем на страницу оформления заказа
   };
 
   return (

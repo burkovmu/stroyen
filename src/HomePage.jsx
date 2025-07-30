@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShieldAlt, faTruckFast, faTools, faHeadset, faPercent, faCertificate, faClipboardList, faComments, faTruck } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = styled(motion.section)`
   height: calc(100vh - 200px);
@@ -788,7 +789,8 @@ function HomePage() {
     triggerOnce: true,
     threshold: 0.1,
   });
-  const { addToCart } = useCart();
+  const { addToCart, getTotalItems } = useCart();
+  const navigate = useNavigate();
 
   // Тестовые данные для товаров на главной странице
   const homeProducts = [
@@ -1404,6 +1406,21 @@ function HomePage() {
           ></iframe>
         </div>
       </Section>
+
+      {getTotalItems() > 0 && (
+        <Section>
+          <div style={{ textAlign: 'center', padding: '3rem 0' }}>
+            <CTAButton
+              onClick={() => navigate('/checkout')}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              style={{ fontSize: '1.2rem', padding: '1rem 2rem' }}
+            >
+              Оформить заказ ({getTotalItems()} товаров • {getTotalPrice().toLocaleString()} ₽)
+            </CTAButton>
+          </div>
+        </Section>
+      )}
     </>
   );
 }

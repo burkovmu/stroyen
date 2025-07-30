@@ -11,6 +11,8 @@ import ProductDetailPage from './ProductDetailPage';
 import { CartProvider, useCart } from './CartContext';
 import CartModalComponent from './CartModal';
 import { NotificationProvider } from './Notification';
+import CheckoutPage from './CheckoutPage';
+import ThankYouPage from './ThankYouPage';
 
 const GlobalBackground = styled.div`
   background: #ffffff;
@@ -1036,6 +1038,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/catalog" element={<CatalogPage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/thank-you" element={<ThankYouPage />} />
         </Routes>
 
         <Footer>
