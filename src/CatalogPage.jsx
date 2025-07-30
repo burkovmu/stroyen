@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -11,7 +11,7 @@ const CatalogContainer = styled.div`
   min-height: 100vh;
   color: #000000;
   font-family: 'Inter', sans-serif;
-  padding-top: 100px;
+  padding-top: 90px;
 `;
 
 
@@ -589,6 +589,7 @@ const CustomOrderButton = styled(motion.button)`
 
 function CatalogPage() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [displayedProducts, setDisplayedProducts] = useState(12);
@@ -1145,6 +1146,7 @@ function CatalogPage() {
                   </AddToCartButton>
                   
                   <DetailsButton
+                    onClick={() => navigate(`/product/${product.id}`)}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >

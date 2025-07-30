@@ -6,9 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShieldAlt, faTruckFast, faTools, faHeadset, faPercent, faCertificate, faClipboardList, faComments, faTruck } from '@fortawesome/free-solid-svg-icons';
 
 const Hero = styled(motion.section)`
-  height: calc(100vh - 100px);
-  min-height: calc(100vh - 100px);
-  max-height: calc(100vh - 100px);
+  height: calc(100vh - 200px);
+  min-height: calc(100vh - 200px);
+  max-height: calc(100vh - 200px);
   display: flex;
   align-items: center;
   justify-content: center;

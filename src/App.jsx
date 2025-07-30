@@ -7,6 +7,7 @@ import { faLocationDot, faPhone, faSearch, faShoppingCart, faShare, faLink, faGl
 import CatalogFilters from './CatalogFilters';
 import CatalogPage from './CatalogPage';
 import HomePage from './HomePage';
+import ProductDetailPage from './ProductDetailPage';
 
 const GlobalBackground = styled.div`
   background: #ffffff;
@@ -992,6 +993,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
         </Routes>
 
         <Footer>
