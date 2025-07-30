@@ -161,6 +161,98 @@ const FullDescriptionText = styled.div`
   }
 `;
 
+// Похожие товары
+const SimilarProductsSection = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+`;
+
+const SimilarProductsTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+`;
+
+const SimilarProductsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+`;
+
+const SimilarProductCard = styled.div`
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const SimilarProductImage = styled.div`
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: #2f5483;
+  font-size: 2rem;
+  font-weight: bold;
+`;
+
+const SimilarProductName = styled.h4`
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+`;
+
+const SimilarProductType = styled.p`
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+`;
+
+const SimilarProductPrice = styled.div`
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 1rem;
+`;
+
+const SimilarProductButton = styled.button`
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #2f5483 0%, #1e3a5f 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2f5483 100%);
+    transform: translateY(-2px);
+  }
+`;
+
 // Цена
 const PriceSection = styled.div`
   display: flex;
@@ -406,6 +498,22 @@ function ProductDetailPage() {
     alert('Свяжитесь с нами по телефону: +7 (999) 123-45-67');
   };
 
+  // Функция для получения похожих товаров
+  const getSimilarProducts = () => {
+    if (!product) return [];
+    
+    // Получаем товары из того же бренда и категории
+    const similarProducts = products.filter(p => 
+      p.id !== product.id && 
+      (p.brand === product.brand || p.category === product.category)
+    );
+    
+    // Возвращаем максимум 4 товара
+    return similarProducts.slice(0, 4);
+  };
+
+  const similarProducts = getSimilarProducts();
+
 
 
   if (loading) {
@@ -630,6 +738,45 @@ function ProductDetailPage() {
             ))}
           </FullDescriptionText>
         </FullDescriptionSection>
+      )}
+
+      {similarProducts.length > 0 && (
+        <SimilarProductsSection>
+          <SimilarProductsTitle>Похожие товары</SimilarProductsTitle>
+          <SimilarProductsGrid>
+            {similarProducts.map((similarProduct) => (
+              <SimilarProductCard 
+                key={similarProduct.id}
+                onClick={() => navigate(`/product/${similarProduct.id}`)}
+              >
+                <SimilarProductImage>
+                  <div style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                    color: '#2f5483',
+                    fontSize: '2rem',
+                    fontWeight: 'bold',
+                    borderRadius: '8px'
+                  }}>
+                    {similarProduct.brand}
+                  </div>
+                </SimilarProductImage>
+                <SimilarProductName>{similarProduct.name}</SimilarProductName>
+                <SimilarProductType>{similarProduct.type}</SimilarProductType>
+                <SimilarProductPrice>
+                  {similarProduct.price.toLocaleString()} ₽
+                </SimilarProductPrice>
+                <SimilarProductButton>
+                  Подробнее
+                </SimilarProductButton>
+              </SimilarProductCard>
+            ))}
+          </SimilarProductsGrid>
+        </SimilarProductsSection>
       )}
     </ProductDetailContainer>
   );
