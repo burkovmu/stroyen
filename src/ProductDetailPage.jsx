@@ -257,7 +257,8 @@ const SimilarProductButton = styled.button`
 
 // Секция "Почему Стройэнергетика?"
 const WhyStroyEnergySection = styled(motion.div)`
-  width: 100%;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
   background: #f8f9fa;
   padding: 3rem 0;
 `;
