@@ -2602,6 +2602,10 @@ function AppContent() {
             className="primary"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              closeMobileMenu();
+              openApplicationModal();
+            }}
           >
             <FontAwesomeIcon icon={faPaperPlane} />
             Отправить заявку
@@ -2610,6 +2614,10 @@ function AppContent() {
             className="secondary"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              closeMobileMenu();
+              openCallbackModal();
+            }}
           >
             <FontAwesomeIcon icon={faPhoneVolume} />
             Заказать звонок
