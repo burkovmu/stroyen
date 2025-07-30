@@ -460,6 +460,7 @@ function ProductDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -470,8 +471,10 @@ function ProductDetailPage() {
     const fetchProduct = async () => {
       try {
         const response = await fetch('/catalog-products.json');
-        const products = await response.json();
-        const foundProduct = products.find(p => p.id === parseInt(id));
+        const allProducts = await response.json();
+        setProducts(allProducts);
+        
+        const foundProduct = allProducts.find(p => p.id === parseInt(id));
         
         if (foundProduct) {
           setProduct(foundProduct);
@@ -500,7 +503,7 @@ function ProductDetailPage() {
 
   // Функция для получения похожих товаров
   const getSimilarProducts = () => {
-    if (!product) return [];
+    if (!product || !products.length) return [];
     
     // Получаем товары из того же бренда и категории
     const similarProducts = products.filter(p => 
@@ -511,8 +514,6 @@ function ProductDetailPage() {
     // Возвращаем максимум 4 товара
     return similarProducts.slice(0, 4);
   };
-
-  const similarProducts = getSimilarProducts();
 
 
 
@@ -740,7 +741,9 @@ function ProductDetailPage() {
         </FullDescriptionSection>
       )}
 
-      {similarProducts.length > 0 && (
+      {(() => {
+        const similarProducts = getSimilarProducts();
+        return similarProducts.length > 0 && (
         <SimilarProductsSection>
           <SimilarProductsTitle>Похожие товары</SimilarProductsTitle>
           <SimilarProductsGrid>
@@ -777,7 +780,8 @@ function ProductDetailPage() {
             ))}
           </SimilarProductsGrid>
         </SimilarProductsSection>
-      )}
+        );
+      })()}
     </ProductDetailContainer>
   );
 }
