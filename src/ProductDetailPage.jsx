@@ -329,6 +329,72 @@ const WhyStroyEnergyCardText = styled.p`
   margin: 0;
 `;
 
+// Плашка "Заказ под заказ"
+const CustomOrderBanner = styled.div`
+  background: linear-gradient(135deg, #2f5483 0%, #1e3a5f 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 3rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+    opacity: 0.3;
+  }
+`;
+
+const CustomOrderContent = styled.div`
+  position: relative;
+  z-index: 2;
+`;
+
+const CustomOrderTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: white;
+`;
+
+const CustomOrderText = styled.p`
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+  line-height: 1.5;
+`;
+
+const CustomOrderButton = styled(motion.button)`
+  background: white;
+  color: #2f5483;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
 // Цена
 const PriceSection = styled.div`
   display: flex;
@@ -590,6 +656,11 @@ function ProductDetailPage() {
   const handleContact = () => {
     // Здесь будет логика связи с менеджером
     alert('Свяжитесь с нами по телефону: +7 (999) 123-45-67');
+  };
+
+  const handleCustomOrder = () => {
+    // Здесь будет логика для заказа под заказ
+    alert('Для заказа под заказ свяжитесь с нами по телефону: +7 (999) 123-45-67');
   };
 
   // Функция для получения похожих товаров
@@ -918,6 +989,22 @@ function ProductDetailPage() {
           </WhyStroyEnergyCard>
         </WhyStroyEnergyGrid>
       </WhyStroyEnergySection>
+
+      <CustomOrderBanner>
+        <CustomOrderContent>
+          <CustomOrderTitle>Не нашли нужный товар в каталоге?</CustomOrderTitle>
+          <CustomOrderText>
+            Организуем под заказ! Мы работаем с ведущими производителями и можем найти любой товар, который вам нужен.
+          </CustomOrderText>
+          <CustomOrderButton
+            onClick={handleCustomOrder}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Заказать
+          </CustomOrderButton>
+        </CustomOrderContent>
+      </CustomOrderBanner>
     </ProductDetailContainer>
   );
 }
