@@ -1719,8 +1719,8 @@ const PriceListInput = styled.input`
 
   &:focus {
     outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    border-color: #2f5483;
+    box-shadow: 0 0 0 3px rgba(47, 84, 131, 0.1);
   }
 
   &::placeholder {
@@ -1742,8 +1742,8 @@ const PriceListTextarea = styled.textarea`
 
   &:focus {
     outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    border-color: #2f5483;
+    box-shadow: 0 0 0 3px rgba(47, 84, 131, 0.1);
   }
 
   &::placeholder {
@@ -1759,7 +1759,7 @@ const PriceListFormActions = styled.div`
 
 const PriceListSubmitButton = styled.button`
   padding: 12px 24px;
-  background: #007bff;
+  background: #2f5483;
   color: white;
   border: none;
   border-radius: 8px;
@@ -1770,7 +1770,7 @@ const PriceListSubmitButton = styled.button`
   flex: 1;
 
   &:hover {
-    background: #0056b3;
+    background: #1a2f4b;
     transform: translateY(-1px);
   }
 
