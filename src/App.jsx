@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faPhone, faSearch, faShoppingCart, faShare, faLink, faGlobe, faHashtag, faEnvelope, faClock, faChevronDown, faBars, faPhoneVolume, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faPhone, faSearch, faShoppingCart, faShare, faLink, faGlobe, faHashtag, faEnvelope, faClock, faChevronDown, faBars, faPhoneVolume, faPaperPlane, faTimes } from '@fortawesome/free-solid-svg-icons';
 import CatalogFilters from './CatalogFilters';
 import CatalogPage from './CatalogPage';
 import HomePage from './HomePage';
@@ -94,6 +94,10 @@ const BottomHeader = styled.div`
   width: 100%;
   background: #ffffff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const TopHeaderContent = styled.div`
@@ -115,9 +119,10 @@ const TopHeaderContent = styled.div`
   }
 
   @media (max-width: 768px) {
-    padding: 1rem;
-    flex-direction: column;
-    gap: 1rem;
+    padding: 0.8rem 1rem;
+    flex-direction: row;
+    gap: 0.5rem;
+    min-height: 60px;
   }
 `;
 
@@ -170,18 +175,32 @@ const Logo = styled(motion.div)`
     height: 40px;
     width: auto;
   }
+  
+  @media (max-width: 768px) {
+    img {
+      height: 35px;
+    }
+  }
 `;
 
 const TopHeaderLeft = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
+  
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
 `;
 
 const TopHeaderRight = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const TopPhoneNumber = styled.a`
@@ -196,6 +215,70 @@ const TopPhoneNumber = styled.a`
   
   &:hover {
     color: #1a2f4b;
+  }
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const BottomPhoneNumber = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #2f5483;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  
+  &:hover {
+    color: #1a2f4b;
+    background: rgba(47, 84, 131, 0.1);
+    border-color: rgba(47, 84, 131, 0.2);
+  }
+  
+  @media (max-width: 1200px) {
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const BottomEmail = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #2f5483;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  
+  &:hover {
+    color: #1a2f4b;
+    background: rgba(47, 84, 131, 0.1);
+    border-color: rgba(47, 84, 131, 0.2);
+  }
+  
+  @media (max-width: 1200px) {
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
@@ -353,8 +436,13 @@ const BottomHeaderLeft = styled.div`
 const BottomHeaderRight = styled.div`
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   flex: 1;
+  justify-content: flex-end;
+  
+  @media (max-width: 1200px) {
+    gap: 0.8rem;
+  }
 `;
 
 const CatalogDropdown = styled.div`
@@ -659,6 +747,380 @@ const CartCount = styled.div`
   }
 `;
 
+// Мобильное меню
+const MobileMenuButton = styled(motion.button)`
+  display: none;
+  background: none;
+  border: none;
+  color: #2f5483;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    padding: 0.8rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  &:hover {
+    background: rgba(47, 84, 131, 0.1);
+  }
+`;
+
+const MobileButtonsContainer = styled.div`
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  
+  @media (max-width: 768px) {
+    display: flex;
+  }
+`;
+
+const MobileCartButton = styled(motion.button)`
+  display: none;
+  background: #2f5483;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.8rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  min-width: 44px;
+  min-height: 44px;
+  box-shadow: 0 2px 8px rgba(47, 84, 131, 0.2);
+  
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+  }
+  
+  &:hover {
+    background: #1a2f4b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(47, 84, 131, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+const MobileCartCount = styled.div`
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff4757;
+  color: white;
+  font-size: 0.7rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(255, 71, 87, 0.3);
+  animation: ${props => props.count > 0 ? 'pulse 0.6s ease-in-out' : 'none'};
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+`;
+
+const MobileMenuOverlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: ${props => props.isOpen ? 'block' : 'none'};
+  }
+`;
+
+const MobileMenu = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 2001;
+  padding: 2rem;
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    max-width: none;
+    padding: 1.5rem;
+  }
+`;
+
+const MobileMenuHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+  
+  @media (max-width: 480px) {
+    margin-bottom: 1.5rem;
+  }
+`;
+
+const MobileMenuCloseButton = styled(motion.button)`
+  background: none;
+  border: none;
+  color: #666666;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333333;
+  }
+`;
+
+const MobileMenuSection = styled.div`
+  margin-bottom: 2rem;
+`;
+
+const MobileMenuTitle = styled.h3`
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2f5483;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+`;
+
+const MobileMenuItem = styled(motion.a)`
+  display: block;
+  padding: 0.8rem 0;
+  color: #333333;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 400;
+  border-bottom: 1px solid #f5f5f5;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: #2f5483;
+    padding-left: 0.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+  }
+`;
+
+const MobileMenuDropdown = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const MobileMenuDropdownButton = styled(motion.button)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.8rem 0;
+  background: none;
+  border: none;
+  color: #333333;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  border-bottom: 1px solid #f5f5f5;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: #2f5483;
+  }
+`;
+
+const MobileMenuDropdownContent = styled(motion.div)`
+  padding-left: 1rem;
+  overflow: hidden;
+  max-height: ${props => props.isOpen ? '500px' : '0'};
+  transition: max-height 0.3s ease;
+`;
+
+const MobileMenuDropdownItem = styled.a`
+  display: block;
+  padding: 0.6rem 0;
+  color: #666666;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: #2f5483;
+    padding-left: 0.5rem;
+  }
+`;
+
+const MobileSearchContainer = styled.div`
+  margin-bottom: 2rem;
+`;
+
+const MobileSearchInput = styled.input`
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333333;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #2f5483;
+    box-shadow: 0 0 0 3px rgba(47, 84, 131, 0.1);
+  }
+  
+  &::placeholder {
+    color: #999999;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.95rem;
+  }
+`;
+
+const MobileContactInfo = styled.div`
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+`;
+
+const MobileContactItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  color: #666666;
+  font-size: 0.9rem;
+`;
+
+const MobileActionButtons = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+`;
+
+const MobileActionButton = styled(motion.button)`
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  
+  &.primary {
+    background: #2f5483;
+    color: white;
+    
+    &:hover {
+      background: #1a2f4b;
+    }
+  }
+  
+  &.secondary {
+    background: transparent;
+    color: #2f5483;
+    border: 1px solid #2f5483;
+    
+    &:hover {
+      background: #2f5483;
+      color: white;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+  }
+`;
+
+const MobileCartButtonInMenu = styled(motion.button)`
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: #2f5483;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(47, 84, 131, 0.2);
+  
+  &:hover {
+    background: #1a2f4b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(47, 84, 131, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+  }
+`;
+
 const CartButtonWithContext = ({ onOpenCart }) => {
   const { getTotalItems } = useCart();
   const totalItems = getTotalItems();
@@ -674,6 +1136,39 @@ const CartButtonWithContext = ({ onOpenCart }) => {
       <CartText>Корзина</CartText>
       {totalItems > 0 && <CartCount count={totalItems}>{totalItems}</CartCount>}
     </CartButton>
+  );
+};
+
+const MobileCartButtonWithContext = ({ onOpenCart }) => {
+  const { getTotalItems } = useCart();
+  const totalItems = getTotalItems();
+  
+  return (
+    <MobileCartButton 
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={onOpenCart}
+    >
+      <FontAwesomeIcon icon={faShoppingCart} />
+      {totalItems > 0 && <MobileCartCount count={totalItems}>{totalItems}</MobileCartCount>}
+    </MobileCartButton>
+  );
+};
+
+const MobileCartButtonInMenuWithContext = ({ onOpenCart }) => {
+  const { getTotalItems } = useCart();
+  const totalItems = getTotalItems();
+  
+  return (
+    <MobileCartButtonInMenu 
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      onClick={onOpenCart}
+    >
+      <FontAwesomeIcon icon={faShoppingCart} />
+      Корзина
+      {totalItems > 0 && <MobileCartCount count={totalItems}>{totalItems}</MobileCartCount>}
+    </MobileCartButtonInMenu>
   );
 };
 
@@ -930,6 +1425,14 @@ function App() {
   const [headerSearchSuggestions, setHeaderSearchSuggestions] = useState(false);
   const [products, setProducts] = useState([]);
   const [cartModalOpen, setCartModalOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileCatalogOpen, setMobileCatalogOpen] = useState(false);
+  
+  // Функция для закрытия мобильного меню
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    setMobileCatalogOpen(false);
+  };
   
   // Функция для прокрутки вверх при переходе на главную
   const scrollToTop = () => {
@@ -1013,10 +1516,6 @@ function App() {
             <TopHeaderContent>
               <TopHeaderLeft>
                 <LogoWithNavigation />
-                <TopPhoneNumber href="tel:+79991234567">
-                  <FontAwesomeIcon icon={faPhone} />
-                  +7 (999) 123-45-67
-                </TopPhoneNumber>
               </TopHeaderLeft>
               <TopHeaderRight>
                 <TopNavDropdown>
@@ -1054,6 +1553,16 @@ function App() {
                   Отправить заявку
                 </CallbackButton>
               </TopHeaderRight>
+              <MobileButtonsContainer>
+                <MobileCartButtonWithContext onOpenCart={() => setCartModalOpen(true)} />
+                <MobileMenuButton
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setMobileMenuOpen(true)}
+                >
+                  <FontAwesomeIcon icon={faBars} />
+                </MobileMenuButton>
+              </MobileButtonsContainer>
             </TopHeaderContent>
           </TopHeader>
           
@@ -1114,6 +1623,16 @@ function App() {
                     ))}
                   </HeaderSearchSuggestions>
                 </HeaderSearchContainer>
+                
+                <BottomEmail href="mailto:info@stroienergetika.ru">
+                  <FontAwesomeIcon icon={faEnvelope} />
+                  info@stroienergetika.ru
+                </BottomEmail>
+                
+                <BottomPhoneNumber href="tel:+79991234567">
+                  <FontAwesomeIcon icon={faPhone} />
+                  +7 (999) 123-45-67
+                </BottomPhoneNumber>
                 
                 <CartButtonWithContext onOpenCart={() => setCartModalOpen(true)} />
               </BottomHeaderRight>
@@ -1197,6 +1716,125 @@ function App() {
         isOpen={cartModalOpen} 
         onClose={() => setCartModalOpen(false)} 
       />
+      
+      {/* Мобильное меню */}
+              <MobileMenuOverlay
+          isOpen={mobileMenuOpen}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: mobileMenuOpen ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+          onClick={closeMobileMenu}
+        />
+      <MobileMenu
+        initial={{ x: '100%' }}
+        animate={{ x: mobileMenuOpen ? 0 : '100%' }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        <MobileMenuHeader>
+          <LogoWithNavigation />
+          <MobileMenuCloseButton
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={closeMobileMenu}
+          >
+            <FontAwesomeIcon icon={faTimes} />
+          </MobileMenuCloseButton>
+        </MobileMenuHeader>
+        
+        <MobileSearchContainer>
+          <MobileSearchInput
+            type="text"
+            placeholder="Поиск товаров..."
+            value={headerSearchQuery}
+            onChange={(e) => setHeaderSearchQuery(e.target.value)}
+          />
+        </MobileSearchContainer>
+        
+        <MobileMenuSection>
+          <MobileMenuTitle>Корзина</MobileMenuTitle>
+          <MobileCartButtonInMenuWithContext onOpenCart={() => {
+            setCartModalOpen(true);
+            closeMobileMenu();
+          }} />
+        </MobileMenuSection>
+        
+        <MobileMenuSection>
+          <MobileMenuTitle>Каталог</MobileMenuTitle>
+          <MobileMenuDropdown>
+            <MobileMenuDropdownButton
+              onClick={() => setMobileCatalogOpen(!mobileCatalogOpen)}
+              whileHover={{ scale: 1.02 }}
+            >
+              Каталог товаров
+              <FontAwesomeIcon 
+                icon={faChevronDown} 
+                style={{ 
+                  fontSize: '0.8rem',
+                  transform: mobileCatalogOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.3s ease'
+                }} 
+              />
+            </MobileMenuDropdownButton>
+            <MobileMenuDropdownContent isOpen={mobileCatalogOpen}>
+              <MobileMenuDropdownItem href="/catalog" onClick={closeMobileMenu}>Все товары</MobileMenuDropdownItem>
+              <MobileMenuDropdownItem href="/catalog?category=Однофазные счетчики" onClick={closeMobileMenu}>Однофазные счетчики</MobileMenuDropdownItem>
+              <MobileMenuDropdownItem href="/catalog?category=Трехфазные счетчики" onClick={closeMobileMenu}>Трехфазные счетчики</MobileMenuDropdownItem>
+              <MobileMenuDropdownItem href="/catalog?category=Устройства сбора и передачи данных" onClick={closeMobileMenu}>Устройства сбора и передачи данных</MobileMenuDropdownItem>
+            </MobileMenuDropdownContent>
+          </MobileMenuDropdown>
+        </MobileMenuSection>
+        
+        <MobileMenuSection>
+          <MobileMenuTitle>Клиентам</MobileMenuTitle>
+          <MobileMenuItem href="/services/consultation" onClick={closeMobileMenu}>Консультация</MobileMenuItem>
+          <MobileMenuItem href="/services/delivery" onClick={closeMobileMenu}>Доставка</MobileMenuItem>
+          <MobileMenuItem href="/services/meter-verification" onClick={closeMobileMenu}>Поверка счетчиков</MobileMenuItem>
+          <MobileMenuItem href="/services/transformer-verification" onClick={closeMobileMenu}>Поверка трансформаторов</MobileMenuItem>
+          <MobileMenuItem href="/services/installation" onClick={closeMobileMenu}>Монтаж оборудования</MobileMenuItem>
+          <MobileMenuItem href="/services/commissioning" onClick={closeMobileMenu}>Наладка</MobileMenuItem>
+        </MobileMenuSection>
+        
+        <MobileMenuSection>
+          <MobileMenuTitle>Информация</MobileMenuTitle>
+          <MobileMenuItem href="#" onClick={closeMobileMenu}>Прайс-лист</MobileMenuItem>
+          <MobileMenuItem href="#" onClick={closeMobileMenu}>Информация</MobileMenuItem>
+          <MobileMenuItem href="#" onClick={closeMobileMenu}>Контакты</MobileMenuItem>
+        </MobileMenuSection>
+        
+        <MobileContactInfo>
+          <MobileContactItem>
+            <FontAwesomeIcon icon={faPhone} />
+            +7 (999) 123-45-67
+          </MobileContactItem>
+          <MobileContactItem>
+            <FontAwesomeIcon icon={faEnvelope} />
+            info@stroienergetika.ru
+          </MobileContactItem>
+          <MobileContactItem>
+            <FontAwesomeIcon icon={faClock} />
+            Пн-Пт: 9:00 - 18:00
+          </MobileContactItem>
+        </MobileContactInfo>
+        
+        <MobileActionButtons>
+          <MobileActionButton
+            className="primary"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <FontAwesomeIcon icon={faPaperPlane} />
+            Отправить заявку
+          </MobileActionButton>
+          <MobileActionButton
+            className="secondary"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <FontAwesomeIcon icon={faPhoneVolume} />
+            Заказать звонок
+          </MobileActionButton>
+        </MobileActionButtons>
+      </MobileMenu>
     </Router>
     </CartProvider>
     </NotificationProvider>
