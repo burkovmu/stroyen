@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShieldAlt, faTruckFast, faTools, faHeadset, faPercent, faCertificate, faClipboardList, faComments, faTruck } from '@fortawesome/free-solid-svg-icons';
+import { faShieldAlt, faTruckFast, faTools, faHeadset, faPercent, faCertificate, faClipboardList, faComments, faTruck, faStar, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -241,195 +241,7 @@ const SectionTitle = styled(motion.h2)`
   }
 `;
 
-const ProductsSection = styled(Section)`
-  background: #f8f9fa;
-  padding: 0;
-  width: 100%;
-  
-  ${SectionTitle} {
-    margin-top: 6rem;
-  }
-`;
 
-const ProductsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  width: 100%;
-  margin: 0;
-  padding: 0;
-`;
-
-const ProductCard = styled(motion.div)`
-  background: #ffffff;
-  position: relative;
-  border: 1px solid rgba(47, 84, 131, 0.1);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  height: 100%;
-  width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(to bottom, #2f5483, rgba(47, 84, 131, 0.5));
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(47, 84, 131, 0.03), rgba(47, 84, 131, 0.08));
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(47, 84, 131, 0.12);
-    border: 2px solid rgba(47, 84, 131, 0.2);
-    
-    &:before {
-      opacity: 1;
-    }
-    
-    &:after {
-      opacity: 1;
-    }
-  }
-`;
-
-const ProductInfo = styled.div`
-  padding: 2.5rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: #ffffff;
-  position: relative;
-  z-index: 1;
-`;
-
-const ProductTitle = styled.h3`
-  font-size: 1.1rem;
-  color: #000000;
-  margin-bottom: 1.2rem;
-  font-weight: 600;
-  line-height: 1.4;
-  position: relative;
-  padding-bottom: 1rem;
-
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 2px;
-    background: rgba(0, 0, 0, 0.2);
-    transition: width 0.4s ease;
-  }
-`;
-
-const ProductDescription = styled.p`
-  color: #000000;
-  opacity: 0.8;
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  transition: opacity 0.4s ease;
-`;
-
-const ProductPrice = styled.div`
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #2f5483;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-`;
-
-const BuyButton = styled(motion.button)`
-  width: 100%;
-  background: #2f5483;
-  border: none;
-  padding: 1.2rem;
-  color: #ffffff;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.8rem;
-  box-shadow: 0 4px 15px rgba(47, 84, 131, 0.2);
-  
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  span {
-    position: relative;
-    z-index: 2;
-    transition: transform 0.3s ease;
-  }
-  
-  svg {
-    width: 20px;
-    height: 20px;
-    position: relative;
-    z-index: 2;
-    transition: transform 0.3s ease;
-    stroke: #ffffff;
-  }
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(47, 84, 131, 0.3);
-    background: #3a6294;
-    
-    &:before {
-      opacity: 1;
-    }
-    
-    span {
-      transform: translateX(-2px);
-    }
-    
-    svg {
-      transform: translateX(4px);
-    }
-  }
-  
-  &:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(47, 84, 131, 0.2);
-  }
-`;
 
 const AdvantagesSection = styled(Section)`
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -460,35 +272,30 @@ const AdvantagesSection = styled(Section)`
 
 const AdvantagesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  gap: 0;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
 
-  @media (max-width: 1400px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (max-width: 1024px) {
+  @media (max-width: 1200px) {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
   }
 `;
 
 const AdvantageCard = styled(motion.div)`
   background: #ffffff;
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
   text-align: center;
-  padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(47, 84, 131, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -499,11 +306,11 @@ const AdvantageCard = styled(motion.div)`
     position: absolute;
     top: 0;
     left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(to bottom, #2f5483, rgba(47, 84, 131, 0.5));
-    opacity: 0;
-    transition: opacity 0.4s ease;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #2f5483, #4a90e2);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
   }
   
   &:after {
@@ -513,46 +320,51 @@ const AdvantageCard = styled(motion.div)`
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(47, 84, 131, 0.03), rgba(47, 84, 131, 0.08));
+    background: linear-gradient(135deg, rgba(47, 84, 131, 0.02), rgba(47, 84, 131, 0.05));
     opacity: 0;
     transition: opacity 0.4s ease;
   }
   
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(47, 84, 131, 0.12);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(47, 84, 131, 0.12);
+    border-color: rgba(47, 84, 131, 0.2);
     
     &:before {
-      opacity: 1;
+      transform: scaleX(1);
     }
     
     &:after {
       opacity: 1;
     }
   }
+
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
+  }
 `;
 
 const AdvantageIcon = styled.div`
-  width: 60px;
-  height: 60px;
-  background: rgba(47, 84, 131, 0.05);
-  border-radius: 15px;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(47, 84, 131, 0.08), rgba(47, 84, 131, 0.12));
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: #2f5483;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  margin-bottom: 1rem;
+  margin: 0 auto 1.5rem;
   
   &:before {
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #2f5483;
-    border-radius: 15px;
+    background: linear-gradient(135deg, #2f5483, #4a90e2);
+    border-radius: 20px;
     transform: scale(0);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 0;
@@ -575,16 +387,23 @@ const AdvantageIcon = styled.div`
       color: #ffffff;
     }
   }
+
+  @media (max-width: 768px) {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
 `;
 
 const AdvantageTitle = styled.h3`
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: #000000;
   font-weight: 600;
-  margin: 0 0 0.8rem 0;
+  margin: 0 0 1rem 0;
   line-height: 1.4;
   position: relative;
-  padding-bottom: 0.8rem;
+  padding-bottom: 1rem;
   
   &:after {
     content: '';
@@ -592,54 +411,79 @@ const AdvantageTitle = styled.h3`
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 30px;
+    width: 40px;
     height: 2px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(47, 84, 131, 0.3);
     transition: width 0.4s ease;
   }
   
   ${AdvantageCard}:hover & {
     &:after {
-      width: 40px;
+      width: 60px;
+      background: rgba(47, 84, 131, 0.6);
     }
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
   }
 `;
 
 const AdvantageDescription = styled.p`
-  color: #000000;
-  opacity: 0.8;
-  font-size: 0.85rem;
-  line-height: 1.5;
+  color: #666;
+  opacity: 0.9;
+  font-size: 0.95rem;
+  line-height: 1.6;
   margin: 0;
-  font-weight: 300;
+  font-weight: 400;
   transition: opacity 0.4s ease;
-  max-width: 90%;
+  max-width: 100%;
   
   ${AdvantageCard}:hover & {
-    opacity: 0.9;
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 `;
 
 const FeaturesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  width: 100%;
-  margin: 0;
-  padding: 0;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 `;
 
 const FeatureCard = styled(motion.div)`
-  position: relative;
-  aspect-ratio: 1;
   background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
   text-align: center;
-  transition: all 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(47, 84, 131, 0.08);
-  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  position: relative;
   overflow: hidden;
   
   &:before {
@@ -648,11 +492,10 @@ const FeatureCard = styled(motion.div)`
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: #2f5483;
-    transform: translateY(100%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
+    height: 4px;
+    background: linear-gradient(90deg, #2f5483, #4a90e2);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
   }
   
   &:after {
@@ -662,82 +505,110 @@ const FeatureCard = styled(motion.div)`
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    background: linear-gradient(135deg, rgba(47, 84, 131, 0.02), rgba(47, 84, 131, 0.05));
     opacity: 0;
     transition: opacity 0.4s ease;
-    z-index: 2;
   }
   
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(47, 84, 131, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(47, 84, 131, 0.12);
+    border-color: rgba(47, 84, 131, 0.2);
     
     &:before {
-      transform: translateY(0);
+      transform: scaleX(1);
     }
     
     &:after {
       opacity: 1;
     }
   }
+
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
+  }
 `;
 
-const FeatureIcon = styled.div`
-  width: 72px;
-  height: 72px;
+const StepNumber = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #2f5483, #4a90e2);
+  color: white;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(47, 84, 131, 0.3);
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+`;
+
+const FeatureIcon = styled.div`
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(47, 84, 131, 0.08), rgba(47, 84, 131, 0.12));
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2rem;
   color: #2f5483;
-  transition: all 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  z-index: 3;
   
   &:before {
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    z-index: -1;
-    transform: scale(0.8);
-    transition: transform 0.4s ease;
+    background: linear-gradient(135deg, #2f5483, #4a90e2);
+    border-radius: 20px;
+    transform: scale(0);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
   }
   
-  &:after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 2px solid rgba(47, 84, 131, 0.1);
-    border-radius: 50%;
-    z-index: -1;
-    transform: scale(1.2);
-    transition: transform 0.4s ease;
+  svg {
+    position: relative;
+    z-index: 1;
+    transition: all 0.4s ease;
   }
   
   ${FeatureCard}:hover & {
     transform: scale(1.1);
-    color: #2f5483;
     
     &:before {
-      transform: scale(1.1);
+      transform: scale(1);
     }
     
-    &:after {
-      transform: scale(1.4);
-      border-color: rgba(47, 84, 131, 0.2);
+    svg {
+      color: #ffffff;
     }
+  }
+
+  @media (max-width: 768px) {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
   }
 `;
 
 const FeatureTitle = styled.h3`
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: #000000;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 1rem;
   line-height: 1.4;
   letter-spacing: 0.01em;
@@ -753,34 +624,216 @@ const FeatureTitle = styled.h3`
     transform: translateX(-50%);
     width: 40px;
     height: 2px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(47, 84, 131, 0.3);
     transition: all 0.4s ease;
   }
   
   ${FeatureCard}:hover & {
-    color: #ffffff;
+    color: #2f5483;
     
     &:after {
       width: 60px;
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(47, 84, 131, 0.6);
     }
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
   }
 `;
 
 const FeatureText = styled.p`
-  color: #000000;
+  color: #666;
   line-height: 1.6;
-  font-size: 0.9rem;
-  font-weight: 300;
+  font-size: 0.95rem;
+  font-weight: 400;
   margin: 0;
-  opacity: 0.7;
-  max-width: 90%;
+  opacity: 0.9;
   transition: all 0.4s ease;
   z-index: 3;
   
   ${FeatureCard}:hover & {
-    color: #ffffff;
-    opacity: 0.9;
+    color: #333;
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+`;
+
+const PopularProductsSection = styled(Section)`
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 8rem 0;
+  position: relative;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(47, 84, 131, 0.1), transparent);
+  }
+`;
+
+const ProductsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+`;
+
+const ProductCard = styled(motion.div)`
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(47, 84, 131, 0.08);
+  position: relative;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(47, 84, 131, 0.15);
+    border-color: rgba(47, 84, 131, 0.2);
+  }
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #2f5483, #4a90e2);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+  
+  &:hover:before {
+    transform: scaleX(1);
+  }
+`;
+
+const ProductImage = styled.div`
+  height: 200px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+  }
+  
+  ${ProductCard}:hover & img {
+    transform: scale(1.05);
+  }
+`;
+
+const ProductBadge = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+`;
+
+const ProductContent = styled.div`
+  padding: 1.5rem;
+`;
+
+const ProductBrand = styled.div`
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+`;
+
+const ProductName = styled.h3`
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #000000;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+`;
+
+const ProductType = styled.p`
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+`;
+
+const ProductPrice = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+`;
+
+const CurrentPrice = styled.span`
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2f5483;
+`;
+
+const OriginalPrice = styled.span`
+  font-size: 1rem;
+  color: #999;
+  text-decoration: line-through;
+`;
+
+const ProductButton = styled(motion.button)`
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #2f5483;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(8px);
+  
+  &:hover {
+    background: rgba(47, 84, 131, 0.1);
+    border-color: rgba(47, 84, 131, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(47, 84, 131, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
 `;
 
@@ -789,112 +842,101 @@ function HomePage() {
     triggerOnce: true,
     threshold: 0.1,
   });
-  const { addToCart, getTotalItems, getTotalPrice } = useCart();
+  const { getTotalItems, getTotalPrice, addToCart } = useCart();
   const navigate = useNavigate();
-  const [randomProducts, setRandomProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+
+  // Популярные товары
+  const popularProducts = [
+    {
+      id: 5,
+      name: "АГАТ S200",
+      type: "Однофазный многофункциональный счетчик с ЖКИ",
+      brand: "АГАТ",
+      price: 7200,
+      originalPrice: 8500,
+      discount: 15,
+      image: "agat-s200.svg"
+    },
+    {
+      id: 3,
+      name: "АГАТ 2-32(5)",
+      type: "Однофазный счетчик с ЖКИ на DIN-рейку",
+      brand: "АГАТ",
+      price: 5200,
+      originalPrice: 6500,
+      discount: 20,
+      image: "agat-2-32.svg"
+    },
+    {
+      id: 10,
+      name: "АГАТ 3-3.100.2",
+      type: "Трехфазный счетчик с ЖКИ на DIN-рейку",
+      brand: "АГАТ",
+      price: 8500,
+      originalPrice: 10500,
+      discount: 19,
+      image: "agat-3-100-2.svg"
+    },
+    {
+      id: 12,
+      name: "RTU-325",
+      type: "Устройство сбора и передачи данных",
+      brand: "АГАТ",
+      price: 20000,
+      originalPrice: 25000,
+      discount: 20,
+      image: "rtu-325.svg"
+    },
+    {
+      id: 1,
+      name: "АГАТ 1-3",
+      type: "Однофазный счетчик с ЭМУ на DIN-рейку",
+      brand: "АГАТ",
+      price: 3800,
+      originalPrice: 4500,
+      discount: 15,
+      image: "agat-1-3.svg"
+    },
+    {
+      id: 2,
+      name: "АГАТ 1-4",
+      type: "Однофазный счетчик с ЭМУ на DIN-рейку и панель",
+      brand: "АГАТ",
+      price: 4200,
+      originalPrice: 4200,
+      discount: 0,
+      image: "agat-1-4.svg"
+    },
+    {
+      id: 4,
+      name: "АГАТ 2-42(5)",
+      type: "Однофазный счетчик с ЖКИ на DIN-рейку или панель",
+      brand: "АГАТ",
+      price: 5800,
+      originalPrice: 5800,
+      discount: 0,
+      image: "agat-2-42.svg"
+    },
+    {
+      id: 6,
+      name: "НЕМО-1",
+      type: "Однофазный многофункциональный счетчик с ЖКИ",
+      brand: "НЕМО",
+      price: 7500,
+      originalPrice: 9000,
+      discount: 17,
+      image: "nemo-1.svg"
+    }
+  ];
 
   // Автоматическая прокрутка вверх при загрузке главной страницы
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  // Функция для получения рандомных товаров из каталога
-  const fetchRandomProducts = async () => {
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      const response = await fetch('/catalog-products.json');
-      if (!response.ok) {
-        throw new Error('Не удалось загрузить данные');
-      }
-      const allProducts = await response.json();
-      
-      // Перемешиваем массив и берем первые 8 товаров
-      const shuffled = allProducts.sort(() => 0.5 - Math.random());
-      const selectedProducts = shuffled.slice(0, 8);
-      
-      setRandomProducts(selectedProducts);
-    } catch (error) {
-      console.error('Ошибка при загрузке товаров:', error);
-      setError('Не удалось загрузить товары. Попробуйте обновить страницу.');
-      // Fallback данные если не удалось загрузить
-      setRandomProducts([
-        {
-          id: 'agat-1-3',
-          name: 'АГАТ 1-3',
-          brand: 'АГАТ',
-          price: 3800,
-          description: 'Однофазный счетчик с электромеханическим отсчетным устройством',
-          image: 'agat-1-3.svg'
-        },
-        {
-          id: 'energomera-ce102m',
-          name: 'Энергомера CE102M',
-          brand: 'Энергомера',
-          price: 3200,
-          description: 'Однофазный многотарифный счетчик с возможностью дистанционного снятия показаний',
-          image: 'energomera-ce102m.svg'
-        },
-        {
-          id: 'mercury-201',
-          name: 'Меркурий 201.8',
-          brand: 'Меркурий',
-          price: 2450,
-          description: 'Однофазный многотарифный счетчик с жидкокристаллическим дисплеем',
-          image: 'mercury-201.svg'
-        },
-        {
-          id: 'neva-103',
-          name: 'Нева 103',
-          brand: 'Нева',
-          price: 1850,
-          description: 'Однофазный однотарифный счетчик с механическим отсчетным устройством',
-          image: 'neva-103.svg'
-        },
-        {
-          id: 'agat-2-32',
-          name: 'АГАТ 2-32',
-          brand: 'АГАТ',
-          price: 4500,
-          description: 'Однофазный счетчик с жидкокристаллическим дисплеем',
-          image: 'agat-2-32.svg'
-        },
-        {
-          id: 'energomera-ce208',
-          name: 'Энергомера CE208',
-          brand: 'Энергомера',
-          price: 3800,
-          description: 'Однофазный многотарифный счетчик с возможностью программирования',
-          image: 'energomera-ce208.svg'
-        },
-        {
-          id: 'mercury-230',
-          name: 'Меркурий 230',
-          brand: 'Меркурий',
-          price: 4200,
-          description: 'Трехфазный многотарифный счетчик с возможностью программирования',
-          image: 'mercury-230.svg'
-        },
-        {
-          id: 'neva-303',
-          name: 'Нева 303',
-          brand: 'Нева',
-          price: 2800,
-          description: 'Однофазный многотарифный счетчик с жидкокристаллическим дисплеем',
-          image: 'neva-303.svg'
-          }
-        ]);
-    } finally {
-      setIsLoading(false);
-    }
+  const handleAddToCart = (product) => {
+    addToCart(product);
   };
-
-  useEffect(() => {
-    fetchRandomProducts();
-  }, []);
 
   return (
     <>
@@ -934,166 +976,51 @@ function HomePage() {
         </ScrollIndicator>
       </Hero>
 
-      <ProductsSection>
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center', 
-          marginBottom: '6rem',
-          flexWrap: 'wrap',
-          gap: '1rem'
-        }}>
-          <SectionTitle
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            style={{ marginBottom: 0 }}
-          >
-            Популярные модели
-          </SectionTitle>
-          {!isLoading && !error && (
-            <CTAButton
-              onClick={fetchRandomProducts}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              style={{ 
-                fontSize: '0.9rem', 
-                padding: '0.6rem 1.2rem',
-                background: 'rgba(47, 84, 131, 0.1)',
-                border: '1px solid rgba(47, 84, 131, 0.2)',
-                color: '#2f5483'
-              }}
-            >
-              Обновить товары
-            </CTAButton>
-          )}
-        </div>
+      <PopularProductsSection>
+        <SectionTitle
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Популярные товары
+        </SectionTitle>
         <ProductsGrid>
-          {isLoading ? (
-            // Индикатор загрузки
-            Array.from({ length: 8 }, (_, index) => (
-              <ProductCard
-                key={`loading-${index}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <ProductInfo>
-                  <div>
-                    <div style={{
-                      width: '100%',
-                      height: '120px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                      color: '#2f5483',
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold',
-                      marginBottom: '1rem',
-                      borderRadius: '8px',
-                      animation: 'pulse 1.5s ease-in-out infinite'
-                    }}>
-                      Загрузка...
-                    </div>
-                    <ProductTitle style={{ 
-                      background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
-                      backgroundSize: '200% 100%',
-                      animation: 'shimmer 1.5s infinite',
-                      borderRadius: '4px',
-                      height: '20px',
-                      marginBottom: '1rem'
-                    }}></ProductTitle>
-                    <ProductDescription style={{ 
-                      background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
-                      backgroundSize: '200% 100%',
-                      animation: 'shimmer 1.5s infinite',
-                      borderRadius: '4px',
-                      height: '40px'
-                    }}></ProductDescription>
-                  </div>
-                  <div>
-                    <ProductPrice style={{ 
-                      background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
-                      backgroundSize: '200% 100%',
-                      animation: 'shimmer 1.5s infinite',
-                      borderRadius: '4px',
-                      height: '24px',
-                      marginBottom: '1.5rem'
-                    }}></ProductPrice>
-                    <BuyButton style={{ 
-                      background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
-                      backgroundSize: '200% 100%',
-                      animation: 'shimmer 1.5s infinite',
-                      borderRadius: '8px',
-                      height: '48px'
-                    }}></BuyButton>
-                  </div>
-                </ProductInfo>
-              </ProductCard>
-            ))
-          ) : error ? (
-            // Отображение ошибки
-            <div style={{
-              gridColumn: '1 / -1',
-              textAlign: 'center',
-              padding: '4rem 2rem',
-              background: '#f8f9fa',
-              borderRadius: '8px',
-              border: '1px solid #e9ecef'
-            }}>
-              <div style={{ fontSize: '1.2rem', color: '#6c757d', marginBottom: '1rem' }}>
-                {error}
-              </div>
-              <CTAButton
-                onClick={fetchRandomProducts}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                style={{ fontSize: '1rem', padding: '0.8rem 1.5rem' }}
-              >
-                Попробовать снова
-              </CTAButton>
-            </div>
-          ) : (
-            randomProducts.map((product, index) => (
-              <ProductCard
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <ProductInfo>
-                  <div>
-                    <div style={{
-                      width: '100%',
-                      height: '120px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                      color: '#2f5483',
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold',
-                      marginBottom: '1rem',
-                      borderRadius: '8px'
-                    }}>
-                      {product.brand}
-                    </div>
-                    <ProductTitle>{product.name}</ProductTitle>
-                    <ProductDescription>{product.description}</ProductDescription>
-                  </div>
-                  <div>
-                    <ProductPrice>{product.price.toLocaleString()} ₽</ProductPrice>
-                    <BuyButton onClick={() => addToCart(product)}>
-                      Купить
-                    </BuyButton>
-                  </div>
-                </ProductInfo>
-              </ProductCard>
-            ))
-          )}
+          {popularProducts.map((product, index) => (
+            <ProductCard
+              key={product.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
+              <ProductImage>
+                <img src={`/images/products/${product.image}`} alt={product.name} />
+                {product.discount > 0 && (
+                  <ProductBadge>-{product.discount}%</ProductBadge>
+                )}
+              </ProductImage>
+              <ProductContent>
+                <ProductBrand>{product.brand}</ProductBrand>
+                <ProductName>{product.name}</ProductName>
+                <ProductType>{product.type}</ProductType>
+                <ProductPrice>
+                  <CurrentPrice>{product.price.toLocaleString()} ₽</CurrentPrice>
+                  {product.originalPrice > product.price && (
+                    <OriginalPrice>{product.originalPrice.toLocaleString()} ₽</OriginalPrice>
+                  )}
+                </ProductPrice>
+                <ProductButton
+                  onClick={() => handleAddToCart(product)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <FontAwesomeIcon icon={faShoppingCart} />
+                  Добавить в корзину
+                </ProductButton>
+              </ProductContent>
+            </ProductCard>
+          ))}
         </ProductsGrid>
-      </ProductsSection>
+      </PopularProductsSection>
 
       <AdvantagesSection>
         <SectionTitle
@@ -1194,19 +1121,7 @@ function HomePage() {
         <SectionTitle>Как мы работаем</SectionTitle>
         <FeaturesGrid>
           <FeatureCard>
-            <div style={{ 
-              position: 'absolute', 
-              top: '-10px', 
-              left: '-5px', 
-              fontSize: '140px', 
-              fontWeight: 'bold', 
-              color: 'rgba(47, 84, 131, 0.08)', 
-              zIndex: 0,
-              lineHeight: 1,
-              pointerEvents: 'none'
-            }}>
-              1
-            </div>
+            <StepNumber>1</StepNumber>
             <FeatureIcon>
               <FontAwesomeIcon icon={faClipboardList} />
             </FeatureIcon>
@@ -1217,19 +1132,7 @@ function HomePage() {
           </FeatureCard>
 
           <FeatureCard>
-            <div style={{ 
-              position: 'absolute', 
-              top: '-10px', 
-              left: '-5px', 
-              fontSize: '140px', 
-              fontWeight: 'bold', 
-              color: 'rgba(47, 84, 131, 0.08)', 
-              zIndex: 0,
-              lineHeight: 1,
-              pointerEvents: 'none'
-            }}>
-              2
-            </div>
+            <StepNumber>2</StepNumber>
             <FeatureIcon>
               <FontAwesomeIcon icon={faComments} />
             </FeatureIcon>
@@ -1240,19 +1143,7 @@ function HomePage() {
           </FeatureCard>
 
           <FeatureCard>
-            <div style={{ 
-              position: 'absolute', 
-              top: '-10px', 
-              left: '-5px', 
-              fontSize: '140px', 
-              fontWeight: 'bold', 
-              color: 'rgba(47, 84, 131, 0.08)', 
-              zIndex: 0,
-              lineHeight: 1,
-              pointerEvents: 'none'
-            }}>
-              3
-            </div>
+            <StepNumber>3</StepNumber>
             <FeatureIcon>
               <FontAwesomeIcon icon={faTruck} />
             </FeatureIcon>
@@ -1263,19 +1154,7 @@ function HomePage() {
           </FeatureCard>
 
           <FeatureCard>
-            <div style={{ 
-              position: 'absolute', 
-              top: '-10px', 
-              left: '-5px', 
-              fontSize: '140px', 
-              fontWeight: 'bold', 
-              color: 'rgba(47, 84, 131, 0.08)', 
-              zIndex: 0,
-              lineHeight: 1,
-              pointerEvents: 'none'
-            }}>
-              4
-            </div>
+            <StepNumber>4</StepNumber>
             <FeatureIcon>
               <FontAwesomeIcon icon={faTools} />
             </FeatureIcon>
@@ -1286,19 +1165,7 @@ function HomePage() {
           </FeatureCard>
 
           <FeatureCard>
-            <div style={{ 
-              position: 'absolute', 
-              top: '-10px', 
-              left: '-5px', 
-              fontSize: '140px', 
-              fontWeight: 'bold', 
-              color: 'rgba(47, 84, 131, 0.08)', 
-              zIndex: 0,
-              lineHeight: 1,
-              pointerEvents: 'none'
-            }}>
-              5
-            </div>
+            <StepNumber>5</StepNumber>
             <FeatureIcon>
               <FontAwesomeIcon icon={faHeadset} />
             </FeatureIcon>
@@ -1310,18 +1177,7 @@ function HomePage() {
         </FeaturesGrid>
       </Section>
 
-      <Section>
-        <SectionTitle>Как нас найти</SectionTitle>
-        <div style={{ width: '100%', height: '400px', background: '#f0f0f0', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '1.5rem', color: '#2f5483' }}>
-          <iframe
-            src="https://yandex.ru/map-widget/v1/?um=constructor%3A0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c&amp;source=constructor&amp;ll=37.6173,55.7558&amp;z=10"
-            width="100%"
-            height="100%"
-            frameBorder="0"
-            style={{ border: 'none' }}
-          ></iframe>
-        </div>
-      </Section>
+
 
       {getTotalItems() > 0 && (
         <Section>
