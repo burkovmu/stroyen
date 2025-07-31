@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShieldAlt, faTruckFast, faTools, faHeadset, faPercent, faCertificate, faClipboardList, faComments, faTruck, faStar, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faShieldAlt, faTruckFast, faTools, faHeadset, faPercent, faCertificate, faClipboardList, faTruck, faShoppingCart, faComments } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
-import { useNavigate } from 'react-router-dom';
 
 const Hero = styled(motion.section)`
   height: calc(100vh - 200px);
@@ -210,6 +210,9 @@ const Section = styled(motion.section)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
 `;
 
 const SectionTitle = styled(motion.h2)`
@@ -222,6 +225,8 @@ const SectionTitle = styled(motion.h2)`
   position: relative;
   width: 100%;
   text-transform: none;
+  max-width: 1400px;
+  padding: 0 2rem;
   
   &:before {
     content: '';
@@ -239,6 +244,12 @@ const SectionTitle = styled(motion.h2)`
     );
     opacity: 0.4;
   }
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    margin-bottom: 4rem;
+    padding: 0 1rem;
+  }
 `;
 
 
@@ -248,6 +259,9 @@ const AdvantagesSection = styled(Section)`
   position: relative;
   overflow: hidden;
   padding: 8rem 0;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
   
   &:before {
     content: '';
@@ -664,10 +678,609 @@ const FeatureText = styled.p`
   }
 `;
 
+const ScrollHint = styled.div`
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+  opacity: 0.8;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+`;
+
+const AboutCompanySection = styled(Section)`
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 8rem 0;
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(47, 84, 131, 0.1), transparent);
+  }
+`;
+
+const AboutContainer = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+    gap: 2rem;
+  }
+`;
+
+const AboutContent = styled(motion.div)`
+  @media (max-width: 1024px) {
+    order: 2;
+  }
+`;
+
+const AboutTitle = styled.h2`
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+`;
+
+const AboutDescription = styled.p`
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+`;
+
+const AboutFeatures = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const AboutFeature = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 500;
+  
+  &:before {
+    content: "✓";
+    color: #2f5483;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+`;
+
+const AboutImage = styled(motion.div)`
+  background: linear-gradient(135deg, rgba(47, 84, 131, 0.05), rgba(47, 84, 131, 0.1));
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(47, 84, 131, 0.02), rgba(47, 84, 131, 0.05));
+    border-radius: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    order: 1;
+    padding: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+`;
+
+const AboutImageContent = styled.div`
+  position: relative;
+  z-index: 2;
+`;
+
+const AboutImageTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2f5483;
+  margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
+`;
+
+const AboutImageText = styled.p`
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+`;
+
+const AboutStats = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+`;
+
+const AboutStat = styled.div`
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  border: 1px solid rgba(47, 84, 131, 0.1);
+`;
+
+const AboutStatNumber = styled.div`
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2f5483;
+  margin-bottom: 0.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
+
+const AboutStatLabel = styled.div`
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+`;
+
+const ContactSection = styled(Section)`
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 8rem 0;
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
+  color: #000000;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(47, 84, 131, 0.1), transparent);
+  }
+`;
+
+const ContactContainer = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+    gap: 2rem;
+  }
+`;
+
+const ContactContent = styled(motion.div)`
+  @media (max-width: 1024px) {
+    order: 2;
+  }
+`;
+
+const ContactTitle = styled.h2`
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+`;
+
+const ContactDescription = styled.p`
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+`;
+
+const ContactInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const ContactItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 500;
+  
+  &:before {
+    content: "✓";
+    color: #2f5483;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+`;
+
+const ContactForm = styled(motion.form)`
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(47, 84, 131, 0.08);
+  position: relative;
+  overflow: hidden;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #2f5483, #4a90e2);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+  
+  &:hover:before {
+    transform: scaleX(1);
+  }
+
+  @media (max-width: 1024px) {
+    order: 1;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+`;
+
+const FormContent = styled.div`
+  position: relative;
+  z-index: 2;
+`;
+
+const FormTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1.5rem;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 1.5rem;
+`;
+
+const FormLabel = styled.label`
+  display: block;
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+`;
+
+const FormInput = styled.input`
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid rgba(47, 84, 131, 0.2);
+  border-radius: 12px;
+  background: #ffffff;
+  color: #333;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  
+  &::placeholder {
+    color: #999;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #2f5483;
+    box-shadow: 0 0 0 3px rgba(47, 84, 131, 0.1);
+  }
+`;
+
+const FormTextarea = styled.textarea`
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid rgba(47, 84, 131, 0.2);
+  border-radius: 12px;
+  background: #ffffff;
+  color: #333;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  resize: vertical;
+  min-height: 120px;
+  
+  &::placeholder {
+    color: #999;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #2f5483;
+    box-shadow: 0 0 0 3px rgba(47, 84, 131, 0.1);
+  }
+`;
+
+const SubmitButton = styled(motion.button)`
+  width: 100%;
+  background: linear-gradient(135deg, rgba(47, 84, 131, 0.1), rgba(47, 84, 131, 0.15));
+  border: 1px solid rgba(47, 84, 131, 0.2);
+  color: #2f5483;
+  padding: 1.2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: linear-gradient(135deg, rgba(47, 84, 131, 0.2), rgba(47, 84, 131, 0.25));
+    border-color: rgba(47, 84, 131, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(47, 84, 131, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+const CustomOrderBanner = styled.div`
+  background: linear-gradient(135deg, #2f5483 0%, #1e3a5f 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 3rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+    opacity: 0.3;
+  }
+`;
+
+const CustomOrderContent = styled.div`
+  position: relative;
+  z-index: 2;
+`;
+
+const CustomOrderTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: white;
+`;
+
+const CustomOrderText = styled.p`
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+  line-height: 1.5;
+`;
+
+const CustomOrderButton = styled(motion.button)`
+  background: white;
+  color: #2f5483;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+const CategoriesSection = styled(Section)`
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  padding: 8rem 0;
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(47, 84, 131, 0.1), transparent);
+  }
+`;
+
+const CategoriesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+`;
+
+const CategoryButton = styled(motion.button)`
+  background: #ffffff;
+  border: 2px solid rgba(47, 84, 131, 0.1);
+  color: #2f5483;
+  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 80px;
+  position: relative;
+  overflow: hidden;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(47, 84, 131, 0.05), rgba(47, 84, 131, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #2f5483, #4a90e2);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(47, 84, 131, 0.15);
+    border-color: rgba(47, 84, 131, 0.3);
+    color: #2f5483;
+    
+    &:before {
+      opacity: 1;
+    }
+    
+    &:after {
+      transform: scaleX(1);
+    }
+  }
+  
+  &:active {
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    padding: 1.5rem 1rem;
+    min-height: 70px;
+  }
+`;
+
 const PopularProductsSection = styled(Section)`
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   padding: 8rem 0;
   position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
   
   &:before {
     content: '';
@@ -848,46 +1461,6 @@ function HomePage() {
   // Популярные товары
   const popularProducts = [
     {
-      id: 5,
-      name: "АГАТ S200",
-      type: "Однофазный многофункциональный счетчик с ЖКИ",
-      brand: "АГАТ",
-      price: 7200,
-      originalPrice: 8500,
-      discount: 15,
-      image: "agat-s200.svg"
-    },
-    {
-      id: 3,
-      name: "АГАТ 2-32(5)",
-      type: "Однофазный счетчик с ЖКИ на DIN-рейку",
-      brand: "АГАТ",
-      price: 5200,
-      originalPrice: 6500,
-      discount: 20,
-      image: "agat-2-32.svg"
-    },
-    {
-      id: 10,
-      name: "АГАТ 3-3.100.2",
-      type: "Трехфазный счетчик с ЖКИ на DIN-рейку",
-      brand: "АГАТ",
-      price: 8500,
-      originalPrice: 10500,
-      discount: 19,
-      image: "agat-3-100-2.svg"
-    },
-    {
-      id: 12,
-      name: "RTU-325",
-      type: "Устройство сбора и передачи данных",
-      brand: "АГАТ",
-      price: 20000,
-      originalPrice: 25000,
-      discount: 20,
-      image: "rtu-325.svg"
-    },
-    {
       id: 1,
       name: "АГАТ 1-3",
       type: "Однофазный счетчик с ЭМУ на DIN-рейку",
@@ -908,6 +1481,16 @@ function HomePage() {
       image: "agat-1-4.svg"
     },
     {
+      id: 3,
+      name: "АГАТ 2-32(5)",
+      type: "Однофазный счетчик с ЖКИ на DIN-рейку",
+      brand: "АГАТ",
+      price: 5200,
+      originalPrice: 6500,
+      discount: 20,
+      image: "agat-2-32.svg"
+    },
+    {
       id: 4,
       name: "АГАТ 2-42(5)",
       type: "Однофазный счетчик с ЖКИ на DIN-рейку или панель",
@@ -918,6 +1501,16 @@ function HomePage() {
       image: "agat-2-42.svg"
     },
     {
+      id: 5,
+      name: "АГАТ S200",
+      type: "Однофазный многофункциональный счетчик с ЖКИ",
+      brand: "АГАТ",
+      price: 7200,
+      originalPrice: 8500,
+      discount: 15,
+      image: "agat-s200.svg"
+    },
+    {
       id: 6,
       name: "НЕМО-1",
       type: "Однофазный многофункциональный счетчик с ЖКИ",
@@ -926,6 +1519,26 @@ function HomePage() {
       originalPrice: 9000,
       discount: 17,
       image: "nemo-1.svg"
+    },
+    {
+      id: 7,
+      name: "АГАТ 3-3.100.2",
+      type: "Трехфазный счетчик с ЖКИ на DIN-рейку",
+      brand: "АГАТ",
+      price: 8500,
+      originalPrice: 10500,
+      discount: 19,
+      image: "agat-3-100-2.svg"
+    },
+    {
+      id: 8,
+      name: "RTU-325",
+      type: "Устройство сбора и передачи данных",
+      brand: "АГАТ",
+      price: 20000,
+      originalPrice: 25000,
+      discount: 20,
+      image: "rtu-325.svg"
     }
   ];
 
@@ -1021,6 +1634,51 @@ function HomePage() {
           ))}
         </ProductsGrid>
       </PopularProductsSection>
+
+      <AboutCompanySection>
+        <SectionTitle>О компании</SectionTitle>
+        <AboutContainer>
+          <AboutContent
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            
+            <AboutDescription>
+              Мы являемся официальным дилером по продаже и установке счетчиков электроэнергии. Наш опыт работы в сфере энергоснабжения насчитывает более 10 лет, что позволяет нам предлагать только качественное оборудование и профессиональный сервис.
+            </AboutDescription>
+            <AboutFeatures>
+              <AboutFeature>Официальные дилеры ведущих производителей счетчиков</AboutFeature>
+              <AboutFeature>Гарантия на все оборудование</AboutFeature>
+              <AboutFeature>Бесплатная доставка по всей России</AboutFeature>
+              <AboutFeature>Профессиональный монтаж и настройка</AboutFeature>
+              <AboutFeature>Круглосуточная техническая поддержка</AboutFeature>
+            </AboutFeatures>
+          </AboutContent>
+          <AboutImage
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <AboutImageContent>
+              <AboutImageTitle>Наши преимущества</AboutImageTitle>
+              <AboutImageText>
+                Мы предлагаем широкий ассортимент счетчиков электроэнергии, от однофазных до многофункциональных. Наши цены всегда конкурентоспособны, а качество гарантировано.
+              </AboutImageText>
+              <AboutStats>
+                <AboutStat>
+                  <AboutStatNumber>10+</AboutStatNumber>
+                  <AboutStatLabel>лет на рынке</AboutStatLabel>
+                </AboutStat>
+                <AboutStat>
+                  <AboutStatNumber>1000+</AboutStatNumber>
+                  <AboutStatLabel>установленных счетчиков</AboutStatLabel>
+                </AboutStat>
+              </AboutStats>
+            </AboutImageContent>
+          </AboutImage>
+        </AboutContainer>
+      </AboutCompanySection>
 
       <AdvantagesSection>
         <SectionTitle
@@ -1177,7 +1835,27 @@ function HomePage() {
         </FeaturesGrid>
       </Section>
 
-
+      <CustomOrderBanner>
+        <CustomOrderContent>
+          <CustomOrderTitle>Не нашли нужный товар в каталоге?</CustomOrderTitle>
+          <CustomOrderText>
+            Организуем под заказ! Мы работаем с ведущими производителями и можем найти любой товар, который вам нужен.
+          </CustomOrderText>
+          <CustomOrderButton
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              // Прокрутка к форме обратной связи
+              const contactSection = document.querySelector('.contact-section');
+              if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+          >
+            Заказать
+          </CustomOrderButton>
+        </CustomOrderContent>
+      </CustomOrderBanner>
 
       {getTotalItems() > 0 && (
         <Section>
@@ -1193,6 +1871,78 @@ function HomePage() {
           </div>
         </Section>
       )}
+
+      <ContactSection className="contact-section">
+        <ContactContainer>
+          <ContactContent
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <ContactTitle>Свяжитесь с нами</ContactTitle>
+            <ContactDescription>
+              Оставьте заявку, и наши специалисты свяжутся с вами в ближайшее время для консультации по выбору счетчиков электроэнергии.
+            </ContactDescription>
+            <ContactInfo>
+              <ContactItem>Бесплатная консультация специалиста</ContactItem>
+              <ContactItem>Подбор оптимального решения</ContactItem>
+              <ContactItem>Расчет стоимости монтажа</ContactItem>
+              <ContactItem>Ответ в течение 30 минут</ContactItem>
+            </ContactInfo>
+          </ContactContent>
+          <ContactForm
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            onSubmit={(e) => {
+              e.preventDefault();
+              // Здесь будет логика отправки формы
+              alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+            }}
+          >
+            <FormContent>
+              <FormTitle>Оставить заявку</FormTitle>
+              <FormGroup>
+                <FormLabel>Ваше имя *</FormLabel>
+                <FormInput 
+                  type="text" 
+                  placeholder="Введите ваше имя"
+                  required
+                />
+              </FormGroup>
+              <FormGroup>
+                <FormLabel>Телефон *</FormLabel>
+                <FormInput 
+                  type="tel" 
+                  placeholder="+7 (___) ___-__-__"
+                  required
+                />
+              </FormGroup>
+              <FormGroup>
+                <FormLabel>Email</FormLabel>
+                <FormInput 
+                  type="email" 
+                  placeholder="your@email.com"
+                />
+              </FormGroup>
+              <FormGroup>
+                <FormLabel>Сообщение</FormLabel>
+                <FormTextarea 
+                  placeholder="Опишите ваши потребности или задайте вопрос..."
+                  rows="4"
+                />
+              </FormGroup>
+              <SubmitButton
+                type="submit"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Отправить заявку
+              </SubmitButton>
+            </FormContent>
+          </ContactForm>
+        </ContactContainer>
+      </ContactSection>
     </>
   );
 }
