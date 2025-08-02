@@ -51,26 +51,31 @@ const cartReducer = (state, action) => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, {
-    items: []
-  });
+  // Инициализируем состояние с данными из localStorage
+  const getInitialState = () => {
+    try {
+      const savedCart = localStorage.getItem('cart');
+      if (savedCart) {
+        const items = JSON.parse(savedCart);
+        console.log('Загружена корзина из localStorage:', items);
+        return { items };
+      }
+    } catch (error) {
+      console.error('Ошибка при загрузке корзины:', error);
+      localStorage.removeItem('cart');
+    }
+    console.log('Инициализация пустой корзины');
+    return { items: [] };
+  };
+
+  const [state, dispatch] = useReducer(cartReducer, getInitialState());
   const { addNotification } = useNotification();
 
   // Сохраняем корзину в localStorage
   useEffect(() => {
+    console.log('Сохранение корзины в localStorage:', state.items);
     localStorage.setItem('cart', JSON.stringify(state.items));
   }, [state.items]);
-
-  // Загружаем корзину из localStorage при инициализации
-  useEffect(() => {
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-      const items = JSON.parse(savedCart);
-      items.forEach(item => {
-        dispatch({ type: 'ADD_TO_CART', payload: item });
-      });
-    }
-  }, []);
 
   const addToCart = (product) => {
     dispatch({ type: 'ADD_TO_CART', payload: product });

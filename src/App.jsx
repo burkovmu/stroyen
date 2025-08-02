@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faPhone, faSearch, faShoppingCart, faShare, faLink, faGlobe, faHashtag, faEnvelope, faClock, faChevronDown, faBars, faPhoneVolume, faPaperPlane, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faPhone, faSearch, faShoppingCart, faShare, faLink, faGlobe, faHashtag, faEnvelope, faClock, faChevronDown, faBars, faPhoneVolume, faPaperPlane, faTimes, faThLarge, faBolt, faIndustry, faNetworkWired } from '@fortawesome/free-solid-svg-icons';
 import CatalogFilters from './CatalogFilters';
 import CatalogPage from './CatalogPage';
 import HomePage from './HomePage';
@@ -13,6 +13,24 @@ import CartModalComponent from './CartModal';
 import { NotificationProvider, useNotification } from './Notification';
 import CheckoutPage from './CheckoutPage';
 import ThankYouPage from './ThankYouPage';
+import ContactsPage from './ContactsPage';
+import AboutPage from './AboutPage';
+import DeliveryPage from './DeliveryPage';
+import PaymentPage from './PaymentPage';
+import WarrantyPage from './WarrantyPage';
+import ReturnPage from './ReturnPage';
+import ConsultationPage from './ConsultationPage';
+import MeterVerificationPage from './MeterVerificationPage';
+import TransformerVerificationPage from './TransformerVerificationPage';
+import InstallationPage from './InstallationPage';
+import CommissioningPage from './CommissioningPage';
+import TestPage from './TestPage';
+import DocumentationPage from './DocumentationPage';
+import CertificatesPage from './CertificatesPage';
+import PartnersPage from './PartnersPage';
+import FAQPage from './FAQPage';
+import PrivacyPolicyPage from './PrivacyPolicyPage';
+import NotFoundPage from './NotFoundPage';
 
 // Компонент для автоматической прокрутки вверх при переходе на главную
 const ScrollToTop = () => {
@@ -61,7 +79,7 @@ const AppContainer = styled.div`
   font-family: 'Inter', sans-serif;
   max-width: 1400px;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 0;
 
   @media (max-width: 1440px) {
     max-width: 1200px;
@@ -455,50 +473,118 @@ const CatalogButton = styled(motion.button)`
   align-items: center;
   gap: 0.5rem;
   padding: 0.8rem 1.5rem;
-  background: #2f5483;
+  background: linear-gradient(135deg, #2f5483 0%, #1e3a5f 100%);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   color: white;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(47, 84, 131, 0.2);
   
   &:hover {
-    background: #1a2f4b;
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, #1e3a5f 0%, #2f5483 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(47, 84, 131, 0.3);
   }
 `;
 
-const CatalogDropdownContent = styled.div`
+const CatalogDropdownContent = styled(motion.div)`
   position: absolute;
-  top: 100%;
+  top: calc(100% + 8px);
   left: 0;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(47, 84, 131, 0.1);
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(47, 84, 131, 0.15);
-  padding: 0.5rem;
-  min-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(47, 84, 131, 0.15);
+  padding: 1rem;
+  min-width: 280px;
   z-index: 1000;
   opacity: ${props => props.isOpen ? 1 : 0};
   visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
-  transform: translateY(${props => props.isOpen ? '0' : '-10px'});
-  transition: all 0.3s ease;
+  transform: translateY(${props => props.isOpen ? '0' : '-15px'}) scale(${props => props.isOpen ? '1' : '0.95'});
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 20px;
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    border-left: 1px solid rgba(47, 84, 131, 0.1);
+    border-top: 1px solid rgba(47, 84, 131, 0.1);
+    transform: rotate(45deg);
+  }
 `;
 
-const CatalogItem = styled.a`
-  display: block;
-  padding: 0.5rem 1rem;
+const CatalogItem = styled(motion.a)`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
   color: #2f5483;
   text-decoration: none;
   font-size: 0.9rem;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(135deg, #2f5483 0%, #1e3a5f 100%);
+    transform: scaleY(0);
+    transition: transform 0.2s ease;
+  }
   
   &:hover {
-    background-color: rgba(47, 84, 131, 0.1);
+    background: linear-gradient(135deg, rgba(47, 84, 131, 0.05) 0%, rgba(30, 58, 95, 0.05) 100%);
+    color: #1e3a5f;
+    transform: translateX(4px);
+    
+    &::before {
+      transform: scaleY(1);
+    }
   }
+  
+  &:not(:last-child) {
+    margin-bottom: 0.25rem;
+  }
+`;
+
+const CatalogItemIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2f5483;
+  font-size: 0.8rem;
+`;
+
+const CatalogItemText = styled.div`
+  flex: 1;
+`;
+
+const CatalogItemTitle = styled.div`
+  font-weight: 600;
+  margin-bottom: 0.125rem;
+`;
+
+const CatalogItemDescription = styled.div`
+  font-size: 0.75rem;
+  color: #666;
+  font-weight: 400;
 `;
 
 const HeaderSearchContainer = styled.div`
@@ -2004,6 +2090,7 @@ function AppContent() {
   const { addNotification } = useNotification();
   const [catalogDropdownOpen, setCatalogDropdownOpen] = useState(false);
   const [clientsDropdownOpen, setClientsDropdownOpen] = useState(false);
+  const [infoDropdownOpen, setInfoDropdownOpen] = useState(false);
   const [headerSearchQuery, setHeaderSearchQuery] = useState('');
   const [headerSearchSuggestions, setHeaderSearchSuggestions] = useState(false);
   const [products, setProducts] = useState([]);
@@ -2220,6 +2307,33 @@ function AppContent() {
 
 
 
+  // Функция для обработки поиска товаров
+  const handleSearch = (query) => {
+    if (query.trim()) {
+      window.location.href = `/catalog?search=${encodeURIComponent(query.trim())}`;
+      setHeaderSearchQuery('');
+      setHeaderSearchSuggestions(false);
+    }
+  };
+
+  // Функция для обработки клика по подсказке
+  const handleSuggestionClick = (suggestion) => {
+    if (suggestion.product) {
+      window.location.href = `/product/${suggestion.product.id}`;
+    } else {
+      handleSearch(suggestion.title);
+    }
+    setHeaderSearchQuery('');
+    setHeaderSearchSuggestions(false);
+  };
+
+  // Функция для обработки нажатия Enter в поле поиска
+  const handleSearchKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(headerSearchQuery);
+    }
+  };
+
   // Функция генерации подсказок для поиска в шапке
   const generateHeaderSuggestions = () => {
     if (!headerSearchQuery.trim() || headerSearchQuery.length < 2) return [];
@@ -2287,12 +2401,43 @@ function AppContent() {
                     onMouseEnter={() => setClientsDropdownOpen(true)}
                     onMouseLeave={() => setClientsDropdownOpen(false)}
                   >
-                    <TopNavDropdownItem href="/services/consultation">Консультация</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/services/delivery">Доставка</TopNavDropdownItem>
+                    <TopNavDropdownItem href="/consultation">Консультация</TopNavDropdownItem>
+                    <TopNavDropdownItem href="/delivery">Доставка</TopNavDropdownItem>
+                    <TopNavDropdownItem href="/payment">Оплата</TopNavDropdownItem>
+                    <TopNavDropdownItem href="/warranty">Гарантия</TopNavDropdownItem>
+                    <TopNavDropdownItem href="/return">Возврат</TopNavDropdownItem>
                     <TopNavDropdownItem href="/services/meter-verification">Поверка счетчиков электрической энергии</TopNavDropdownItem>
                     <TopNavDropdownItem href="/services/transformer-verification">Поверка трансформаторов тока (напряжения)</TopNavDropdownItem>
                     <TopNavDropdownItem href="/services/installation">Монтаж оборудования</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/services/commissioning">Наладка</TopNavDropdownItem>
+                                            <TopNavDropdownItem href="/services/commissioning">Наладка оборудования</TopNavDropdownItem>
+
+
+
+                  </TopNavDropdownContent>
+                </TopNavDropdown>
+
+                <TopNavDropdown>
+                  <TopNavDropdownButton 
+                    whileHover={{ scale: 1.02 }}
+                    onClick={() => setInfoDropdownOpen(!infoDropdownOpen)}
+                    onMouseEnter={() => setInfoDropdownOpen(true)}
+                    onMouseLeave={() => setInfoDropdownOpen(false)}
+                  >
+                    Информация
+                    <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '0.7rem' }} />
+                  </TopNavDropdownButton>
+                  <TopNavDropdownContent 
+                    isOpen={infoDropdownOpen}
+                    onMouseEnter={() => setInfoDropdownOpen(true)}
+                    onMouseLeave={() => setInfoDropdownOpen(false)}
+                  >
+                    <TopNavDropdownItem href="/about">О компании</TopNavDropdownItem>
+                    <TopNavDropdownItem href="/docs">Документация</TopNavDropdownItem>
+                    <TopNavDropdownItem href="/certificates">Сертификаты</TopNavDropdownItem>
+                    <TopNavDropdownItem href="/partners">Партнеры</TopNavDropdownItem>
+                    <TopNavDropdownItem href="/faq">FAQ</TopNavDropdownItem>
+
+
                   </TopNavDropdownContent>
                 </TopNavDropdown>
                 <TopNavLink 
@@ -2302,8 +2447,7 @@ function AppContent() {
                 >
                   Прайс-лист
                 </TopNavLink>
-                <TopNavLink whileHover={{ scale: 1.02 }}>Информация</TopNavLink>
-                <TopNavLink whileHover={{ scale: 1.02 }}>Контакты</TopNavLink>
+                <TopNavLink whileHover={{ scale: 1.02 }} href="/contacts">Контакты</TopNavLink>
                 <CallbackButtonSecondary 
                   whileHover={{ scale: 1.02 }}
                   onClick={openCallbackModal}
@@ -2351,10 +2495,45 @@ function AppContent() {
                     onMouseEnter={() => setCatalogDropdownOpen(true)}
                     onMouseLeave={() => setCatalogDropdownOpen(false)}
                   >
-                    <CatalogItem href="/catalog">Все товары</CatalogItem>
-                    <CatalogItem href="/catalog?category=Однофазные счетчики">Однофазные счетчики</CatalogItem>
-                    <CatalogItem href="/catalog?category=Трехфазные счетчики">Трехфазные счетчики</CatalogItem>
-                    <CatalogItem href="/catalog?category=Устройства сбора и передачи данных">Устройства сбора и передачи данных</CatalogItem>
+                    <CatalogItem href="/catalog">
+                      <CatalogItemIcon>
+                        <FontAwesomeIcon icon={faThLarge} />
+                      </CatalogItemIcon>
+                      <CatalogItemText>
+                        <CatalogItemTitle>Все товары</CatalogItemTitle>
+                        <CatalogItemDescription>Полный каталог счетчиков</CatalogItemDescription>
+                      </CatalogItemText>
+                    </CatalogItem>
+                    
+                    <CatalogItem href="/catalog?category=Однофазные счетчики">
+                      <CatalogItemIcon>
+                        <FontAwesomeIcon icon={faBolt} />
+                      </CatalogItemIcon>
+                      <CatalogItemText>
+                        <CatalogItemTitle>Однофазные счетчики</CatalogItemTitle>
+                        <CatalogItemDescription>Для частных домов и квартир</CatalogItemDescription>
+                      </CatalogItemText>
+                    </CatalogItem>
+                    
+                    <CatalogItem href="/catalog?category=Трехфазные счетчики">
+                      <CatalogItemIcon>
+                        <FontAwesomeIcon icon={faIndustry} />
+                      </CatalogItemIcon>
+                      <CatalogItemText>
+                        <CatalogItemTitle>Трехфазные счетчики</CatalogItemTitle>
+                        <CatalogItemDescription>Для предприятий и промышленности</CatalogItemDescription>
+                      </CatalogItemText>
+                    </CatalogItem>
+                    
+                    <CatalogItem href="/catalog?category=Устройства сбора и передачи данных">
+                      <CatalogItemIcon>
+                        <FontAwesomeIcon icon={faNetworkWired} />
+                      </CatalogItemIcon>
+                      <CatalogItemText>
+                        <CatalogItemTitle>Устройства сбора данных</CatalogItemTitle>
+                        <CatalogItemDescription>RTU и системы мониторинга</CatalogItemDescription>
+                      </CatalogItemText>
+                    </CatalogItem>
                   </CatalogDropdownContent>
                 </CatalogDropdown>
               </BottomHeaderLeft>
@@ -2380,15 +2559,13 @@ function AppContent() {
                     onBlur={() => {
                       setTimeout(() => setHeaderSearchSuggestions(false), 200);
                     }}
+                    onKeyPress={handleSearchKeyPress}
                   />
                   <HeaderSearchSuggestions show={headerSearchSuggestions}>
                     {generateHeaderSuggestions().map((suggestion, index) => (
                       <HeaderSuggestionItem
                         key={`header-${suggestion.type}-${index}`}
-                        onClick={() => {
-                          setHeaderSearchQuery(suggestion.title);
-                          setHeaderSearchSuggestions(false);
-                        }}
+                        onClick={() => handleSuggestionClick(suggestion)}
                       >
                         <HeaderSuggestionTitle>{suggestion.title}</HeaderSuggestionTitle>
                         <HeaderSuggestionDetails>{suggestion.details}</HeaderSuggestionDetails>
@@ -2419,6 +2596,24 @@ function AppContent() {
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/thank-you" element={<ThankYouPage />} />
+          <Route path="/contacts" element={<ContactsPage />} />
+          <Route path="/about" element={<AboutPage />} />
+                          <Route path="/delivery" element={<DeliveryPage />} />
+                <Route path="/payment" element={<PaymentPage />} />
+                <Route path="/warranty" element={<WarrantyPage />} />
+                <Route path="/return" element={<ReturnPage />} />
+<Route path="/consultation" element={<ConsultationPage />} />
+<Route path="/services/meter-verification" element={<MeterVerificationPage />} />
+<Route path="/services/transformer-verification" element={<TransformerVerificationPage />} />
+<Route path="/services/installation" element={<InstallationPage />} />
+<Route path="/services/commissioning" element={<CommissioningPage />} />
+<Route path="/test" element={<TestPage />} />
+        <Route path="/docs" element={<DocumentationPage />} />
+        <Route path="/certificates" element={<CertificatesPage />} />
+        <Route path="/partners" element={<PartnersPage />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="*" element={<NotFoundPage />} />
         </Routes>
 
         <Footer>
@@ -2449,31 +2644,38 @@ function AppContent() {
               </FooterPayment>
             </FooterColumn>
             <FooterColumn>
-              <FooterTitle>О компании</FooterTitle>
-              <FooterLink href="#">О нас</FooterLink>
-              <FooterLink href="#">Сертификаты</FooterLink>
-              <FooterLink href="#">Новости</FooterLink>
-              <FooterLink href="#">Вакансии</FooterLink>
-              <FooterLink href="#">Партнеры</FooterLink>
+              <FooterTitle>Клиентам</FooterTitle>
+              <FooterLink href="/consultation">Консультация</FooterLink>
+              <FooterLink href="/delivery">Доставка</FooterLink>
+              <FooterLink href="/payment">Оплата</FooterLink>
+              <FooterLink href="/warranty">Гарантия</FooterLink>
+              <FooterLink href="/return">Возврат</FooterLink>
+              <FooterLink href="/services/meter-verification">Поверка счетчиков</FooterLink>
+              <FooterLink href="/services/transformer-verification">Поверка трансформаторов</FooterLink>
+              <FooterLink href="/services/installation">Монтаж оборудования</FooterLink>
+              <FooterLink href="/services/commissioning">Наладка оборудования</FooterLink>
             </FooterColumn>
             <FooterColumn>
-              <FooterTitle>Помощь</FooterTitle>
-              <FooterLink href="#">Доставка</FooterLink>
-              <FooterLink href="#">Оплата</FooterLink>
-              <FooterLink href="#">FAQ</FooterLink>
-              <FooterLink href="#">Возврат</FooterLink>
-              <FooterLink href="#">Гарантия</FooterLink>
+              <FooterTitle>Информация</FooterTitle>
+              <FooterLink href="/about">О компании</FooterLink>
+              <FooterLink href="/docs">Документация</FooterLink>
+              <FooterLink href="/certificates">Сертификаты</FooterLink>
+              <FooterLink href="/partners">Партнеры</FooterLink>
+              <FooterLink href="/faq">FAQ</FooterLink>
             </FooterColumn>
             <FooterColumn>
               <FooterTitle>Контакты</FooterTitle>
+              <FooterLink href="/contacts">Все контакты</FooterLink>
               <FooterLink href="#">Москва, ул. Примерная, 123</FooterLink>
-              <FooterLink href="#">Санкт-Петербург, пр. Невский, 45</FooterLink>
-              <FooterLink href="#">Екатеринбург, ул. Ленина, 78</FooterLink>
-              <FooterLink href="#">Казань, ул. Баумана, 12</FooterLink>
             </FooterColumn>
           </FooterContent>
           <FooterBottom>
-            <div>© 2024 Стройэнергетика. Все права защищены.</div>
+            <div>
+              © 2024 Стройэнергетика. Все права защищены.
+              <FooterLink href="/privacy-policy" style={{ marginLeft: '2rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                Политика конфиденциальности
+              </FooterLink>
+            </div>
             <FooterSocial>
               <SocialLink href="#"><FontAwesomeIcon icon={faShare} /></SocialLink>
               <SocialLink href="#"><FontAwesomeIcon icon={faLink} /></SocialLink>
@@ -2520,6 +2722,7 @@ function AppContent() {
             placeholder="Поиск товаров..."
             value={headerSearchQuery}
             onChange={(e) => setHeaderSearchQuery(e.target.value)}
+            onKeyPress={handleSearchKeyPress}
           />
         </MobileSearchContainer>
         
@@ -2559,12 +2762,15 @@ function AppContent() {
         
         <MobileMenuSection>
           <MobileMenuTitle>Клиентам</MobileMenuTitle>
-          <MobileMenuItem href="/services/consultation" onClick={closeMobileMenu}>Консультация</MobileMenuItem>
-          <MobileMenuItem href="/services/delivery" onClick={closeMobileMenu}>Доставка</MobileMenuItem>
+          <MobileMenuItem href="/consultation" onClick={closeMobileMenu}>Консультация</MobileMenuItem>
+          <MobileMenuItem href="/delivery" onClick={closeMobileMenu}>Доставка</MobileMenuItem>
           <MobileMenuItem href="/services/meter-verification" onClick={closeMobileMenu}>Поверка счетчиков</MobileMenuItem>
           <MobileMenuItem href="/services/transformer-verification" onClick={closeMobileMenu}>Поверка трансформаторов</MobileMenuItem>
           <MobileMenuItem href="/services/installation" onClick={closeMobileMenu}>Монтаж оборудования</MobileMenuItem>
-          <MobileMenuItem href="/services/commissioning" onClick={closeMobileMenu}>Наладка</MobileMenuItem>
+                      <MobileMenuItem href="/services/commissioning" onClick={closeMobileMenu}>Наладка оборудования</MobileMenuItem>
+          <MobileMenuItem href="/payment" onClick={closeMobileMenu}>Оплата</MobileMenuItem>
+                          <MobileMenuItem href="/warranty" onClick={closeMobileMenu}>Гарантия</MobileMenuItem>
+          <MobileMenuItem href="/return" onClick={closeMobileMenu}>Возврат</MobileMenuItem>
         </MobileMenuSection>
         
         <MobileMenuSection>
@@ -2578,8 +2784,15 @@ function AppContent() {
           >
             Прайс-лист
           </MobileMenuItem>
-          <MobileMenuItem href="#" onClick={closeMobileMenu}>Информация</MobileMenuItem>
-          <MobileMenuItem href="#" onClick={closeMobileMenu}>Контакты</MobileMenuItem>
+          <MobileMenuItem href="/about" onClick={closeMobileMenu}>О компании</MobileMenuItem>
+          <MobileMenuItem href="/docs" onClick={closeMobileMenu}>Документация</MobileMenuItem>
+          <MobileMenuItem href="/certificates" onClick={closeMobileMenu}>Сертификаты</MobileMenuItem>
+          <MobileMenuItem href="/faq" onClick={closeMobileMenu}>FAQ</MobileMenuItem>
+          <MobileMenuItem href="/partners" onClick={closeMobileMenu}>Партнеры</MobileMenuItem>
+          <MobileMenuItem href="/vacancies" onClick={closeMobileMenu}>Вакансии</MobileMenuItem>
+          <MobileMenuItem href="/help" onClick={closeMobileMenu}>Помощь</MobileMenuItem>
+          <MobileMenuItem href="/career" onClick={closeMobileMenu}>Карьера</MobileMenuItem>
+          <MobileMenuItem href="/contacts" onClick={closeMobileMenu}>Контакты</MobileMenuItem>
         </MobileMenuSection>
         
         <MobileContactInfo>

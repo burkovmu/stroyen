@@ -10,7 +10,7 @@ const ThankYouContainer = styled.div`
   margin: 0 auto;
   padding: 2rem;
   min-height: calc(100vh - 200px);
-  padding-top: 7rem;
+  padding-top: 200px;
   text-align: center;
 `;
 

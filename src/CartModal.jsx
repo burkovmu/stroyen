@@ -153,7 +153,7 @@ const CartItem = styled(motion.div)`
 const CartItemImage = styled.div`
   width: 60px;
   height: 60px;
-  background: #f8f9fa;
+  background: #ffffff;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -453,7 +453,11 @@ const CartModalComponent = ({ isOpen, onClose }) => {
                       }}
                     >
                       <CartItemImage>
-                        <img src={`/images/products/${item.image}`} alt={item.name} />
+                        {item.mainImage ? (
+                          <img src={item.mainImage} alt={item.name} />
+                        ) : (
+                          <img src={`/images/products/${item.image}`} alt={item.name} />
+                        )}
                       </CartItemImage>
                       
                       <CartItemInfo>

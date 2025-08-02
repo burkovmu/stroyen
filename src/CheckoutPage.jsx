@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faUser, faBuilding, faPhone, faEnvelope, faMapMarkerAlt, faCreditCard, faTruck, faCheck, faUserTie } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faUser, faBuilding, faPhone, faEnvelope, faMapMarkerAlt, faCreditCard, faTruck, faCheck, faUserTie, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
 import { useNotification } from './Notification';
 
@@ -12,7 +12,7 @@ const CheckoutContainer = styled.div`
   margin: 0 auto;
   padding: 2rem;
   min-height: calc(100vh - 200px);
-  padding-top: 7rem;
+  padding-top: 200px;
 `;
 
 const CheckoutHeader = styled.div`
@@ -239,7 +239,12 @@ const OrderSummary = styled.div`
   border: 1px solid rgba(47, 84, 131, 0.1);
   height: fit-content;
   position: sticky;
-  top: 2rem;
+  top: 120px;
+  
+  @media (max-width: 768px) {
+    top: 100px;
+    padding: 1.5rem;
+  }
 `;
 
 const OrderItems = styled.div`
@@ -261,7 +266,7 @@ const OrderItem = styled.div`
 const OrderItemImage = styled.div`
   width: 60px;
   height: 60px;
-  background: #f8f9fa;
+  background: #ffffff;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -297,6 +302,105 @@ const OrderItemPrice = styled.div`
   font-weight: 700;
   color: #2f5483;
   font-size: 1rem;
+`;
+
+const OrderItemActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+`;
+
+const QuantityControl = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+`;
+
+const QuantityButton = styled.button`
+  background: #f8f9fa;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2f5483;
+  transition: all 0.2s ease;
+  min-width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    background: #e9ecef;
+    color: #1a365d;
+  }
+  
+  &:active {
+    background: #dee2e6;
+  }
+  
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: #f8f9fa;
+    color: #adb5bd;
+  }
+`;
+
+const QuantityInput = styled.input`
+  width: 50px;
+  text-align: center;
+  border: none;
+  padding: 0.5rem 0.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: white;
+  color: #333;
+  
+  &:focus {
+    outline: none;
+    background: #f8f9fa;
+  }
+  
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  &[type=number] {
+    -moz-appearance: textfield;
+  }
+`;
+
+const RemoveButton = styled.button`
+  background: #dc3545;
+  border: none;
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  box-shadow: 0 1px 3px rgba(220, 53, 69, 0.2);
+  
+  &:hover {
+    background: #c82333;
+    box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
+  }
+  
+  &:active {
+    background: #bd2130;
+  }
 `;
 
 const OrderTotal = styled.div`
@@ -380,13 +484,12 @@ const EmptyCartSubtext = styled.p`
 
 
 function CheckoutPage() {
-  const navigate = useNavigate();
-  const { items, getTotalPrice, clearCart } = useCart();
+  const { items, getTotalPrice, clearCart, removeFromCart, updateQuantity } = useCart();
   const { addNotification } = useNotification();
-  
-  const [customerType, setCustomerType] = useState('individual'); // 'individual' или 'company'
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [customerType, setCustomerType] = useState('individual');
   const [formData, setFormData] = useState({
-    // Физическое лицо
     firstName: '',
     lastName: '',
     phone: '',
@@ -395,22 +498,10 @@ function CheckoutPage() {
     city: '',
     zipCode: '',
     comment: '',
-    // Юридическое лицо
     companyName: '',
     inn: '',
-    legalAddress: '',
-    bankName: '',
-    bik: '',
-    accountNumber: '',
-    deliveryMethod: 'courier'
+    legalAddress: ''
   });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Прокрутка вверх при загрузке страницы
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -419,6 +510,39 @@ function CheckoutPage() {
       [name]: value
     }));
   };
+
+  const handleRemoveItem = (itemId) => {
+    removeFromCart(itemId);
+    addNotification('Товар удален из корзины', 'info', 2000);
+  };
+
+  const handleQuantityChange = (itemId, newQuantity) => {
+    if (newQuantity <= 0) {
+      handleRemoveItem(itemId);
+    } else {
+      updateQuantity(itemId, newQuantity);
+    }
+  };
+
+  const handleQuantityInput = (itemId, value) => {
+    const quantity = parseInt(value);
+    
+    if (isNaN(quantity) || quantity < 1) {
+      // Если введено некорректное значение, устанавливаем 1
+      updateQuantity(itemId, 1);
+    } else if (quantity > 999) {
+      // Ограничиваем максимальное количество
+      updateQuantity(itemId, 999);
+      addNotification('Максимальное количество товара: 999', 'warning', 2000);
+    } else {
+      updateQuantity(itemId, quantity);
+    }
+  };
+
+  // Прокрутка вверх при загрузке страницы
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -794,19 +918,50 @@ function CheckoutPage() {
               {items.map((item) => (
                 <OrderItem key={item.id}>
                   <OrderItemImage>
-                    <img src={`/images/products/${item.image}`} alt={item.name} />
+                    {item.mainImage ? (
+                      <img src={item.mainImage} alt={item.name} />
+                    ) : (
+                      <img src={`/images/products/${item.image}`} alt={item.name} />
+                    )}
                   </OrderItemImage>
                   
                   <OrderItemInfo>
                     <OrderItemName>{item.name}</OrderItemName>
                     <OrderItemDetails>
-                      {item.brand} • Количество: {item.quantity}
+                      {item.brand} • {(item.price * item.quantity).toLocaleString()} ₽
                     </OrderItemDetails>
+                    
+                    <OrderItemActions>
+                      <QuantityControl>
+                        <QuantityButton 
+                          onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                          disabled={item.quantity <= 1}
+                        >
+                          -
+                        </QuantityButton>
+                        <QuantityInput 
+                          type="number" 
+                          name="quantity" 
+                          value={item.quantity} 
+                          onChange={(e) => handleQuantityInput(item.id, e.target.value)} 
+                          onBlur={(e) => {
+                            const value = parseInt(e.target.value);
+                            if (isNaN(value) || value < 1) {
+                              handleQuantityInput(item.id, '1');
+                            }
+                          }}
+                          min="1" 
+                          max="999" 
+                        />
+                        <QuantityButton onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>
+                          +
+                        </QuantityButton>
+                      </QuantityControl>
+                      <RemoveButton onClick={() => handleRemoveItem(item.id)}>
+                        <FontAwesomeIcon icon={faTrash} />
+                      </RemoveButton>
+                    </OrderItemActions>
                   </OrderItemInfo>
-                  
-                  <OrderItemPrice>
-                    {(item.price * item.quantity).toLocaleString()} ₽
-                  </OrderItemPrice>
                 </OrderItem>
               ))}
             </OrderItems>

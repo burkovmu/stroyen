@@ -1,26 +1,69 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShieldAlt, faTruckFast, faTools, faHeadset, faPercent, faCertificate, faClipboardList, faTruck, faShoppingCart, faComments } from '@fortawesome/free-solid-svg-icons';
+import { faShieldAlt, faTruckFast, faTools, faHeadset, faPercent, faCertificate, faClipboardList, faTruck, faShoppingCart, faComments, faSearch, faPaperPlane, faPhone, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
 
 const Hero = styled(motion.section)`
-  height: calc(100vh - 200px);
-  min-height: calc(100vh - 200px);
-  max-height: calc(100vh - 200px);
+  height: 700px;
+  min-height: 700px;
+  max-height: 700px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
   padding-top: 0;
-  background: url('/banner01.jpg') center center/cover no-repeat;
+  margin-top: 150px;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   box-sizing: border-box;
+  
+  @media (max-width: 768px) {
+    height: 400px;
+    min-height: 400px;
+    max-height: 400px;
+    margin-top: 150px;
+  }
+`;
+
+const SlideBackground = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: ${props => `url('${props.image}') top right/cover no-repeat`};
+  background-color: #f8f9fa;
+  opacity: ${props => props.active ? 1 : 0};
+  transition: opacity 0.8s ease-in-out;
+`;
+
+const SlideIndicators = styled.div`
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 10;
+`;
+
+const SlideIndicator = styled.button`
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: ${props => props.active ? '#ffffff' : 'transparent'};
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.7);
+  }
 `;
 
 const HeroContent = styled(motion.div)`
@@ -212,6 +255,7 @@ const Section = styled(motion.section)`
   align-items: center;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
+  margin-top: 0rem;
   box-sizing: border-box;
 `;
 
@@ -877,8 +921,8 @@ const AboutStatLabel = styled.div`
 `;
 
 const ContactSection = styled(Section)`
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  padding: 8rem 0;
+  background: #ffffff;
+  padding: 4rem 0 0 0;
   position: relative;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
@@ -1105,12 +1149,13 @@ const SubmitButton = styled(motion.button)`
 const CustomOrderBanner = styled.div`
   background: linear-gradient(135deg, #2f5483 0%, #1e3a5f 100%);
   color: white;
-  padding: 2rem;
-  border-radius: 12px;
+  padding: 3rem 2rem;
+  border-radius: 16px;
   margin: 3rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(47, 84, 131, 0.3);
 
   &:before {
     content: '';
@@ -1119,53 +1164,80 @@ const CustomOrderBanner = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-    opacity: 0.3;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="90" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="60" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+    opacity: 0.4;
   }
 `;
 
 const CustomOrderContent = styled.div`
   position: relative;
   z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+`;
+
+const CustomOrderIcon = styled.div`
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: white;
+  font-size: 1.5rem;
+  backdrop-filter: blur(10px);
 `;
 
 const CustomOrderTitle = styled.h3`
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   color: white;
+  
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const CustomOrderText = styled.p`
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  opacity: 0.9;
-  line-height: 1.5;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  line-height: 1.6;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const CustomOrderButton = styled(motion.button)`
   background: white;
   color: #2f5483;
   border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
+  padding: 1rem 2rem;
+  border-radius: 12px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
   }
 
   &:active {
     transform: translateY(0);
   }
 `;
+
+
 
 const CategoriesSection = styled(Section)`
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -1315,6 +1387,7 @@ const ProductCard = styled(motion.div)`
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(47, 84, 131, 0.08);
   position: relative;
+  cursor: pointer;
   
   &:hover {
     transform: translateY(-8px);
@@ -1341,7 +1414,7 @@ const ProductCard = styled(motion.div)`
 
 const ProductImage = styled.div`
   height: 200px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1423,31 +1496,101 @@ const OriginalPrice = styled.span`
 
 const ProductButton = styled(motion.button)`
   width: 100%;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: #2f5483;
-  padding: 1rem;
+  background: #2f5483;
+  border: none;
+  padding: 0.8rem;
+  color: white;
   border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  backdrop-filter: blur(8px);
   
   &:hover {
-    background: rgba(47, 84, 131, 0.1);
-    border-color: rgba(47, 84, 131, 0.6);
+    background: #3a6294;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(47, 84, 131, 0.15);
+    box-shadow: 0 4px 15px rgba(47, 84, 131, 0.3);
   }
   
   &:active {
     transform: translateY(0);
   }
+`;
+
+const HeroButtons = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+`;
+
+const PrimaryButton = styled(motion.button)`
+  background: white;
+  border: none;
+  padding: 1rem 2rem;
+  color: #2f5483;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const SecondaryButton = styled(motion.button)`
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 1rem 2rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(10px);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+const HeroFeatures = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+`;
+
+const HeroFeature = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
 `;
 
 function HomePage() {
@@ -1457,6 +1600,14 @@ function HomePage() {
   });
   const { getTotalItems, getTotalPrice, addToCart } = useCart();
   const navigate = useNavigate();
+
+  // Состояние для слайдшоу
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Массив изображений для слайдшоу
+  const slides = [
+    '/banner.jpg'
+  ];
 
   // Популярные товары
   const popularProducts = [
@@ -1468,7 +1619,14 @@ function HomePage() {
       price: 3800,
       originalPrice: 4500,
       discount: 15,
-      image: "agat-1-3.svg"
+      image: "agat-1-3.svg",
+      mainImage: "/images/products/agat-1-3/0001.png",
+      images: [
+        "/images/products/agat-1-3/0001.png",
+        "/images/products/agat-1-3/0002.png",
+        "/images/products/agat-1-3/0003.png",
+        "/images/products/agat-1-3/0004.png"
+      ]
     },
     {
       id: 2,
@@ -1478,7 +1636,12 @@ function HomePage() {
       price: 4200,
       originalPrice: 4200,
       discount: 0,
-      image: "agat-1-4.svg"
+      image: "agat-1-4.svg",
+      mainImage: "/images/products/agat-1-4/01.png",
+      images: [
+        "/images/products/agat-1-4/01.png",
+        "/images/products/agat-1-4/02.png"
+      ]
     },
     {
       id: 3,
@@ -1488,7 +1651,14 @@ function HomePage() {
       price: 5200,
       originalPrice: 6500,
       discount: 20,
-      image: "agat-2-32.svg"
+      image: "agat-2-32.svg",
+      mainImage: "/images/products/agat-2-32/001.png",
+      images: [
+        "/images/products/agat-2-32/001.png",
+        "/images/products/agat-2-32/002.png",
+        "/images/products/agat-2-32/003.png",
+        "/images/products/agat-2-32/004.png"
+      ]
     },
     {
       id: 4,
@@ -1498,7 +1668,14 @@ function HomePage() {
       price: 5800,
       originalPrice: 5800,
       discount: 0,
-      image: "agat-2-42.svg"
+      image: "agat-2-42.svg",
+      mainImage: "/images/products/agat-2-42/001.png",
+      images: [
+        "/images/products/agat-2-42/001.png",
+        "/images/products/agat-2-42/002.png",
+        "/images/products/agat-2-42/003.png",
+        "/images/products/agat-2-42/004.png"
+      ]
     },
     {
       id: 5,
@@ -1508,7 +1685,13 @@ function HomePage() {
       price: 7200,
       originalPrice: 8500,
       discount: 15,
-      image: "agat-s200.svg"
+      image: "agat-s200.svg",
+      mainImage: "/images/products/agat-s200/001.png",
+      images: [
+        "/images/products/agat-s200/001.png",
+        "/images/products/agat-s200/002.png",
+        "/images/products/agat-s200/003.png"
+      ]
     },
     {
       id: 6,
@@ -1518,7 +1701,13 @@ function HomePage() {
       price: 7500,
       originalPrice: 9000,
       discount: 17,
-      image: "nemo-1.svg"
+      image: "nemo-1.svg",
+      mainImage: "/images/products/nemo-1/001.png",
+      images: [
+        "/images/products/nemo-1/001.png",
+        "/images/products/nemo-1/002.png",
+        "/images/products/nemo-1/003.png"
+      ]
     },
     {
       id: 7,
@@ -1528,7 +1717,12 @@ function HomePage() {
       price: 8500,
       originalPrice: 10500,
       discount: 19,
-      image: "agat-3-100-2.svg"
+      image: "agat-3-100-2.svg",
+      mainImage: "/images/products/agat-3-100-2/001.png",
+      images: [
+        "/images/products/agat-3-100-2/001.png",
+        "/images/products/agat-3-100-2/002.png"
+      ]
     },
     {
       id: 8,
@@ -1538,7 +1732,12 @@ function HomePage() {
       price: 20000,
       originalPrice: 25000,
       discount: 20,
-      image: "rtu-325.svg"
+      image: "rtu-325.svg",
+      mainImage: "/images/products/rtu-325/001.png",
+      images: [
+        "/images/products/rtu-325/001.png",
+        "/images/products/rtu-325/002.png"
+      ]
     }
   ];
 
@@ -1547,46 +1746,90 @@ function HomePage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  const handleAddToCart = (product) => {
+  // Автоматическое переключение слайдов
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000); // Переключаем каждые 5 секунд
+
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
+  const handleAddToCart = useCallback((product) => {
     addToCart(product);
-  };
+  }, [addToCart]);
 
   return (
     <>
       <Hero>
+        {/* Слайды фона */}
+        {slides.map((slide, index) => (
+          <SlideBackground
+            key={index}
+            image={slide}
+            active={index === currentSlide}
+          />
+        ))}
+        
+        {/* Контент баннера */}
         <HeroContent
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
           <HeroContentInner>
-            <Title>Счетчики электроэнергии</Title>
-            <Subtitle>Официальный дилер с гарантией качества и профессиональной установкой</Subtitle>
-            <BenefitsContainer>
-              <BenefitItem>Гарантия 5 лет на все модели</BenefitItem>
-              <BenefitItem>Бесплатная доставка от 10 000 ₽</BenefitItem>
-              <BenefitItem>Профессиональный монтаж</BenefitItem>
-            </BenefitsContainer>
-            <CTAButton
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => window.location.href = '/catalog'}
-            >
-              <span>Смотреть каталог</span>
-            </CTAButton>
+            <Title>
+              Надежные счетчики электроэнергии
+            </Title>
+            <Subtitle>
+              Официальный дилер АГАТ, НЕМО, Меркурий и других ведущих производителей. 
+              Гарантия до 16 лет. Доставка по России. Установка под ключ.
+            </Subtitle>
+            <HeroButtons>
+              <PrimaryButton
+                onClick={() => navigate('/catalog')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FontAwesomeIcon icon={faShoppingCart} />
+                Смотреть каталог
+              </PrimaryButton>
+              <SecondaryButton
+                onClick={() => navigate('/contacts')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FontAwesomeIcon icon={faPhone} />
+                Получить консультацию
+              </SecondaryButton>
+            </HeroButtons>
+            <HeroFeatures>
+              <HeroFeature>
+                <FontAwesomeIcon icon={faCheck} />
+                <span>Гарантия до 16 лет</span>
+              </HeroFeature>
+              <HeroFeature>
+                <FontAwesomeIcon icon={faCheck} />
+                <span>Доставка по России</span>
+              </HeroFeature>
+              <HeroFeature>
+                <FontAwesomeIcon icon={faCheck} />
+                <span>Установка под ключ</span>
+              </HeroFeature>
+            </HeroFeatures>
           </HeroContentInner>
         </HeroContent>
-        <ScrollIndicator
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
-          onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 5v14M5 12l7 7 7-7"/>
-          </svg>
-        </ScrollIndicator>
+        
+        {/* Индикаторы слайдов */}
+        <SlideIndicators>
+          {slides.map((_, index) => (
+            <SlideIndicator
+              key={index}
+              active={index === currentSlide}
+              onClick={() => setCurrentSlide(index)}
+            />
+          ))}
+        </SlideIndicators>
       </Hero>
 
       <PopularProductsSection>
@@ -1604,9 +1847,14 @@ function HomePage() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              onClick={() => navigate(`/product/${product.id}`)}
             >
               <ProductImage>
-                <img src={`/images/products/${product.image}`} alt={product.name} />
+                {product.mainImage ? (
+                  <img src={product.mainImage} alt={product.name} />
+                ) : (
+                  <img src={`/images/products/${product.image}`} alt={product.name} />
+                )}
                 {product.discount > 0 && (
                   <ProductBadge>-{product.discount}%</ProductBadge>
                 )}
@@ -1622,9 +1870,14 @@ function HomePage() {
                   )}
                 </ProductPrice>
                 <ProductButton
-                  onClick={() => handleAddToCart(product)}
+                  key={`add-to-cart-${product.id}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAddToCart(product);
+                  }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  style={{ transformOrigin: 'center' }}
                 >
                   <FontAwesomeIcon icon={faShoppingCart} />
                   Добавить в корзину
@@ -1650,7 +1903,7 @@ function HomePage() {
             <AboutFeatures>
               <AboutFeature>Официальные дилеры ведущих производителей счетчиков</AboutFeature>
               <AboutFeature>Гарантия на все оборудование</AboutFeature>
-              <AboutFeature>Бесплатная доставка по всей России</AboutFeature>
+              <AboutFeature>Доставка по всей России</AboutFeature>
               <AboutFeature>Профессиональный монтаж и настройка</AboutFeature>
               <AboutFeature>Круглосуточная техническая поддержка</AboutFeature>
             </AboutFeatures>
@@ -1837,9 +2090,12 @@ function HomePage() {
 
       <CustomOrderBanner>
         <CustomOrderContent>
+          <CustomOrderIcon>
+            <FontAwesomeIcon icon={faSearch} />
+          </CustomOrderIcon>
           <CustomOrderTitle>Не нашли нужный товар в каталоге?</CustomOrderTitle>
           <CustomOrderText>
-            Организуем под заказ! Мы работаем с ведущими производителями и можем найти любой товар, который вам нужен.
+            Мы специализируемся на поиске и поставке любых счетчиков электроэнергии от ведущих производителей. Работаем с 50+ производителями и найдем нужный товар за 24 часа.
           </CustomOrderText>
           <CustomOrderButton
             whileHover={{ scale: 1.02 }}
@@ -1852,25 +2108,11 @@ function HomePage() {
               }
             }}
           >
-            Заказать
+            <FontAwesomeIcon icon={faPaperPlane} />
+            Купить под заказ
           </CustomOrderButton>
         </CustomOrderContent>
       </CustomOrderBanner>
-
-      {getTotalItems() > 0 && (
-        <Section>
-          <div style={{ textAlign: 'center', padding: '3rem 0' }}>
-            <CTAButton
-              onClick={() => navigate('/checkout')}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              style={{ fontSize: '1.2rem', padding: '1rem 2rem' }}
-            >
-              Оформить заказ ({getTotalItems()} товаров • {getTotalPrice().toLocaleString()} ₽)
-            </CTAButton>
-          </div>
-        </Section>
-      )}
 
       <ContactSection className="contact-section">
         <ContactContainer>

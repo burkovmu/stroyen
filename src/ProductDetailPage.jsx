@@ -8,9 +8,16 @@ import {
   faArrowLeft, 
   faPhone, 
   faEnvelope,
-  faCheck
+  faCheck,
+  faSearch,
+  faPaperPlane,
+  faShieldAlt,
+  faTruck,
+  faHeadset,
+  faCreditCard
 } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
+import ProductGallery from './ProductGallery';
 
 // Контейнер страницы
 const ProductDetailContainer = styled.div`
@@ -18,7 +25,7 @@ const ProductDetailContainer = styled.div`
   margin: 0 auto;
   padding: 2rem;
   min-height: calc(100vh - 200px);
-  padding-top: 7rem;
+  padding-top: 200px;
 `;
 
 // Хлебные крошки
@@ -208,7 +215,7 @@ const SimilarProductCard = styled.div`
 const SimilarProductImage = styled.div`
   width: 100%;
   height: 200px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: #ffffff;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -256,21 +263,23 @@ const SimilarProductButton = styled.button`
   }
 `;
 
-// Секция "Почему Стройэнергетика?"
-const WhyStroyEnergySection = styled(motion.div)`
+
+
+// Секция "Наши преимущества"
+const AdvantagesSection = styled.div`
   width: 100vw;
   margin-left: calc(-50vw + 50%);
-  background: #f8f9fa;
+  background: white;
   padding: 3rem 0;
 `;
 
-const WhyStroyEnergyContent = styled.div`
+const AdvantagesContent = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 `;
 
-const WhyStroyEnergyTitle = styled.h3`
+const AdvantagesTitle = styled.h3`
   font-size: 2rem;
   font-weight: 600;
   color: #333;
@@ -278,10 +287,15 @@ const WhyStroyEnergyTitle = styled.h3`
   text-align: center;
 `;
 
-const WhyStroyEnergyGrid = styled.div`
+const AdvantagesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -289,12 +303,13 @@ const WhyStroyEnergyGrid = styled.div`
   }
 `;
 
-const WhyStroyEnergyCard = styled.div`
-  background: white;
-  padding: 2rem;
+const AdvantageCard = styled.div`
+  background: #f8f9fa;
+  padding: 2rem 1.5rem;
   border-radius: 8px;
   border: 1px solid #e9ecef;
   transition: all 0.2s ease;
+  text-align: center;
   
   &:hover {
     border-color: #2f5483;
@@ -302,37 +317,30 @@ const WhyStroyEnergyCard = styled.div`
   }
 `;
 
-const WhyStroyEnergyCardHeader = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-`;
-
-const WhyStroyEnergyCardNumber = styled.div`
-  width: 40px;
-  height: 40px;
+const AdvantageIcon = styled.div`
+  width: 60px;
+  height: 60px;
   background: #2f5483;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-weight: 600;
-  font-size: 1rem;
-  margin-right: 1rem;
+  font-size: 1.5rem;
+  margin: 0 auto 1rem;
 `;
 
-const WhyStroyEnergyCardTitle = styled.h4`
+const AdvantageTitle = styled.h4`
   font-size: 1.1rem;
   font-weight: 600;
   color: #333;
-  margin: 0;
+  margin: 0 0 0.5rem 0;
 `;
 
-const WhyStroyEnergyCardText = styled.p`
+const AdvantageText = styled.p`
   color: #666;
-  line-height: 1.6;
-  font-size: 0.95rem;
+  line-height: 1.5;
+  font-size: 0.9rem;
   margin: 0;
 `;
 
@@ -340,12 +348,13 @@ const WhyStroyEnergyCardText = styled.p`
 const CustomOrderBanner = styled.div`
   background: linear-gradient(135deg, #2f5483 0%, #1e3a5f 100%);
   color: white;
-  padding: 2rem;
-  border-radius: 12px;
+  padding: 3rem 2rem;
+  border-radius: 16px;
   margin: 3rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(47, 84, 131, 0.3);
 
   &:before {
     content: '';
@@ -354,47 +363,72 @@ const CustomOrderBanner = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-    opacity: 0.3;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="90" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="60" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+    opacity: 0.4;
   }
 `;
 
 const CustomOrderContent = styled.div`
   position: relative;
   z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+`;
+
+const CustomOrderIcon = styled.div`
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: white;
+  font-size: 1.5rem;
+  backdrop-filter: blur(10px);
 `;
 
 const CustomOrderTitle = styled.h3`
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   color: white;
+  
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const CustomOrderText = styled.p`
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  opacity: 0.9;
-  line-height: 1.5;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  line-height: 1.6;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const CustomOrderButton = styled(motion.button)`
   background: white;
   color: #2f5483;
   border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
+  padding: 1rem 2rem;
+  border-radius: 12px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
   }
 
   &:active {
@@ -627,7 +661,7 @@ function ProductDetailPage() {
   const descriptionY = useTransform(scrollYProgress, [0, 1], [0, -30]);
   const fullDescriptionY = useTransform(scrollYProgress, [0, 1], [0, -20]);
   const similarProductsY = useTransform(scrollYProgress, [0, 1], [0, -15]);
-  const whyStroyEnergyY = useTransform(scrollYProgress, [0, 1], [0, -10]);
+
 
   useEffect(() => {
     // Прокрутка к верху страницы при загрузке
@@ -740,25 +774,10 @@ function ProductDetailPage() {
 
       <ProductDetailContent>
         <ProductImageSection>
-          <ProductImage style={{ y: imageY }}>
-            <div style={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-              color: '#2f5483',
-              fontSize: '3rem',
-              fontWeight: 'bold'
-            }}>
-              {product.brand}
-            </div>
-            {product.discount && (
-              <DiscountBadge>-{product.discount}%</DiscountBadge>
-            )}
-          </ProductImage>
-          
+          <ProductGallery product={product} />
+          {product.discount && (
+            <DiscountBadge>-{product.discount}%</DiscountBadge>
+          )}
         </ProductImageSection>
 
         <ProductInfoSection>
@@ -924,20 +943,33 @@ function ProductDetailPage() {
                 onClick={() => navigate(`/product/${similarProduct.id}`)}
               >
                 <SimilarProductImage>
-                  <div style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                    color: '#2f5483',
-                    fontSize: '2rem',
-                    fontWeight: 'bold',
-                    borderRadius: '8px'
-                  }}>
-                    {similarProduct.brand}
-                  </div>
+                  {similarProduct.mainImage ? (
+                    <img 
+                      src={similarProduct.mainImage} 
+                      alt={similarProduct.name}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        borderRadius: '8px'
+                      }}
+                    />
+                  ) : (
+                    <div style={{
+                      width: '100%',
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                      color: '#2f5483',
+                      fontSize: '2rem',
+                      fontWeight: 'bold',
+                      borderRadius: '8px'
+                    }}>
+                      {similarProduct.brand}
+                    </div>
+                  )}
                 </SimilarProductImage>
                 <SimilarProductName>{similarProduct.name}</SimilarProductName>
                 <SimilarProductType>{similarProduct.type}</SimilarProductType>
@@ -954,65 +986,69 @@ function ProductDetailPage() {
         );
       })()}
 
-      <WhyStroyEnergySection style={{ y: whyStroyEnergyY }}>
-        <WhyStroyEnergyContent>
-          <WhyStroyEnergyTitle>Почему Стройэнергетика?</WhyStroyEnergyTitle>
-          <WhyStroyEnergyGrid>
-            <WhyStroyEnergyCard>
-              <WhyStroyEnergyCardHeader>
-                <WhyStroyEnergyCardNumber>01</WhyStroyEnergyCardNumber>
-                <WhyStroyEnergyCardTitle>20+ лет опыта</WhyStroyEnergyCardTitle>
-              </WhyStroyEnergyCardHeader>
-              <WhyStroyEnergyCardText>
-                Более двух десятилетий работы в энергетической отрасли. Мы знаем все о современных технологиях и требованиях рынка.
-              </WhyStroyEnergyCardText>
-            </WhyStroyEnergyCard>
+      <AdvantagesSection>
+        <AdvantagesContent>
+          <AdvantagesTitle>Надежность в каждой детали</AdvantagesTitle>
+          <AdvantagesGrid>
+            <AdvantageCard>
+              <AdvantageIcon>
+                <FontAwesomeIcon icon={faShieldAlt} />
+              </AdvantageIcon>
+              <AdvantageTitle>Гарантия качества</AdvantageTitle>
+              <AdvantageText>
+                Все товары сертифицированы и имеют официальную гарантию производителя
+              </AdvantageText>
+            </AdvantageCard>
 
-            <WhyStroyEnergyCard>
-              <WhyStroyEnergyCardHeader>
-                <WhyStroyEnergyCardNumber>02</WhyStroyEnergyCardNumber>
-                <WhyStroyEnergyCardTitle>Сертификация ГОСТ</WhyStroyEnergyCardTitle>
-              </WhyStroyEnergyCardHeader>
-              <WhyStroyEnergyCardText>
-                Все оборудование соответствует российским стандартам качества. Полная сертификация и соответствие требованиям.
-              </WhyStroyEnergyCardText>
-            </WhyStroyEnergyCard>
+            <AdvantageCard>
+              <AdvantageIcon>
+                <FontAwesomeIcon icon={faTruck} />
+              </AdvantageIcon>
+              <AdvantageTitle>Быстрая доставка</AdvantageTitle>
+              <AdvantageText>
+                Доставляем по всей России в кратчайшие сроки
+              </AdvantageText>
+            </AdvantageCard>
 
-            <WhyStroyEnergyCard>
-              <WhyStroyEnergyCardHeader>
-                <WhyStroyEnergyCardNumber>03</WhyStroyEnergyCardNumber>
-                <WhyStroyEnergyCardTitle>Гарантия 16 лет</WhyStroyEnergyCardTitle>
-              </WhyStroyEnergyCardHeader>
-              <WhyStroyEnergyCardText>
-                Максимальная гарантия на оборудование. Мы уверены в качестве наших товаров и защищаем ваши инвестиции.
-              </WhyStroyEnergyCardText>
-            </WhyStroyEnergyCard>
+            <AdvantageCard>
+              <AdvantageIcon>
+                <FontAwesomeIcon icon={faHeadset} />
+              </AdvantageIcon>
+              <AdvantageTitle>Поддержка 24/7</AdvantageTitle>
+              <AdvantageText>
+                Круглосуточная консультация и техническая поддержка
+              </AdvantageText>
+            </AdvantageCard>
 
-            <WhyStroyEnergyCard>
-              <WhyStroyEnergyCardHeader>
-                <WhyStroyEnergyCardNumber>04</WhyStroyEnergyCardNumber>
-                <WhyStroyEnergyCardTitle>Техподдержка 24/7</WhyStroyEnergyCardTitle>
-              </WhyStroyEnergyCardHeader>
-              <WhyStroyEnergyCardText>
-                Круглосуточная техническая поддержка. Наши специалисты всегда готовы помочь с любыми вопросами.
-              </WhyStroyEnergyCardText>
-            </WhyStroyEnergyCard>
-          </WhyStroyEnergyGrid>
-        </WhyStroyEnergyContent>
-      </WhyStroyEnergySection>
+            <AdvantageCard>
+              <AdvantageIcon>
+                <FontAwesomeIcon icon={faCreditCard} />
+              </AdvantageIcon>
+              <AdvantageTitle>Удобная оплата</AdvantageTitle>
+              <AdvantageText>
+                Принимаем все виды оплаты, работаем с НДС
+              </AdvantageText>
+            </AdvantageCard>
+          </AdvantagesGrid>
+        </AdvantagesContent>
+      </AdvantagesSection>
 
       <CustomOrderBanner>
         <CustomOrderContent>
+          <CustomOrderIcon>
+            <FontAwesomeIcon icon={faSearch} />
+          </CustomOrderIcon>
           <CustomOrderTitle>Не нашли нужный товар в каталоге?</CustomOrderTitle>
           <CustomOrderText>
-            Организуем под заказ! Мы работаем с ведущими производителями и можем найти любой товар, который вам нужен.
+            Мы специализируемся на поиске и поставке любых счетчиков электроэнергии от ведущих производителей. Работаем с 50+ производителями и найдем нужный товар за 24 часа.
           </CustomOrderText>
           <CustomOrderButton
             onClick={handleCustomOrder}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            Заказать
+            <FontAwesomeIcon icon={faPaperPlane} />
+            Купить под заказ
           </CustomOrderButton>
         </CustomOrderContent>
       </CustomOrderBanner>

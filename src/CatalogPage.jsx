@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faPhone, faSearch, faShoppingCart, faFilter, faSort, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faPhone, faSearch, faShoppingCart, faFilter, faSort, faInfoCircle, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
 
 const CatalogContainer = styled.div`
@@ -12,7 +12,7 @@ const CatalogContainer = styled.div`
   min-height: 100vh;
   color: #000000;
   font-family: 'Inter', sans-serif;
-  padding-top: 90px;
+  padding-top: 200px;
 `;
 
 
@@ -514,6 +514,7 @@ const ProductCard = styled(motion.div)`
   height: 100%;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   
   &:before {
     content: '';
@@ -541,7 +542,7 @@ const ProductCard = styled(motion.div)`
 const ProductImage = styled.div`
   position: relative;
   height: 200px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -550,7 +551,7 @@ const ProductImage = styled.div`
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform 0.4s ease;
   }
   
@@ -790,12 +791,13 @@ const LoadMoreButton = styled(motion.button)`
 const CustomOrderBanner = styled.div`
   background: linear-gradient(135deg, #2f5483 0%, #1e3a5f 100%);
   color: white;
-  padding: 2rem;
-  border-radius: 12px;
+  padding: 3rem 2rem;
+  border-radius: 16px;
   margin: 3rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(47, 84, 131, 0.3);
 
   &:before {
     content: '';
@@ -804,47 +806,72 @@ const CustomOrderBanner = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-    opacity: 0.3;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="90" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="60" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+    opacity: 0.4;
   }
 `;
 
 const CustomOrderContent = styled.div`
   position: relative;
   z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+`;
+
+const CustomOrderIcon = styled.div`
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: white;
+  font-size: 1.5rem;
+  backdrop-filter: blur(10px);
 `;
 
 const CustomOrderTitle = styled.h3`
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   color: white;
+  
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const CustomOrderText = styled.p`
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  opacity: 0.9;
-  line-height: 1.5;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  line-height: 1.6;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const CustomOrderButton = styled(motion.button)`
   background: white;
   color: #2f5483;
   border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
+  padding: 1rem 2rem;
+  border-radius: 12px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
   }
 
   &:active {
@@ -871,6 +898,9 @@ function CatalogPage() {
     voltage: [],
     accuracy: []
   });
+  
+  // Состояние поискового запроса
+  const [searchQuery, setSearchQuery] = useState('');
   
 
   
@@ -917,8 +947,9 @@ function CatalogPage() {
   useEffect(() => {
     const category = searchParams.get('category');
     const brand = searchParams.get('brand');
+    const search = searchParams.get('search');
     
-    if (category || brand) {
+    if (category || brand || search) {
       const newFilters = {
         categories: category ? [category] : [],
         brands: brand ? [brand] : [],
@@ -929,6 +960,9 @@ function CatalogPage() {
       };
       
       setFilters(newFilters);
+      if (search) {
+        setSearchQuery(search);
+      }
       setDisplayedProducts(12); // Сбрасываем количество отображаемых товаров
     }
   }, [searchParams]);
@@ -981,6 +1015,7 @@ function CatalogPage() {
       voltage: [],
       accuracy: []
     });
+    setSearchQuery('');
     setSearchParams({}); // Очищаем параметры URL
     setDisplayedProducts(12);
   };
@@ -1003,6 +1038,18 @@ function CatalogPage() {
   // Функция фильтрации товаров
   const filterProducts = (products) => {
     return products.filter(product => {
+      // Поисковый фильтр
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase().trim();
+        const matchesName = product.name.toLowerCase().includes(query);
+        const matchesBrand = product.brand.toLowerCase().includes(query);
+        const matchesCategory = product.category.toLowerCase().includes(query);
+        
+        if (!matchesName && !matchesBrand && !matchesCategory) {
+          return false;
+        }
+      }
+      
       // Фильтр по категориям
       if (filters.categories.length > 0 && !filters.categories.includes(product.category)) {
         return false;
@@ -1081,7 +1128,8 @@ function CatalogPage() {
 
   // Проверка наличия активных фильтров
   const hasActiveFilters = () => {
-    return filters.categories.length > 0 || 
+    return searchQuery.trim() ||
+           filters.categories.length > 0 || 
            filters.brands.length > 0 || 
            filters.priceRange.min || 
            filters.priceRange.max || 
@@ -1424,21 +1472,35 @@ function CatalogPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              onClick={() => navigate(`/product/${product.id}`)}
             >
               <ProductImage>
-                <div style={{
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                  color: '#2f5483',
-                  fontSize: '2rem',
-                  fontWeight: 'bold'
-                }}>
-                  {product.brand}
-                </div>
+                {product.mainImage || product.image ? (
+                  <img 
+                    src={product.mainImage || `/images/products/${product.image}`} 
+                    alt={product.name}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                      borderRadius: '8px'
+                    }}
+                  />
+                ) : (
+                  <div style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                    color: '#2f5483',
+                    fontSize: '2rem',
+                    fontWeight: 'bold'
+                  }}>
+                    {product.brand}
+                  </div>
+                )}
                 <ProductBadge>{product.brand}</ProductBadge>
                 {product.discount && (
                   <DiscountBadge>-{product.discount}%</DiscountBadge>
@@ -1496,7 +1558,10 @@ function CatalogPage() {
                 
                 <ProductButtons>
                   <AddToCartButton
-                    onClick={() => addToCart(product)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToCart(product);
+                    }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -1505,7 +1570,10 @@ function CatalogPage() {
                   </AddToCartButton>
                   
                   <DetailsButton
-                    onClick={() => navigate(`/product/${product.id}`)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/product/${product.id}`);
+                    }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -1532,16 +1600,20 @@ function CatalogPage() {
 
         <CustomOrderBanner>
           <CustomOrderContent>
+            <CustomOrderIcon>
+              <FontAwesomeIcon icon={faSearch} />
+            </CustomOrderIcon>
             <CustomOrderTitle>Не нашли нужный товар в каталоге?</CustomOrderTitle>
             <CustomOrderText>
-              Организуем под заказ! Мы работаем с ведущими производителями и можем найти любой товар, который вам нужен.
+              Мы специализируемся на поиске и поставке любых счетчиков электроэнергии от ведущих производителей. Работаем с 50+ производителями и найдем нужный товар за 24 часа.
             </CustomOrderText>
             <CustomOrderButton
               onClick={handleCustomOrder}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Заказать
+              <FontAwesomeIcon icon={faPaperPlane} />
+              Купить под заказ
             </CustomOrderButton>
           </CustomOrderContent>
         </CustomOrderBanner>
