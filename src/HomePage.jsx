@@ -26,7 +26,7 @@ const Hero = styled(motion.section)`
     height: auto;
     min-height: auto;
     max-height: none;
-    margin-top: 150px;
+    margin-top: 75px;
     flex-direction: column;
   }
 `;
@@ -38,7 +38,7 @@ const MobileBannerImage = styled.div`
     display: block;
     width: 100%;
     height: 300px;
-    background: url('/banner.jpg') center center/cover no-repeat;
+    background: url('/banner.jpg') top right/cover no-repeat;
     position: relative;
   }
 `;
