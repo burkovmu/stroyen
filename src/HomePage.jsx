@@ -407,6 +407,11 @@ const Section = styled(motion.section)`
   width: 100%;
   margin-top: 0rem;
   box-sizing: border-box;
+  
+  @media (min-width: 769px) {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
 `;
 
 const SectionTitle = styled(motion.h2)`
@@ -453,6 +458,11 @@ const AdvantagesSection = styled(Section)`
   padding: 8rem 0;
   width: 100%;
   box-sizing: border-box;
+  
+  @media (min-width: 769px) {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
   
   &:before {
     content: '';
@@ -888,6 +898,11 @@ const AboutCompanySection = styled(Section)`
   width: 100%;
   box-sizing: border-box;
   
+  @media (min-width: 769px) {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+  
   &:before {
     content: '';
     position: absolute;
@@ -1073,6 +1088,11 @@ const ContactSection = styled(Section)`
   width: 100%;
   box-sizing: border-box;
   color: #000000;
+  
+  @media (min-width: 769px) {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
   
   &:before {
     content: '';
@@ -1396,6 +1416,11 @@ const CategoriesSection = styled(Section)`
   width: 100%;
   box-sizing: border-box;
   
+  @media (min-width: 769px) {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+  
   &:before {
     content: '';
     position: absolute;
@@ -1501,6 +1526,11 @@ const PopularProductsSection = styled(Section)`
   position: relative;
   width: 100%;
   box-sizing: border-box;
+  
+  @media (min-width: 769px) {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
   
   &:before {
     content: '';
