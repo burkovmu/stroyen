@@ -2183,6 +2183,11 @@ function AppContent() {
   // Логика скролла для управления видимостью полос шапки
   useEffect(() => {
     const handleScroll = () => {
+      // Проверяем, что это десктопная версия (ширина экрана больше 768px)
+      if (window.innerWidth <= 768) {
+        return; // Не применяем логику скрытия на мобильных устройствах
+      }
+      
       const currentScrollY = window.scrollY;
       
       // При скролле вниз - скрываем верхнюю полосу
@@ -2197,8 +2202,20 @@ function AppContent() {
       setLastScrollY(currentScrollY);
     };
 
+    const handleResize = () => {
+      // При переходе на мобильную версию показываем обе полосы
+      if (window.innerWidth <= 768) {
+        setShowTopHeader(true);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, [lastScrollY]);
 
   // Функция для закрытия мобильного меню
