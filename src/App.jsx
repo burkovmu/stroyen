@@ -196,13 +196,13 @@ const Logo = styled(motion.div)`
   cursor: pointer;
   
   img {
-    height: 40px;
+    height: 32px;
     width: auto;
   }
   
   @media (max-width: 768px) {
     img {
-      height: 35px;
+      height: 28px;
     }
   }
 `;
