@@ -915,11 +915,11 @@ const MobileButtonsContainer = styled.div`
   
   @media (max-width: 768px) {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.8rem;
   }
   
   @media (max-width: 480px) {
-    gap: 0.5rem;
+    gap: 0.6rem;
   }
 `;
 
@@ -941,28 +941,25 @@ const MobileCartButton = styled(motion.button)`
 
   @media (max-width: 768px) {
     overflow: visible;
-  }
-  
-  @media (max-width: 768px) {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
-    padding: 0.5rem;
-    min-width: 42px;
-    min-height: 44px;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(47, 84, 131, 0.15);
-    background: rgba(47, 84, 131, 0.9);
+    font-size: 1.1rem;
+    padding: 0.6rem;
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(47, 84, 131, 0.2);
+    background: rgba(47, 84, 131, 0.95);
   }
   
   @media (max-width: 480px) {
-    font-size: 0.95rem;
-    padding: 0.4rem;
-    min-width: 40px;
-    min-height: 42px;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(47, 84, 131, 0.1);
+    font-size: 1rem;
+    padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(47, 84, 131, 0.15);
   }
   
   &:hover {
@@ -986,40 +983,41 @@ const MobileCartButton = styled(motion.button)`
 
 const MobileCartCount = styled.div`
   position: absolute;
-  top: -8px;
-  right: -6px;
+  top: -10px;
+  right: -8px;
   background: #ff4757;
   color: white;
-  font-size: 0.7rem;
-  width: 20px;
-  height: 20px;
+  font-size: 0.75rem;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 700;
   border: 2px solid #ffffff;
-  box-shadow: 0 2px 4px rgba(255, 71, 87, 0.3);
+  box-shadow: 0 3px 6px rgba(255, 71, 87, 0.4);
   animation: ${props => props.count > 0 ? 'pulse 0.6s ease-in-out' : 'none'};
+  z-index: 10;
   
   @media (max-width: 768px) {
-    width: 16px;
-    height: 16px;
-    font-size: 0.6rem;
-    top: -6px;
-    right: -5px;
-    border: 1.5px solid #ffffff;
-    box-shadow: 0 1px 3px rgba(255, 71, 87, 0.25);
+    width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
+    top: -8px;
+    right: -6px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 5px rgba(255, 71, 87, 0.35);
   }
   
   @media (max-width: 480px) {
-    width: 14px;
-    height: 14px;
-    font-size: 0.55rem;
-    top: -5px;
-    right: -4px;
-    border: 1px solid #ffffff;
-    box-shadow: 0 1px 2px rgba(255, 71, 87, 0.2);
+    width: 18px;
+    height: 18px;
+    font-size: 0.65rem;
+    top: -7px;
+    right: -5px;
+    border: 1.5px solid #ffffff;
+    box-shadow: 0 2px 4px rgba(255, 71, 87, 0.3);
   }
   
   @keyframes pulse {
