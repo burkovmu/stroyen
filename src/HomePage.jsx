@@ -23,10 +23,148 @@ const Hero = styled(motion.section)`
   box-sizing: border-box;
   
   @media (max-width: 768px) {
-    height: 400px;
-    min-height: 400px;
-    max-height: 400px;
+    height: auto;
+    min-height: auto;
+    max-height: none;
     margin-top: 150px;
+    flex-direction: column;
+  }
+`;
+
+const MobileBannerImage = styled.div`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+    width: 100%;
+    height: 300px;
+    background: url('/banner.jpg') center center/cover no-repeat;
+    position: relative;
+  }
+`;
+
+const MobileBannerContent = styled.div`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+    background: #ffffff;
+    padding: 2rem 1.5rem;
+    width: 100%;
+    text-align: center;
+  }
+`;
+
+const MobileTitle = styled.h1`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2f5483;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+`;
+
+const MobileSubtitle = styled.p`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+    font-size: 1rem;
+    color: #666666;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+`;
+
+const MobileHeroButtons = styled.div`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+`;
+
+const MobilePrimaryButton = styled(motion.button)`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: #2f5483;
+    border: none;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: #1a2f4b;
+    }
+  }
+`;
+
+const MobileSecondaryButton = styled(motion.button)`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: 2px solid #2f5483;
+    color: #2f5483;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: #2f5483;
+      color: white;
+    }
+  }
+`;
+
+const MobileHeroFeatures = styled.div`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+`;
+
+const MobileHeroFeature = styled.div`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #2f5483;
+    font-size: 0.9rem;
+    font-weight: 500;
+    
+    svg {
+      color: #28a745;
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -40,6 +178,10 @@ const SlideBackground = styled.div`
   background-color: #f8f9fa;
   opacity: ${props => props.active ? 1 : 0};
   transition: opacity 0.8s ease-in-out;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const SlideIndicators = styled.div`
@@ -50,6 +192,10 @@ const SlideIndicators = styled.div`
   display: flex;
   gap: 1rem;
   z-index: 10;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const SlideIndicator = styled.button`
@@ -84,6 +230,10 @@ const HeroContent = styled(motion.div)`
 
   @media (max-width: 1024px) {
     max-width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
@@ -1762,6 +1912,51 @@ function HomePage() {
   return (
     <>
       <Hero>
+        {/* Мобильная версия банера */}
+        <MobileBannerImage />
+        <MobileBannerContent>
+          <MobileTitle>
+            Надежные счетчики электроэнергии
+          </MobileTitle>
+          <MobileSubtitle>
+            Официальный дилер АГАТ, НЕМО, Меркурий и других ведущих производителей. 
+            Гарантия до 16 лет. Доставка по России. Установка под ключ.
+          </MobileSubtitle>
+          <MobileHeroButtons>
+            <MobilePrimaryButton
+              onClick={() => navigate('/catalog')}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <FontAwesomeIcon icon={faShoppingCart} />
+              Смотреть каталог
+            </MobilePrimaryButton>
+            <MobileSecondaryButton
+              onClick={() => navigate('/contacts')}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <FontAwesomeIcon icon={faPhone} />
+              Получить консультацию
+            </MobileSecondaryButton>
+          </MobileHeroButtons>
+          <MobileHeroFeatures>
+            <MobileHeroFeature>
+              <FontAwesomeIcon icon={faCheck} />
+              <span>Гарантия до 16 лет</span>
+            </MobileHeroFeature>
+            <MobileHeroFeature>
+              <FontAwesomeIcon icon={faCheck} />
+              <span>Доставка по России</span>
+            </MobileHeroFeature>
+            <MobileHeroFeature>
+              <FontAwesomeIcon icon={faCheck} />
+              <span>Установка под ключ</span>
+            </MobileHeroFeature>
+          </MobileHeroFeatures>
+        </MobileBannerContent>
+
+        {/* Десктопная версия банера */}
         {/* Слайды фона */}
         {slides.map((slide, index) => (
           <SlideBackground
