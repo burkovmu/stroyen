@@ -1109,6 +1109,10 @@ const ContactContent = styled(motion.div)`
   @media (max-width: 1024px) {
     order: 2;
   }
+  
+  @media (max-width: 768px) {
+    order: 1;
+  }
 `;
 
 const ContactTitle = styled.h2`
@@ -1188,8 +1192,9 @@ const ContactForm = styled(motion.form)`
   @media (max-width: 1024px) {
     order: 1;
   }
-
+  
   @media (max-width: 768px) {
+    order: 2;
     padding: 2rem;
   }
 `;
