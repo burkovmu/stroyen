@@ -24,4 +24,8 @@ npm run dev
 
 ## Маршрутизация
 
-Все страницы настроены для работы с SPA (Single Page Application) на Vercel. 
+Все страницы настроены для работы с SPA (Single Page Application) на Vercel.
+
+## Обновление
+
+Последнее обновление: декабрь 2024 
