@@ -1982,8 +1982,11 @@ const Footer = styled.footer`
   margin-top: 4rem;
   position: relative;
   overflow: hidden;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  
+  @media (min-width: 769px) {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
 
   &:before {
     content: '';
