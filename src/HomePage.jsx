@@ -1703,16 +1703,20 @@ const ProductPrice = styled.div`
 `;
 
 const CurrentPrice = styled.span`
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 1.3rem;
+  font-weight: 600;
   color: #2f5483;
   
   @media (max-width: 1024px) {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
   
   @media (max-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
   }
 `;
 
@@ -1720,9 +1724,14 @@ const OriginalPrice = styled.span`
   font-size: 1rem;
   color: #999;
   text-decoration: line-through;
+  margin-right: 0.5rem;
   
   @media (max-width: 768px) {
     font-size: 0.9rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
   }
 `;
 
@@ -1730,7 +1739,7 @@ const ProductButton = styled(motion.button)`
   width: 100%;
   background: #2f5483;
   border: none;
-  padding: 0.8rem;
+  padding: 0.8rem 1.5rem;
   color: white;
   border-radius: 8px;
   font-weight: 500;
@@ -1741,15 +1750,33 @@ const ProductButton = styled(motion.button)`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(47, 84, 131, 0.2);
   
   &:hover {
-    background: #3a6294;
+    background: #1a2f4b;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(47, 84, 131, 0.3);
+    box-shadow: 0 4px 12px rgba(47, 84, 131, 0.3);
   }
   
   &:active {
     transform: translateY(0);
+  }
+  
+  @media (max-width: 1024px) {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    gap: 0.4rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+    min-height: 44px;
   }
 `;
 
