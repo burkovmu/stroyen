@@ -102,10 +102,15 @@ const Header = styled(motion.header)`
   z-index: 1000;
 `;
 
-const TopHeader = styled.div`
+const TopHeader = styled(motion.div)`
   width: 100%;
   background: #f8f9fa;
   border-bottom: 1px solid #e9ecef;
+  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const BottomHeader = styled.div`
@@ -125,6 +130,7 @@ const TopHeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 60px;
 
   @media (max-width: 1440px) {
     max-width: 1200px;
@@ -2170,6 +2176,31 @@ function AppContent() {
   });
   const [isPriceListSubmitting, setIsPriceListSubmitting] = useState(false);
   
+  // Состояния для управления шапкой при скролле
+  const [showTopHeader, setShowTopHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  
+  // Логика скролла для управления видимостью полос шапки
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // При скролле вниз - скрываем верхнюю полосу
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setShowTopHeader(false);
+      }
+      // При скролле вверх - показываем обе полосы
+      else if (currentScrollY < lastScrollY) {
+        setShowTopHeader(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
   // Функция для закрытия мобильного меню
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
@@ -2423,7 +2454,13 @@ function AppContent() {
             animate={{ y: 0 }}
             transition={{ duration: 0.5 }}
           >
-          <TopHeader>
+          <TopHeader
+            animate={{ 
+              height: showTopHeader ? 'auto' : 0,
+              opacity: showTopHeader ? 1 : 0
+            }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
             <TopHeaderContent>
               <TopHeaderLeft>
                 <LogoWithNavigation />
