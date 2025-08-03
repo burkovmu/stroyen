@@ -18,8 +18,7 @@ const Hero = styled(motion.section)`
   overflow: hidden;
   padding-top: 0;
   margin-top: 150px;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   box-sizing: border-box;
   
   @media (max-width: 768px) {
@@ -28,6 +27,8 @@ const Hero = styled(motion.section)`
     max-height: none;
     margin-top: 75px;
     flex-direction: column;
+    width: 100%;
+    overflow: hidden;
   }
 `;
 
@@ -403,8 +404,7 @@ const Section = styled(motion.section)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   margin-top: 0rem;
   box-sizing: border-box;
 `;
@@ -446,15 +446,12 @@ const SectionTitle = styled(motion.h2)`
   }
 `;
 
-
-
 const AdvantagesSection = styled(Section)`
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
   position: relative;
   overflow: hidden;
   padding: 8rem 0;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   box-sizing: border-box;
   
   &:before {
@@ -888,8 +885,7 @@ const AboutCompanySection = styled(Section)`
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   padding: 8rem 0;
   position: relative;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   box-sizing: border-box;
   
   &:before {
@@ -1074,8 +1070,7 @@ const ContactSection = styled(Section)`
   background: #ffffff;
   padding: 4rem 0 0 0;
   position: relative;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   box-sizing: border-box;
   color: #000000;
   
@@ -1393,8 +1388,7 @@ const CategoriesSection = styled(Section)`
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
   padding: 8rem 0;
   position: relative;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   box-sizing: border-box;
   
   &:before {
@@ -1500,8 +1494,7 @@ const PopularProductsSection = styled(Section)`
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   padding: 8rem 0;
   position: relative;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   box-sizing: border-box;
   
   &:before {
