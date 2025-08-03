@@ -3,6 +3,19 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+// Утилита для определения мобильного устройства
+const isMobileDevice = () => {
+  return window.innerWidth <= 768;
+};
+
+// Утилита для получения анимации в зависимости от устройства
+const getAnimationProps = (desktopProps, mobileProps = {}) => {
+  if (isMobileDevice()) {
+    return mobileProps;
+  }
+  return desktopProps;
+};
 import { faLocationDot, faPhone, faSearch, faShoppingCart, faShoppingBag, faShare, faLink, faGlobe, faHashtag, faEnvelope, faClock, faChevronDown, faBars, faPhoneVolume, faPaperPlane, faTimes, faThLarge, faBolt, faIndustry, faNetworkWired } from '@fortawesome/free-solid-svg-icons';
 import CatalogFilters from './CatalogFilters';
 import CatalogPage from './CatalogPage';
@@ -1364,7 +1377,7 @@ const LogoWithNavigation = () => {
   
   return (
     <Logo 
-      whileHover={{ scale: 1.02 }}
+      {...getAnimationProps({ whileHover: { scale: 1.02 } })}
       onClick={handleLogoClick}
     >
       <img src="/logo.png" alt="Стройэнергетика" />
@@ -1387,7 +1400,7 @@ const FooterLogoWithNavigation = () => {
   return (
     <FooterLogo 
       as={motion.div}
-      whileHover={{ scale: 1.02 }}
+      {...getAnimationProps({ whileHover: { scale: 1.02 } })}
       onClick={handleLogoClick}
     >
       <img src="/logo.png" alt="Стройэнергетика" />
@@ -2610,45 +2623,45 @@ function AppContent() {
               </TopHeaderLeft>
               <TopHeaderRight>
                 <TopNavDropdown>
-                  <TopNavDropdownButton 
-                    whileHover={{ scale: 1.02 }}
-                    onClick={() => setClientsDropdownOpen(!clientsDropdownOpen)}
-                    onMouseEnter={() => setClientsDropdownOpen(true)}
-                    onMouseLeave={() => setClientsDropdownOpen(false)}
-                  >
-                    Клиентам
-                    <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '0.7rem' }} />
-                  </TopNavDropdownButton>
+                                  <TopNavDropdownButton 
+                  {...getAnimationProps({ whileHover: { scale: 1.02 } })}
+                  onClick={() => setClientsDropdownOpen(!clientsDropdownOpen)}
+                  onMouseEnter={() => setClientsDropdownOpen(true)}
+                  onMouseLeave={() => setClientsDropdownOpen(false)}
+                >
+                  Клиентам
+                  <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '0.7rem' }} />
+                </TopNavDropdownButton>
                 </TopNavDropdown>
 
                 <TopNavDropdown>
-                  <TopNavDropdownButton 
-                    whileHover={{ scale: 1.02 }}
-                    onClick={() => setInfoDropdownOpen(!infoDropdownOpen)}
-                    onMouseEnter={() => setInfoDropdownOpen(true)}
-                    onMouseLeave={() => setInfoDropdownOpen(false)}
-                  >
-                    Информация
-                    <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '0.7rem' }} />
-                  </TopNavDropdownButton>
+                                  <TopNavDropdownButton 
+                  {...getAnimationProps({ whileHover: { scale: 1.02 } })}
+                  onClick={() => setInfoDropdownOpen(!infoDropdownOpen)}
+                  onMouseEnter={() => setInfoDropdownOpen(true)}
+                  onMouseLeave={() => setInfoDropdownOpen(false)}
+                >
+                  Информация
+                  <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '0.7rem' }} />
+                </TopNavDropdownButton>
                 </TopNavDropdown>
                 <TopNavLink 
-                  whileHover={{ scale: 1.02 }}
+                  {...getAnimationProps({ whileHover: { scale: 1.02 } })}
                   onClick={openPriceListModal}
                   style={{ cursor: 'pointer' }}
                 >
                   Прайс-лист
                 </TopNavLink>
-                <TopNavLink whileHover={{ scale: 1.02 }} href="/contacts">Контакты</TopNavLink>
+                <TopNavLink {...getAnimationProps({ whileHover: { scale: 1.02 } })} href="/contacts">Контакты</TopNavLink>
                 <CallbackButtonSecondary 
-                  whileHover={{ scale: 1.02 }}
+                  {...getAnimationProps({ whileHover: { scale: 1.02 } })}
                   onClick={openCallbackModal}
                 >
                   <FontAwesomeIcon icon={faPhoneVolume} />
                   Заказать звонок
                 </CallbackButtonSecondary>
                 <CallbackButton 
-                  whileHover={{ scale: 1.02 }}
+                  {...getAnimationProps({ whileHover: { scale: 1.02 } })}
                   onClick={openApplicationModal}
                 >
                   <FontAwesomeIcon icon={faPaperPlane} />
@@ -2659,8 +2672,7 @@ function AppContent() {
                 <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                   <MobileCartButtonWithContext onOpenCart={() => setCartModalOpen(true)} />
                   <MobileMenuButton
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    {...getAnimationProps({ whileHover: { scale: 1.05 }, whileTap: { scale: 0.95 } })}
                     onClick={() => setMobileMenuOpen(true)}
                   >
                     <FontAwesomeIcon icon={faBars} />
