@@ -4,6 +4,19 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+// Утилита для определения мобильного устройства
+const isMobileDevice = () => {
+  return window.innerWidth <= 768;
+};
+
+// Утилита для получения анимации в зависимости от устройства
+const getAnimationProps = (desktopProps, mobileProps = {}) => {
+  if (isMobileDevice()) {
+    return mobileProps;
+  }
+  return desktopProps;
+};
 import { faShieldAlt, faTruckFast, faTools, faHeadset, faPercent, faCertificate, faClipboardList, faTruck, faShoppingCart, faComments, faSearch, faPaperPlane, faPhone, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
 
@@ -2117,9 +2130,10 @@ function HomePage() {
         
         {/* Контент баннера */}
         <HeroContent
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          {...getAnimationProps(
+            { initial: { opacity: 0, y: 30 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, delay: 0.2 } },
+            { initial: { opacity: 1, y: 0 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+          )}
         >
           <HeroContentInner>
             <Title>
@@ -2132,16 +2146,14 @@ function HomePage() {
             <HeroButtons>
               <PrimaryButton
                 onClick={() => navigate('/catalog')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                {...getAnimationProps({ whileHover: { scale: 1.05 }, whileTap: { scale: 0.95 } })}
               >
                 <FontAwesomeIcon icon={faShoppingCart} />
                 Смотреть каталог
               </PrimaryButton>
               <SecondaryButton
                 onClick={() => navigate('/contacts')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                {...getAnimationProps({ whileHover: { scale: 1.05 }, whileTap: { scale: 0.95 } })}
               >
                 <FontAwesomeIcon icon={faPhone} />
                 Получить консультацию
@@ -2178,9 +2190,10 @@ function HomePage() {
 
       <PopularProductsSection>
         <SectionTitle
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          {...getAnimationProps(
+            { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.6 } },
+            { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+          )}
         >
           Популярные товары
         </SectionTitle>
@@ -2188,9 +2201,10 @@ function HomePage() {
           {popularProducts.map((product, index) => (
             <ProductCard
               key={product.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              {...getAnimationProps(
+                { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.6, delay: index * 0.1 } },
+                { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+              )}
               onClick={() => navigate(`/product/${product.id}`)}
             >
               <ProductImage>
@@ -2219,8 +2233,7 @@ function HomePage() {
                     e.stopPropagation();
                     handleAddToCart(product);
                   }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  {...getAnimationProps({ whileHover: { scale: 1.02 }, whileTap: { scale: 0.98 } })}
                   style={{ transformOrigin: 'center' }}
                 >
                   <FontAwesomeIcon icon={faShoppingCart} />
@@ -2236,9 +2249,10 @@ function HomePage() {
         <SectionTitle>О компании</SectionTitle>
         <AboutContainer>
           <AboutContent
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            {...getAnimationProps(
+              { initial: { opacity: 0, x: -50 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0.6 } },
+              { initial: { opacity: 1, x: 0 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0 } }
+            )}
           >
             
             <AboutDescription>
@@ -2253,9 +2267,10 @@ function HomePage() {
             </AboutFeatures>
           </AboutContent>
           <AboutImage
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            {...getAnimationProps(
+              { initial: { opacity: 0, x: 50 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0.6 } },
+              { initial: { opacity: 1, x: 0 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0 } }
+            )}
           >
             <AboutImageContent>
               <AboutImageTitle>Наши преимущества</AboutImageTitle>
@@ -2279,17 +2294,19 @@ function HomePage() {
 
       <AdvantagesSection>
         <SectionTitle
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          {...getAnimationProps(
+            { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.6 } },
+            { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+          )}
         >
           Наши преимущества
         </SectionTitle>
         <AdvantagesGrid>
           <AdvantageCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            {...getAnimationProps(
+              { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay: 0.1 } },
+              { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+            )}
           >
             <AdvantageIcon>
               <FontAwesomeIcon icon={faShieldAlt} />
@@ -2301,9 +2318,10 @@ function HomePage() {
           </AdvantageCard>
 
           <AdvantageCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            {...getAnimationProps(
+              { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay: 0.2 } },
+              { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+            )}
           >
             <AdvantageIcon>
               <FontAwesomeIcon icon={faTruckFast} />
@@ -2315,9 +2333,10 @@ function HomePage() {
           </AdvantageCard>
 
           <AdvantageCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            {...getAnimationProps(
+              { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay: 0.3 } },
+              { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+            )}
           >
             <AdvantageIcon>
               <FontAwesomeIcon icon={faTools} />
@@ -2329,9 +2348,10 @@ function HomePage() {
           </AdvantageCard>
 
           <AdvantageCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            {...getAnimationProps(
+              { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay: 0.4 } },
+              { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+            )}
           >
             <AdvantageIcon>
               <FontAwesomeIcon icon={faHeadset} />
@@ -2343,9 +2363,10 @@ function HomePage() {
           </AdvantageCard>
 
           <AdvantageCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            {...getAnimationProps(
+              { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay: 0.5 } },
+              { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+            )}
           >
             <AdvantageIcon>
               <FontAwesomeIcon icon={faPercent} />
@@ -2357,9 +2378,10 @@ function HomePage() {
           </AdvantageCard>
 
           <AdvantageCard
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
+            {...getAnimationProps(
+              { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay: 0.6 } },
+              { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+            )}
           >
             <AdvantageIcon>
               <FontAwesomeIcon icon={faCertificate} />
@@ -2442,8 +2464,7 @@ function HomePage() {
             Мы специализируемся на поиске и поставке любых счетчиков электроэнергии от ведущих производителей. Работаем с 50+ производителями и найдем нужный товар за 24 часа.
           </CustomOrderText>
           <CustomOrderButton
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            {...getAnimationProps({ whileHover: { scale: 1.02 }, whileTap: { scale: 0.98 } })}
             onClick={() => {
               // Прокрутка к форме обратной связи
               const contactSection = document.querySelector('.contact-section');
@@ -2461,9 +2482,10 @@ function HomePage() {
       <ContactSection className="contact-section">
         <ContactContainer>
           <ContactContent
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            {...getAnimationProps(
+              { initial: { opacity: 0, x: -50 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0.6 } },
+              { initial: { opacity: 1, x: 0 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0 } }
+            )}
           >
             <ContactTitle>Свяжитесь с нами</ContactTitle>
             <ContactDescription>
@@ -2477,9 +2499,10 @@ function HomePage() {
             </ContactInfo>
           </ContactContent>
           <ContactForm
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            {...getAnimationProps(
+              { initial: { opacity: 0, x: 50 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0.6 } },
+              { initial: { opacity: 1, x: 0 }, whileInView: { opacity: 1, x: 0 }, transition: { duration: 0 } }
+            )}
             onSubmit={(e) => {
               e.preventDefault();
               // Здесь будет логика отправки формы
@@ -2520,8 +2543,7 @@ function HomePage() {
               </FormGroup>
               <SubmitButton
                 type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                {...getAnimationProps({ whileHover: { scale: 1.02 }, whileTap: { scale: 0.98 } })}
               >
                 Отправить заявку
               </SubmitButton>
