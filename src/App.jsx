@@ -38,12 +38,11 @@ const ScrollToTop = () => {
   
   useEffect(() => {
     const handleRouteChange = () => {
-      if (window.location.pathname === '/') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+      // Прокручиваем вверх при переходе на любую страницу
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
     
-    // Прокручиваем вверх при загрузке главной страницы
+    // Прокручиваем вверх при загрузке страницы
     handleRouteChange();
     
     // Слушаем изменения в истории браузера
@@ -58,11 +57,9 @@ const ScrollToTop = () => {
     };
   }, []);
   
-  // Прокручиваем вверх при каждом рендере на главной странице
+  // Прокручиваем вверх при каждом изменении пути
   useEffect(() => {
-    if (location.pathname === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.pathname]);
   
   return null;
