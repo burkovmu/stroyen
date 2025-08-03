@@ -2179,6 +2179,19 @@ function AppContent() {
   // Состояния для управления шапкой при скролле
   const [showTopHeader, setShowTopHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Проверяем размер экрана при загрузке и изменении размера
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
   
   // Логика скролла для управления видимостью полос шапки
   useEffect(() => {
@@ -2473,8 +2486,8 @@ function AppContent() {
           >
           <TopHeader
             animate={{ 
-              height: showTopHeader ? 'auto' : 0,
-              opacity: showTopHeader ? 1 : 0
+              height: isMobile ? 'auto' : (showTopHeader ? 'auto' : 0),
+              opacity: isMobile ? 1 : (showTopHeader ? 1 : 0)
             }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
