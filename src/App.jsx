@@ -2841,6 +2841,8 @@ function AppContent() {
         <Route path="*" element={<NotFoundPage />} />
         </Routes>
 
+        </AppContainer>
+        
         <Footer>
           <FooterContent>
             <FooterColumn>
@@ -2909,7 +2911,6 @@ function AppContent() {
             </FooterSocial>
           </FooterBottom>
         </Footer>
-      </AppContainer>
       </GlobalBackground>
       
       <CartModalComponent 
