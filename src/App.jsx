@@ -158,6 +158,7 @@ const TopHeaderContent = styled.div`
     flex-direction: row;
     gap: 1rem;
     min-height: 85px;
+    justify-content: space-between;
   }
   
   @media (max-width: 480px) {
@@ -903,25 +904,7 @@ const MobileMenuButton = styled(motion.button)`
   }
 `;
 
-const MobileButtonsContainer = styled.div`
-  display: none;
-  align-items: center;
-  gap: 0.5rem;
-  box-sizing: border-box;
 
-  @media (max-width: 768px) {
-    overflow-x: hidden;
-  }
-  
-  @media (max-width: 768px) {
-    display: flex;
-    gap: 0.8rem;
-  }
-  
-  @media (max-width: 480px) {
-    gap: 0.6rem;
-  }
-`;
 
 const MobileCartButton = styled(motion.button)`
   display: none;
@@ -2673,16 +2656,14 @@ function AppContent() {
                   Отправить заявку
                 </CallbackButton>
               </TopHeaderRight>
-              <MobileButtonsContainer>
-                <MobileCartButtonWithContext onOpenCart={() => setCartModalOpen(true)} />
-                <MobileMenuButton
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setMobileMenuOpen(true)}
-                >
-                  <FontAwesomeIcon icon={faBars} />
-                </MobileMenuButton>
-              </MobileButtonsContainer>
+              <MobileCartButtonWithContext onOpenCart={() => setCartModalOpen(true)} />
+              <MobileMenuButton
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setMobileMenuOpen(true)}
+              >
+                <FontAwesomeIcon icon={faBars} />
+              </MobileMenuButton>
             </TopHeaderContent>
           </TopHeader>
           
