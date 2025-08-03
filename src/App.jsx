@@ -73,6 +73,10 @@ const GlobalBackground = styled.div`
   min-height: 100vh;
   width: 100%;
   box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    overflow-x: hidden;
+  }
 `;
 
 const AppContainer = styled.div`
@@ -82,6 +86,10 @@ const AppContainer = styled.div`
   margin: 0 auto;
   padding-top: 0;
   box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    overflow-x: hidden;
+  }
 
   @media (max-width: 1440px) {
     max-width: 1200px;
@@ -130,6 +138,10 @@ const TopHeaderContent = styled.div`
   align-items: center;
   min-height: 60px;
   box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    overflow-x: hidden;
+  }
 
   @media (max-width: 1440px) {
     max-width: 1200px;
@@ -864,6 +876,10 @@ const MobileMenuButton = styled(motion.button)`
   border-radius: 6px;
   transition: all 0.3s ease;
   box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    overflow-x: hidden;
+  }
   
   @media (max-width: 768px) {
     display: flex;
@@ -892,6 +908,10 @@ const MobileButtonsContainer = styled.div`
   align-items: center;
   gap: 0.5rem;
   box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    overflow-x: hidden;
+  }
   
   @media (max-width: 768px) {
     display: flex;
@@ -918,6 +938,10 @@ const MobileCartButton = styled(motion.button)`
   min-height: 44px;
   box-shadow: 0 2px 8px rgba(47, 84, 131, 0.2);
   box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    overflow-x: hidden;
+  }
   
   @media (max-width: 768px) {
     display: flex;
@@ -1891,6 +1915,10 @@ const PriceListInput = styled.input`
   transition: all 0.3s ease;
   box-sizing: border-box;
 
+  @media (max-width: 768px) {
+    overflow-x: hidden;
+  }
+
   &:focus {
     outline: none;
     border-color: #2f5483;
@@ -1910,6 +1938,10 @@ const PriceListTextarea = styled.textarea`
   font-size: 16px;
   transition: all 0.3s ease;
   box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    overflow-x: hidden;
+  }
   resize: vertical;
   min-height: 100px;
   font-family: inherit;
