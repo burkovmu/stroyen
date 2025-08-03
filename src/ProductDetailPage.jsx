@@ -350,11 +350,16 @@ const SimilarProductsTitle = styled.h3`
 
 const SimilarProductsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  
   @media (max-width: 1024px) {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
   
@@ -420,7 +425,7 @@ const SimilarProductCard = styled.div`
 const SimilarProductImage = styled.div`
   width: 100%;
   height: 200px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: #ffffff;
   border-radius: 12px;
   display: flex;
   align-items: center;
