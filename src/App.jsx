@@ -1084,6 +1084,7 @@ const MobileMenuDropdownItem = styled.a`
 
 const MobileSearchContainer = styled.div`
   margin-bottom: 2rem;
+  position: relative;
 `;
 
 const MobileSearchInput = styled.input`
@@ -2086,6 +2087,48 @@ const SocialLink = styled.a`
   }
 `;
 
+const MobileSearchSuggestions = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid rgba(47, 84, 131, 0.1);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 20px rgba(47, 84, 131, 0.15);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  display: ${props => props.show ? 'block' : 'none'};
+`;
+
+const MobileSuggestionItem = styled.div`
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(47, 84, 131, 0.05);
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: rgba(47, 84, 131, 0.05);
+  }
+  
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
+const MobileSuggestionTitle = styled.div`
+  font-weight: 500;
+  color: #2f5483;
+  margin-bottom: 0.2rem;
+`;
+
+const MobileSuggestionDetails = styled.div`
+  font-size: 0.8rem;
+  color: #666666;
+`;
+
 function AppContent() {
   const { addNotification } = useNotification();
   const [catalogDropdownOpen, setCatalogDropdownOpen] = useState(false);
@@ -2721,9 +2764,34 @@ function AppContent() {
             type="text"
             placeholder="Поиск товаров..."
             value={headerSearchQuery}
-            onChange={(e) => setHeaderSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setHeaderSearchQuery(e.target.value);
+              setHeaderSearchSuggestions(e.target.value.length >= 2);
+            }}
+            onFocus={() => {
+              if (headerSearchQuery.length >= 2) {
+                setHeaderSearchSuggestions(true);
+              }
+            }}
+            onBlur={() => {
+              setTimeout(() => setHeaderSearchSuggestions(false), 200);
+            }}
             onKeyPress={handleSearchKeyPress}
           />
+          <MobileSearchSuggestions show={headerSearchSuggestions}>
+            {generateHeaderSuggestions().map((suggestion, index) => (
+              <MobileSuggestionItem
+                key={`mobile-${suggestion.type}-${index}`}
+                onClick={() => {
+                  handleSuggestionClick(suggestion);
+                  closeMobileMenu();
+                }}
+              >
+                <MobileSuggestionTitle>{suggestion.title}</MobileSuggestionTitle>
+                <MobileSuggestionDetails>{suggestion.details}</MobileSuggestionDetails>
+              </MobileSuggestionItem>
+            ))}
+          </MobileSearchSuggestions>
         </MobileSearchContainer>
         
         <MobileMenuSection>
