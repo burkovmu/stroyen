@@ -2764,13 +2764,13 @@ function AppContent() {
           <MobileMenuTitle>Клиентам</MobileMenuTitle>
           <MobileMenuItem href="/consultation" onClick={closeMobileMenu}>Консультация</MobileMenuItem>
           <MobileMenuItem href="/delivery" onClick={closeMobileMenu}>Доставка</MobileMenuItem>
-          <MobileMenuItem href="/services/meter-verification" onClick={closeMobileMenu}>Поверка счетчиков</MobileMenuItem>
-          <MobileMenuItem href="/services/transformer-verification" onClick={closeMobileMenu}>Поверка трансформаторов</MobileMenuItem>
-          <MobileMenuItem href="/services/installation" onClick={closeMobileMenu}>Монтаж оборудования</MobileMenuItem>
-                      <MobileMenuItem href="/services/commissioning" onClick={closeMobileMenu}>Наладка оборудования</MobileMenuItem>
           <MobileMenuItem href="/payment" onClick={closeMobileMenu}>Оплата</MobileMenuItem>
-                          <MobileMenuItem href="/warranty" onClick={closeMobileMenu}>Гарантия</MobileMenuItem>
+          <MobileMenuItem href="/warranty" onClick={closeMobileMenu}>Гарантия</MobileMenuItem>
           <MobileMenuItem href="/return" onClick={closeMobileMenu}>Возврат</MobileMenuItem>
+          <MobileMenuItem href="/services/meter-verification" onClick={closeMobileMenu}>Поверка счетчиков электрической энергии</MobileMenuItem>
+          <MobileMenuItem href="/services/transformer-verification" onClick={closeMobileMenu}>Поверка трансформаторов тока (напряжения)</MobileMenuItem>
+          <MobileMenuItem href="/services/installation" onClick={closeMobileMenu}>Монтаж оборудования</MobileMenuItem>
+          <MobileMenuItem href="/services/commissioning" onClick={closeMobileMenu}>Наладка оборудования</MobileMenuItem>
         </MobileMenuSection>
         
         <MobileMenuSection>
@@ -2787,11 +2787,8 @@ function AppContent() {
           <MobileMenuItem href="/about" onClick={closeMobileMenu}>О компании</MobileMenuItem>
           <MobileMenuItem href="/docs" onClick={closeMobileMenu}>Документация</MobileMenuItem>
           <MobileMenuItem href="/certificates" onClick={closeMobileMenu}>Сертификаты</MobileMenuItem>
-          <MobileMenuItem href="/faq" onClick={closeMobileMenu}>FAQ</MobileMenuItem>
           <MobileMenuItem href="/partners" onClick={closeMobileMenu}>Партнеры</MobileMenuItem>
-          <MobileMenuItem href="/vacancies" onClick={closeMobileMenu}>Вакансии</MobileMenuItem>
-          <MobileMenuItem href="/help" onClick={closeMobileMenu}>Помощь</MobileMenuItem>
-          <MobileMenuItem href="/career" onClick={closeMobileMenu}>Карьера</MobileMenuItem>
+          <MobileMenuItem href="/faq" onClick={closeMobileMenu}>FAQ</MobileMenuItem>
           <MobileMenuItem href="/contacts" onClick={closeMobileMenu}>Контакты</MobileMenuItem>
         </MobileMenuSection>
         
