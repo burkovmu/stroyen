@@ -127,6 +127,7 @@ const TopHeaderContent = styled.div`
   justify-content: space-between;
   align-items: center;
   min-height: 60px;
+  box-sizing: border-box;
 
   @media (max-width: 1440px) {
     max-width: 1200px;
@@ -139,10 +140,15 @@ const TopHeaderContent = styled.div`
   }
 
   @media (max-width: 768px) {
-    padding: 0.8rem 1rem;
+    padding: 0.8rem 0.5rem;
     flex-direction: row;
     gap: 0.5rem;
     min-height: 60px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.6rem 0.3rem;
+    gap: 0.3rem;
   }
 `;
 
@@ -846,15 +852,23 @@ const MobileMenuButton = styled(motion.button)`
   padding: 0.5rem;
   border-radius: 6px;
   transition: all 0.3s ease;
+  box-sizing: border-box;
   
   @media (max-width: 768px) {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.8rem;
-    padding: 0.8rem;
-    min-width: 44px;
-    min-height: 44px;
+    font-size: 1.5rem;
+    padding: 0.6rem;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+    padding: 0.5rem;
+    min-width: 36px;
+    min-height: 36px;
   }
   
   &:hover {
@@ -866,9 +880,15 @@ const MobileButtonsContainer = styled.div`
   display: none;
   align-items: center;
   gap: 0.5rem;
+  box-sizing: border-box;
   
   @media (max-width: 768px) {
     display: flex;
+    gap: 0.3rem;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 0.2rem;
   }
 `;
 
@@ -886,12 +906,23 @@ const MobileCartButton = styled(motion.button)`
   min-width: 44px;
   min-height: 44px;
   box-shadow: 0 2px 8px rgba(47, 84, 131, 0.2);
+  box-sizing: border-box;
   
   @media (max-width: 768px) {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    padding: 0.6rem;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    padding: 0.5rem;
+    min-width: 36px;
+    min-height: 36px;
   }
   
   &:hover {
