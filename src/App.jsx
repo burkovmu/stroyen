@@ -144,15 +144,16 @@ const TopHeaderContent = styled.div`
   }
 
   @media (max-width: 768px) {
-    padding: 0.8rem 0.5rem;
+    padding: 1.2rem 1rem;
     flex-direction: row;
-    gap: 0.5rem;
-    min-height: 60px;
+    gap: 0.8rem;
+    min-height: 80px;
   }
   
   @media (max-width: 480px) {
-    padding: 0.6rem 0.3rem;
-    gap: 0.3rem;
+    padding: 1rem 0.8rem;
+    gap: 0.6rem;
+    min-height: 75px;
   }
 `;
 
@@ -208,8 +209,16 @@ const Logo = styled(motion.div)`
   
   @media (max-width: 768px) {
     img {
-      height: 28px;
+      height: 38px;
     }
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 480px) {
+    img {
+      height: 35px;
+    }
+    font-size: 1rem;
   }
 `;
 
@@ -888,11 +897,11 @@ const MobileButtonsContainer = styled.div`
   
   @media (max-width: 768px) {
     display: flex;
-    gap: 0.3rem;
+    gap: 0.8rem;
   }
   
   @media (max-width: 480px) {
-    gap: 0.2rem;
+    gap: 0.6rem;
   }
 `;
 
@@ -916,17 +925,20 @@ const MobileCartButton = styled(motion.button)`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    padding: 0.6rem;
-    min-width: 40px;
-    min-height: 40px;
+    font-size: 1.3rem;
+    padding: 0.8rem;
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(47, 84, 131, 0.25);
   }
   
   @media (max-width: 480px) {
-    font-size: 1rem;
-    padding: 0.5rem;
-    min-width: 36px;
-    min-height: 36px;
+    font-size: 1.2rem;
+    padding: 0.7rem;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 8px;
   }
   
   &:hover {
@@ -957,6 +969,16 @@ const MobileCartCount = styled.div`
   border: 2px solid #ffffff;
   box-shadow: 0 2px 4px rgba(255, 71, 87, 0.3);
   animation: ${props => props.count > 0 ? 'pulse 0.6s ease-in-out' : 'none'};
+  
+  @media (max-width: 768px) {
+    width: 22px;
+    height: 22px;
+    font-size: 0.75rem;
+    top: -8px;
+    right: -8px;
+    border: 2.5px solid #ffffff;
+    box-shadow: 0 3px 6px rgba(255, 71, 87, 0.4);
+  }
   
   @keyframes pulse {
     0% { transform: scale(1); }
