@@ -171,19 +171,21 @@ const TopHeaderContent = styled.div`
 const BottomHeaderContent = styled.div`
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0.4rem 2rem;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 60px;
+  box-sizing: border-box;
 
   @media (max-width: 1440px) {
     max-width: 1200px;
-    padding: 0.4rem 1.5rem;
+    padding: 1rem 1.5rem;
   }
 
   @media (max-width: 1024px) {
     max-width: 100%;
-    padding: 0.4rem 1.5rem;
+    padding: 1rem 1.5rem;
   }
 
   @media (max-width: 768px) {
