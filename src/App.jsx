@@ -2476,24 +2476,6 @@ function AppContent() {
                     Клиентам
                     <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '0.7rem' }} />
                   </TopNavDropdownButton>
-                  <TopNavDropdownContent 
-                    isOpen={clientsDropdownOpen}
-                    onMouseEnter={() => setClientsDropdownOpen(true)}
-                    onMouseLeave={() => setClientsDropdownOpen(false)}
-                  >
-                    <TopNavDropdownItem href="/consultation">Консультация</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/delivery">Доставка</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/payment">Оплата</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/warranty">Гарантия</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/return">Возврат</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/services/meter-verification">Поверка счетчиков электрической энергии</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/services/transformer-verification">Поверка трансформаторов тока (напряжения)</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/services/installation">Монтаж оборудования</TopNavDropdownItem>
-                                            <TopNavDropdownItem href="/services/commissioning">Наладка оборудования</TopNavDropdownItem>
-
-
-
-                  </TopNavDropdownContent>
                 </TopNavDropdown>
 
                 <TopNavDropdown>
@@ -2506,19 +2488,6 @@ function AppContent() {
                     Информация
                     <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '0.7rem' }} />
                   </TopNavDropdownButton>
-                  <TopNavDropdownContent 
-                    isOpen={infoDropdownOpen}
-                    onMouseEnter={() => setInfoDropdownOpen(true)}
-                    onMouseLeave={() => setInfoDropdownOpen(false)}
-                  >
-                    <TopNavDropdownItem href="/about">О компании</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/docs">Документация</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/certificates">Сертификаты</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/partners">Партнеры</TopNavDropdownItem>
-                    <TopNavDropdownItem href="/faq">FAQ</TopNavDropdownItem>
-
-
-                  </TopNavDropdownContent>
                 </TopNavDropdown>
                 <TopNavLink 
                   whileHover={{ scale: 1.02 }}
@@ -2555,6 +2524,49 @@ function AppContent() {
               </MobileButtonsContainer>
             </TopHeaderContent>
           </TopHeader>
+          
+          {/* Выпадающие меню вынесены за пределы TopHeader */}
+          <TopNavDropdownContent 
+            isOpen={clientsDropdownOpen}
+            onMouseEnter={() => setClientsDropdownOpen(true)}
+            onMouseLeave={() => setClientsDropdownOpen(false)}
+            style={{
+              position: 'fixed',
+              top: showTopHeader ? '60px' : '35px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 3001
+            }}
+          >
+            <TopNavDropdownItem href="/consultation">Консультация</TopNavDropdownItem>
+            <TopNavDropdownItem href="/delivery">Доставка</TopNavDropdownItem>
+            <TopNavDropdownItem href="/payment">Оплата</TopNavDropdownItem>
+            <TopNavDropdownItem href="/warranty">Гарантия</TopNavDropdownItem>
+            <TopNavDropdownItem href="/return">Возврат</TopNavDropdownItem>
+            <TopNavDropdownItem href="/services/meter-verification">Поверка счетчиков электрической энергии</TopNavDropdownItem>
+            <TopNavDropdownItem href="/services/transformer-verification">Поверка трансформаторов тока (напряжения)</TopNavDropdownItem>
+            <TopNavDropdownItem href="/services/installation">Монтаж оборудования</TopNavDropdownItem>
+            <TopNavDropdownItem href="/services/commissioning">Наладка оборудования</TopNavDropdownItem>
+          </TopNavDropdownContent>
+          
+          <TopNavDropdownContent 
+            isOpen={infoDropdownOpen}
+            onMouseEnter={() => setInfoDropdownOpen(true)}
+            onMouseLeave={() => setInfoDropdownOpen(false)}
+            style={{
+              position: 'fixed',
+              top: showTopHeader ? '60px' : '35px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 3001
+            }}
+          >
+            <TopNavDropdownItem href="/about">О компании</TopNavDropdownItem>
+            <TopNavDropdownItem href="/docs">Документация</TopNavDropdownItem>
+            <TopNavDropdownItem href="/certificates">Сертификаты</TopNavDropdownItem>
+            <TopNavDropdownItem href="/partners">Партнеры</TopNavDropdownItem>
+            <TopNavDropdownItem href="/faq">FAQ</TopNavDropdownItem>
+          </TopNavDropdownContent>
           
           <BottomHeader>
             <BottomHeaderContent>
