@@ -3,7 +3,13 @@ import styled from 'styled-components';
 
 const TestContainer = styled.div`
   padding: 200px 2rem 2rem;
-  text-align: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  
+  @media (max-width: 1024px) {
+    padding: 100px 1rem 1rem;
+  }
 `;
 
 const TestTitle = styled.h1`

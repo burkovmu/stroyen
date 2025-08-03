@@ -6,12 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faHome, faShoppingCart, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 const ThankYouContainer = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  min-height: calc(100vh - 200px);
+  background: #ffffff;
+  min-height: 100vh;
+  color: #000000;
+  font-family: 'Inter', sans-serif;
   padding-top: 200px;
-  text-align: center;
+  
+  @media (max-width: 768px) {
+    padding-top: 100px;
+  }
 `;
 
 const ThankYouCard = styled(motion.div)`

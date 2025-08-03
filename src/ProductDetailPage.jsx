@@ -21,11 +21,15 @@ import ProductGallery from './ProductGallery';
 
 // Контейнер страницы
 const ProductDetailContainer = styled.div`
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
-  min-height: calc(100vh - 200px);
+  background: #ffffff;
+  min-height: 100vh;
+  color: #000000;
+  font-family: 'Inter', sans-serif;
   padding-top: 200px;
+  
+  @media (max-width: 768px) {
+    padding-top: 100px;
+  }
 `;
 
 // Хлебные крошки

@@ -34,7 +34,7 @@ const PageContainer = styled.div`
 
   @media (max-width: 1024px) {
     max-width: 100%;
-    padding: 200px 1rem 1.5rem;
+    padding: 100px 1rem 1.5rem;
   }
 `;
 

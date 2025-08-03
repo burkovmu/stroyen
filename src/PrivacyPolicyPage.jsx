@@ -5,13 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShieldAlt, faLock, faEye, faDatabase, faUserShield, faHandshake } from '@fortawesome/free-solid-svg-icons';
 
 const PageContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 200px 2rem 4rem;
-  min-height: 100vh;
-  
-  @media (max-width: 768px) {
-    padding: 200px 1rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+
+  @media (max-width: 1440px) {
+    max-width: 1200px;
+  }
+
+  @media (max-width: 1024px) {
+    max-width: 100%;
+    padding: 100px 1rem 2rem;
   }
 `;
 

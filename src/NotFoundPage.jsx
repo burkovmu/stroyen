@@ -6,24 +6,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faSearch, faArrowLeft, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 const NotFoundContainer = styled.div`
-  min-height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  background: #ffffff;
+  min-height: 100vh;
+  color: #000000;
+  font-family: 'Inter', sans-serif;
   padding-top: 200px;
   
   @media (max-width: 768px) {
-    min-height: 60vh;
-    padding: 1rem;
-    padding-top: 200px;
+    padding-top: 100px;
   }
 `;
 
 const NotFoundContent = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
   text-align: center;
-  max-width: 600px;
-  width: 100%;
+  padding-top: 200px;
+  
+  @media (max-width: 768px) {
+    padding-top: 100px;
+  }
 `;
 
 const NotFoundIcon = styled(motion.div)`

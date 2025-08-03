@@ -13,6 +13,10 @@ const CatalogContainer = styled.div`
   color: #000000;
   font-family: 'Inter', sans-serif;
   padding-top: 200px;
+  
+  @media (max-width: 768px) {
+    padding-top: 100px;
+  }
 `;
 
 
