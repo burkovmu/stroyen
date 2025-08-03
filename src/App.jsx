@@ -927,22 +927,21 @@ const MobileCartButton = styled(motion.button)`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
-    padding: 0.6rem;
-    min-width: 48px;
-    min-height: 48px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(47, 84, 131, 0.2);
-    background: rgba(47, 84, 131, 0.95);
+    font-size: 1.3rem;
+    padding: 0.5rem;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    color: #2f5483;
   }
   
   @media (max-width: 480px) {
-    font-size: 1rem;
-    padding: 0.5rem;
-    min-width: 44px;
-    min-height: 44px;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(47, 84, 131, 0.15);
+    font-size: 1.2rem;
+    padding: 0.4rem;
+    min-width: 36px;
+    min-height: 36px;
   }
   
   &:hover {
@@ -957,9 +956,10 @@ const MobileCartButton = styled(motion.button)`
   
   @media (max-width: 768px) {
     &:hover {
-      background: rgba(47, 84, 131, 1);
+      background: transparent;
       transform: translateY(0);
-      box-shadow: 0 2px 6px rgba(47, 84, 131, 0.2);
+      box-shadow: none;
+      color: #1a2f4b;
     }
   }
 `;
