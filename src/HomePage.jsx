@@ -21,6 +21,11 @@ const Hero = styled(motion.section)`
   width: 100%;
   box-sizing: border-box;
   
+  @media (min-width: 769px) {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+  
   @media (max-width: 768px) {
     height: auto;
     min-height: auto;
