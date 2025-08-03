@@ -36,6 +36,25 @@ const ProductDetailContainer = styled.div`
   }
 `;
 
+// Основной контейнер контента
+const ProductDetailWrapper = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  
+  @media (max-width: 1024px) {
+    padding: 0 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 1rem;
+  }
+`;
+
 // Хлебные крошки
 const Breadcrumbs = styled.div`
   display: flex;
@@ -472,12 +491,32 @@ const AdvantagesSection = styled.div`
   margin-left: calc(-50vw + 50%);
   background: white;
   padding: 3rem 0;
+  
+  @media (max-width: 768px) {
+    padding: 2rem 0;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.5rem 0;
+  }
 `;
 
 const AdvantagesContent = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  
+  @media (max-width: 1024px) {
+    padding: 0 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 1rem;
+  }
 `;
 
 const AdvantagesTitle = styled.h3`
@@ -486,6 +525,16 @@ const AdvantagesTitle = styled.h3`
   color: #333;
   margin-bottom: 2rem;
   text-align: center;
+  
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const AdvantagesGrid = styled.div`
@@ -502,6 +551,10 @@ const AdvantagesGrid = styled.div`
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+  
+  @media (max-width: 480px) {
+    gap: 1rem;
+  }
 `;
 
 const AdvantageCard = styled.div`
@@ -515,6 +568,14 @@ const AdvantageCard = styled.div`
   &:hover {
     border-color: #2f5483;
     box-shadow: 0 2px 8px rgba(47, 84, 131, 0.1);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem 1.2rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.2rem 1rem;
   }
 `;
 
@@ -567,6 +628,16 @@ const CustomOrderBanner = styled.div`
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="90" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="60" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
     opacity: 0.4;
   }
+  
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
+    margin: 2rem 0;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.5rem 1rem;
+    margin: 1.5rem 0;
+  }
 `;
 
 const CustomOrderContent = styled.div`
@@ -574,6 +645,10 @@ const CustomOrderContent = styled.div`
   z-index: 2;
   max-width: 800px;
   margin: 0 auto;
+  
+  @media (max-width: 480px) {
+    max-width: 100%;
+  }
 `;
 
 const CustomOrderIcon = styled.div`
@@ -588,6 +663,20 @@ const CustomOrderIcon = styled.div`
   color: white;
   font-size: 1.5rem;
   backdrop-filter: blur(10px);
+  
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  @media (max-width: 480px) {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const CustomOrderTitle = styled.h3`
@@ -599,6 +688,11 @@ const CustomOrderTitle = styled.h3`
   @media (max-width: 768px) {
     font-size: 1.5rem;
   }
+  
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
 `;
 
 const CustomOrderText = styled.p`
@@ -609,6 +703,13 @@ const CustomOrderText = styled.p`
   
   @media (max-width: 768px) {
     font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
   }
 `;
 
@@ -634,6 +735,17 @@ const CustomOrderButton = styled(motion.button)`
 
   &:active {
     transform: translateY(0);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+    min-height: 48px;
   }
 `;
 
@@ -1014,298 +1126,274 @@ function ProductDetailPage() {
 
   return (
     <ProductDetailContainer ref={containerRef}>
-      <Breadcrumbs>
-        <BreadcrumbLink onClick={() => navigate('/')}>
-          Главная
-        </BreadcrumbLink>
-        <BreadcrumbSeparator>/</BreadcrumbSeparator>
-        <BreadcrumbLink onClick={() => navigate('/catalog')}>
-          Каталог
-        </BreadcrumbLink>
-        <BreadcrumbSeparator>/</BreadcrumbSeparator>
-        <span>{product.name}</span>
-      </Breadcrumbs>
+      <ProductDetailWrapper>
+        <Breadcrumbs>
+          <BreadcrumbLink onClick={() => navigate('/')}>
+            Главная
+          </BreadcrumbLink>
+          <BreadcrumbSeparator>/</BreadcrumbSeparator>
+          <BreadcrumbLink onClick={() => navigate('/catalog')}>
+            Каталог
+          </BreadcrumbLink>
+          <BreadcrumbSeparator>/</BreadcrumbSeparator>
+          <span>{product.name}</span>
+        </Breadcrumbs>
 
-      <ProductDetailContent>
-        <ProductImageSection>
-          <ProductGallery product={product} />
-          {product.discount && (
-            <DiscountBadge>-{product.discount}%</DiscountBadge>
-          )}
-        </ProductImageSection>
-
-        <ProductInfoSection>
-          <ProductCategory>{product.category}</ProductCategory>
-          <ProductTitle style={{ y: titleY }}>{product.name}</ProductTitle>
-          <ProductType>{product.type}</ProductType>
-          <ProductDescription style={{ y: descriptionY }}>{product.description}</ProductDescription>
-
-          <PriceSection>
-            {product.originalPrice ? (
-              <>
-                <OriginalPrice>{product.originalPrice.toLocaleString()} ₽</OriginalPrice>
-                <CurrentPrice>{product.price.toLocaleString()} ₽</CurrentPrice>
-              </>
-            ) : (
-              <CurrentPrice>{product.price.toLocaleString()} ₽</CurrentPrice>
+        <ProductDetailContent>
+          <ProductImageSection>
+            <ProductGallery product={product} />
+            {product.discount && (
+              <DiscountBadge>-{product.discount}%</DiscountBadge>
             )}
-          </PriceSection>
+          </ProductImageSection>
 
-          <ActionButtons>
-            <AddToCartButton
-              onClick={handleAddToCart}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <FontAwesomeIcon icon={faShoppingCart} />
-              Добавить в корзину
-            </AddToCartButton>
-            <ContactButton
-              onClick={handleContact}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <FontAwesomeIcon icon={faPhone} />
-              Связаться с менеджером
-            </ContactButton>
-          </ActionButtons>
+          <ProductInfoSection>
+            <ProductCategory>{product.category}</ProductCategory>
+            <ProductTitle style={{ y: titleY }}>{product.name}</ProductTitle>
+            <ProductType>{product.type}</ProductType>
+            <ProductDescription style={{ y: descriptionY }}>{product.description}</ProductDescription>
 
-          <SpecificationsSection>
-            <SpecificationsTitle>Технические характеристики</SpecificationsTitle>
-            <SpecificationsGrid>
-              {/* Стандартные характеристики для счетчиков */}
-              {product.specifications.phases && product.specifications.phases !== 'нет' && (
-                <SpecificationItem>
-                  <SpecificationLabel>Фазы:</SpecificationLabel>
-                  <SpecificationValue>{product.specifications.phases}</SpecificationValue>
-                </SpecificationItem>
-              )}
-              {product.specifications.voltage && product.specifications.voltage !== 'нет' && (
-                <SpecificationItem>
-                  <SpecificationLabel>Напряжение:</SpecificationLabel>
-                  <SpecificationValue>{product.specifications.voltage}</SpecificationValue>
-                </SpecificationItem>
-              )}
-              {product.specifications.current && product.specifications.current !== 'нет' && (
-                <SpecificationItem>
-                  <SpecificationLabel>Ток:</SpecificationLabel>
-                  <SpecificationValue>{product.specifications.current}</SpecificationValue>
-                </SpecificationItem>
-              )}
-              {product.specifications.accuracy && product.specifications.accuracy !== 'нет' && (
-                <SpecificationItem>
-                  <SpecificationLabel>Класс точности:</SpecificationLabel>
-                  <SpecificationValue>{product.specifications.accuracy}</SpecificationValue>
-                </SpecificationItem>
-              )}
-              {product.specifications.tariffs && product.specifications.tariffs !== 'нет' && (
-                <SpecificationItem>
-                  <SpecificationLabel>Тарифность:</SpecificationLabel>
-                  <SpecificationValue>{product.specifications.tariffs}</SpecificationValue>
-                </SpecificationItem>
-              )}
-              {product.specifications.energy_type && product.specifications.energy_type !== 'нет' && (
-                <SpecificationItem>
-                  <SpecificationLabel>Тип энергии:</SpecificationLabel>
-                  <SpecificationValue>{product.specifications.energy_type}</SpecificationValue>
-                </SpecificationItem>
-              )}
-              
-              {/* Специальные характеристики для устройств сбора данных */}
-              {product.category === 'Устройства сбора и передачи данных' && (
+            <PriceSection>
+              {product.originalPrice ? (
                 <>
-                  {product.specifications.power_3phase && (
-                    <SpecificationItem>
-                      <SpecificationLabel>Питание 3-фазное:</SpecificationLabel>
-                      <SpecificationValue>{product.specifications.power_3phase}</SpecificationValue>
-                    </SpecificationItem>
-                  )}
-                  {product.specifications.power_1phase && (
-                    <SpecificationItem>
-                      <SpecificationLabel>Питание 1-фазное:</SpecificationLabel>
-                      <SpecificationValue>{product.specifications.power_1phase}</SpecificationValue>
-                    </SpecificationItem>
-                  )}
-                  {product.specifications.consumption && (
-                    <SpecificationItem>
-                      <SpecificationLabel>Потребление:</SpecificationLabel>
-                      <SpecificationValue>{product.specifications.consumption}</SpecificationValue>
-                    </SpecificationItem>
-                  )}
-                  {product.specifications.dimensions && (
-                    <SpecificationItem>
-                      <SpecificationLabel>Размеры:</SpecificationLabel>
-                      <SpecificationValue>{product.specifications.dimensions}</SpecificationValue>
-                    </SpecificationItem>
-                  )}
-                  {product.specifications.temperature && (
-                    <SpecificationItem>
-                      <SpecificationLabel>Температура:</SpecificationLabel>
-                      <SpecificationValue>{product.specifications.temperature}</SpecificationValue>
-                    </SpecificationItem>
-                  )}
-                  {product.specifications.supported_meters && (
-                    <SpecificationItem>
-                      <SpecificationLabel>Поддерживаемые счетчики:</SpecificationLabel>
-                      <SpecificationValue>{product.specifications.supported_meters}</SpecificationValue>
-                    </SpecificationItem>
-                  )}
+                  <OriginalPrice>{product.originalPrice.toLocaleString()} ₽</OriginalPrice>
+                  <CurrentPrice>{product.price.toLocaleString()} ₽</CurrentPrice>
                 </>
+              ) : (
+                <CurrentPrice>{product.price.toLocaleString()} ₽</CurrentPrice>
               )}
-            </SpecificationsGrid>
-          </SpecificationsSection>
+            </PriceSection>
 
-          <FeaturesSection>
-            <FeaturesTitle>Особенности</FeaturesTitle>
-            <FeaturesList>
-              {product.features.map((feature, index) => (
-                <FeatureItem key={index}>{feature}</FeatureItem>
-              ))}
-            </FeaturesList>
-          </FeaturesSection>
-
-          <DeliveryInfo>
-            <DeliveryTitle>Доставка и гарантия</DeliveryTitle>
-            <DeliveryText>
-              Бесплатная доставка по Москве и области. Гарантия 2 года. 
-              Возможна установка и настройка оборудования.
-            </DeliveryText>
-          </DeliveryInfo>
-        </ProductInfoSection>
-      </ProductDetailContent>
-      
-      {product.fullDescription && (
-        <FullDescriptionSection style={{ y: fullDescriptionY }}>
-          <FullDescriptionTitle>Подробное описание</FullDescriptionTitle>
-          <FullDescriptionText>
-            {product.fullDescription.split('\n').map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </FullDescriptionText>
-        </FullDescriptionSection>
-      )}
-
-            {(() => {
-        const similarProducts = getSimilarProducts();
-        return similarProducts.length > 0 && (
-          <SimilarProductsSection style={{ y: similarProductsY }}>
-          <SimilarProductsTitle>Похожие товары</SimilarProductsTitle>
-          <SimilarProductsGrid>
-            {similarProducts.map((similarProduct) => (
-              <SimilarProductCard 
-                key={similarProduct.id}
-                onClick={() => navigate(`/product/${similarProduct.id}`)}
+            <ActionButtons>
+              <AddToCartButton
+                onClick={handleAddToCart}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <SimilarProductImage>
-                  {similarProduct.mainImage ? (
-                    <img 
-                      src={similarProduct.mainImage} 
-                      alt={similarProduct.name}
-                      style={{
+                <FontAwesomeIcon icon={faShoppingCart} />
+                Добавить в корзину
+              </AddToCartButton>
+              <ContactButton
+                onClick={handleContact}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <FontAwesomeIcon icon={faPhone} />
+                Связаться с менеджером
+              </ContactButton>
+            </ActionButtons>
+
+            <SpecificationsSection>
+              <SpecificationsTitle>Технические характеристики</SpecificationsTitle>
+              <SpecificationsGrid>
+                {/* Стандартные характеристики для счетчиков */}
+                {product.specifications.phases && product.specifications.phases !== 'нет' && (
+                  <SpecificationItem>
+                    <SpecificationLabel>Фазы:</SpecificationLabel>
+                    <SpecificationValue>{product.specifications.phases}</SpecificationValue>
+                  </SpecificationItem>
+                )}
+                {product.specifications.voltage && product.specifications.voltage !== 'нет' && (
+                  <SpecificationItem>
+                    <SpecificationLabel>Напряжение:</SpecificationLabel>
+                    <SpecificationValue>{product.specifications.voltage}</SpecificationValue>
+                  </SpecificationItem>
+                )}
+                {product.specifications.current && product.specifications.current !== 'нет' && (
+                  <SpecificationItem>
+                    <SpecificationLabel>Ток:</SpecificationLabel>
+                    <SpecificationValue>{product.specifications.current}</SpecificationValue>
+                  </SpecificationItem>
+                )}
+                {product.specifications.accuracy && product.specifications.accuracy !== 'нет' && (
+                  <SpecificationItem>
+                    <SpecificationLabel>Класс точности:</SpecificationLabel>
+                    <SpecificationValue>{product.specifications.accuracy}</SpecificationValue>
+                  </SpecificationItem>
+                )}
+                {product.specifications.frequency && product.specifications.frequency !== 'нет' && (
+                  <SpecificationItem>
+                    <SpecificationLabel>Частота:</SpecificationLabel>
+                    <SpecificationValue>{product.specifications.frequency}</SpecificationValue>
+                  </SpecificationItem>
+                )}
+                {product.specifications.power && product.specifications.power !== 'нет' && (
+                  <SpecificationItem>
+                    <SpecificationLabel>Мощность:</SpecificationLabel>
+                    <SpecificationValue>{product.specifications.power}</SpecificationValue>
+                  </SpecificationItem>
+                )}
+                {product.specifications.temperature && product.specifications.temperature !== 'нет' && (
+                  <SpecificationItem>
+                    <SpecificationLabel>Температура:</SpecificationLabel>
+                    <SpecificationValue>{product.specifications.temperature}</SpecificationValue>
+                  </SpecificationItem>
+                )}
+                {product.specifications.protection && product.specifications.protection !== 'нет' && (
+                  <SpecificationItem>
+                    <SpecificationLabel>Защита:</SpecificationLabel>
+                    <SpecificationValue>{product.specifications.protection}</SpecificationValue>
+                  </SpecificationItem>
+                )}
+                {product.specifications.dimensions && product.specifications.dimensions !== 'нет' && (
+                  <SpecificationItem>
+                    <SpecificationLabel>Габариты:</SpecificationLabel>
+                    <SpecificationValue>{product.specifications.dimensions}</SpecificationValue>
+                  </SpecificationItem>
+                )}
+                {product.specifications.weight && product.specifications.weight !== 'нет' && (
+                  <SpecificationItem>
+                    <SpecificationLabel>Вес:</SpecificationLabel>
+                    <SpecificationValue>{product.specifications.weight}</SpecificationValue>
+                  </SpecificationItem>
+                )}
+              </SpecificationsGrid>
+            </SpecificationsSection>
+
+            <DeliveryInfo>
+              <DeliveryTitle>Информация о доставке</DeliveryTitle>
+              <DeliveryText>
+                Доставляем по всей России. Сроки доставки зависят от региона и способа доставки. 
+                Подробную информацию уточняйте у менеджера.
+              </DeliveryText>
+            </DeliveryInfo>
+          </ProductInfoSection>
+        </ProductDetailContent>
+
+        {product.fullDescription && (
+          <FullDescriptionSection style={{ y: fullDescriptionY }}>
+            <FullDescriptionTitle>Полное описание</FullDescriptionTitle>
+            <FullDescriptionText>
+              {product.fullDescription.split('\n').map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </FullDescriptionText>
+          </FullDescriptionSection>
+        )}
+
+        {(() => {
+          const similarProducts = getSimilarProducts();
+          return similarProducts.length > 0 && (
+            <SimilarProductsSection style={{ y: similarProductsY }}>
+            <SimilarProductsTitle>Похожие товары</SimilarProductsTitle>
+            <SimilarProductsGrid>
+              {similarProducts.map((similarProduct) => (
+                <SimilarProductCard 
+                  key={similarProduct.id}
+                  onClick={() => navigate(`/product/${similarProduct.id}`)}
+                >
+                  <SimilarProductImage>
+                    {similarProduct.mainImage ? (
+                      <img 
+                        src={similarProduct.mainImage} 
+                        alt={similarProduct.name}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain',
+                          borderRadius: '8px'
+                        }}
+                      />
+                    ) : (
+                      <div style={{
                         width: '100%',
                         height: '100%',
-                        objectFit: 'contain',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                        color: '#2f5483',
+                        fontSize: '2rem',
+                        fontWeight: 'bold',
                         borderRadius: '8px'
-                      }}
-                    />
-                  ) : (
-                    <div style={{
-                      width: '100%',
-                      height: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                      color: '#2f5483',
-                      fontSize: '2rem',
-                      fontWeight: 'bold',
-                      borderRadius: '8px'
-                    }}>
-                      {similarProduct.brand}
-                    </div>
-                  )}
-                </SimilarProductImage>
-                <SimilarProductName>{similarProduct.name}</SimilarProductName>
-                <SimilarProductType>{similarProduct.type}</SimilarProductType>
-                <SimilarProductPrice>
-                  {similarProduct.price.toLocaleString()} ₽
-                </SimilarProductPrice>
-                <SimilarProductButton>
-                  Подробнее
-                </SimilarProductButton>
-              </SimilarProductCard>
-            ))}
-          </SimilarProductsGrid>
-        </SimilarProductsSection>
-        );
-      })()}
+                      }}>
+                        {similarProduct.brand}
+                      </div>
+                    )}
+                  </SimilarProductImage>
+                  <SimilarProductName>{similarProduct.name}</SimilarProductName>
+                  <SimilarProductType>{similarProduct.type}</SimilarProductType>
+                  <SimilarProductPrice>
+                    {similarProduct.price.toLocaleString()} ₽
+                  </SimilarProductPrice>
+                  <SimilarProductButton>
+                    Подробнее
+                  </SimilarProductButton>
+                </SimilarProductCard>
+              ))}
+            </SimilarProductsGrid>
+          </SimilarProductsSection>
+          );
+        })()}
 
-      <AdvantagesSection>
-        <AdvantagesContent>
-          <AdvantagesTitle>Надежность в каждой детали</AdvantagesTitle>
-          <AdvantagesGrid>
-            <AdvantageCard>
-              <AdvantageIcon>
-                <FontAwesomeIcon icon={faShieldAlt} />
-              </AdvantageIcon>
-              <AdvantageTitle>Гарантия качества</AdvantageTitle>
-              <AdvantageText>
-                Все товары сертифицированы и имеют официальную гарантию производителя
-              </AdvantageText>
-            </AdvantageCard>
+        <AdvantagesSection>
+          <AdvantagesContent>
+            <AdvantagesTitle>Надежность в каждой детали</AdvantagesTitle>
+            <AdvantagesGrid>
+              <AdvantageCard>
+                <AdvantageIcon>
+                  <FontAwesomeIcon icon={faShieldAlt} />
+                </AdvantageIcon>
+                <AdvantageTitle>Гарантия качества</AdvantageTitle>
+                <AdvantageText>
+                  Все товары сертифицированы и имеют официальную гарантию производителя
+                </AdvantageText>
+              </AdvantageCard>
 
-            <AdvantageCard>
-              <AdvantageIcon>
-                <FontAwesomeIcon icon={faTruck} />
-              </AdvantageIcon>
-              <AdvantageTitle>Быстрая доставка</AdvantageTitle>
-              <AdvantageText>
-                Доставляем по всей России в кратчайшие сроки
-              </AdvantageText>
-            </AdvantageCard>
+              <AdvantageCard>
+                <AdvantageIcon>
+                  <FontAwesomeIcon icon={faTruck} />
+                </AdvantageIcon>
+                <AdvantageTitle>Быстрая доставка</AdvantageTitle>
+                <AdvantageText>
+                  Доставляем по всей России в кратчайшие сроки
+                </AdvantageText>
+              </AdvantageCard>
 
-            <AdvantageCard>
-              <AdvantageIcon>
-                <FontAwesomeIcon icon={faHeadset} />
-              </AdvantageIcon>
-              <AdvantageTitle>Поддержка 24/7</AdvantageTitle>
-              <AdvantageText>
-                Круглосуточная консультация и техническая поддержка
-              </AdvantageText>
-            </AdvantageCard>
+              <AdvantageCard>
+                <AdvantageIcon>
+                  <FontAwesomeIcon icon={faHeadset} />
+                </AdvantageIcon>
+                <AdvantageTitle>Поддержка 24/7</AdvantageTitle>
+                <AdvantageText>
+                  Круглосуточная консультация и техническая поддержка
+                </AdvantageText>
+              </AdvantageCard>
 
-            <AdvantageCard>
-              <AdvantageIcon>
-                <FontAwesomeIcon icon={faCreditCard} />
-              </AdvantageIcon>
-              <AdvantageTitle>Удобная оплата</AdvantageTitle>
-              <AdvantageText>
-                Принимаем все виды оплаты, работаем с НДС
-              </AdvantageText>
-            </AdvantageCard>
-          </AdvantagesGrid>
-        </AdvantagesContent>
-      </AdvantagesSection>
+              <AdvantageCard>
+                <AdvantageIcon>
+                  <FontAwesomeIcon icon={faCreditCard} />
+                </AdvantageIcon>
+                <AdvantageTitle>Удобная оплата</AdvantageTitle>
+                <AdvantageText>
+                  Принимаем все виды оплаты, работаем с НДС
+                </AdvantageText>
+              </AdvantageCard>
+            </AdvantagesGrid>
+          </AdvantagesContent>
+        </AdvantagesSection>
 
-      <CustomOrderBanner>
-        <CustomOrderContent>
-          <CustomOrderIcon>
-            <FontAwesomeIcon icon={faSearch} />
-          </CustomOrderIcon>
-          <CustomOrderTitle>Не нашли нужный товар в каталоге?</CustomOrderTitle>
-          <CustomOrderText>
-            Мы специализируемся на поиске и поставке любых счетчиков электроэнергии от ведущих производителей. Работаем с 50+ производителями и найдем нужный товар за 24 часа.
-          </CustomOrderText>
-          <CustomOrderButton
-            onClick={handleCustomOrder}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <FontAwesomeIcon icon={faPaperPlane} />
-            Купить под заказ
-          </CustomOrderButton>
-        </CustomOrderContent>
-      </CustomOrderBanner>
+        <CustomOrderBanner>
+          <CustomOrderContent>
+            <CustomOrderIcon>
+              <FontAwesomeIcon icon={faSearch} />
+            </CustomOrderIcon>
+            <CustomOrderTitle>Не нашли нужный товар?</CustomOrderTitle>
+            <CustomOrderText>
+              Мы специализируемся на поиске и поставке любых счетчиков электроэнергии от ведущих производителей. 
+              Работаем с 50+ производителями и найдем нужный товар за 24 часа.
+            </CustomOrderText>
+            <CustomOrderButton
+              onClick={handleCustomOrder}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <FontAwesomeIcon icon={faPaperPlane} />
+              Заказать под заказ
+            </CustomOrderButton>
+          </CustomOrderContent>
+        </CustomOrderBanner>
+      </ProductDetailWrapper>
     </ProductDetailContainer>
   );
 }
