@@ -514,6 +514,7 @@ const ProductsGrid = styled.div`
   @media (max-width: 768px) {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1rem;
+    padding: 0 1rem;
   }
   
   @media (max-width: 480px) {
