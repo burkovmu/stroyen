@@ -1328,7 +1328,7 @@ const MobileCartButtonWithContext = ({ onOpenCart }) => {
       whileTap={{ scale: 0.95 }}
       onClick={onOpenCart}
     >
-      <FontAwesomeIcon icon={faShoppingBag} />
+      <FontAwesomeIcon icon={faShoppingCart} />
       {totalItems > 0 && <MobileCartCount count={totalItems}>{totalItems}</MobileCartCount>}
     </MobileCartButton>
   );
@@ -1344,7 +1344,7 @@ const MobileCartButtonInMenuWithContext = ({ onOpenCart }) => {
       whileTap={{ scale: 0.98 }}
       onClick={onOpenCart}
     >
-      <FontAwesomeIcon icon={faShoppingBag} />
+      <FontAwesomeIcon icon={faShoppingCart} />
       Корзина
       {totalItems > 0 && <MobileCartCount count={totalItems}>{totalItems}</MobileCartCount>}
     </MobileCartButtonInMenu>
