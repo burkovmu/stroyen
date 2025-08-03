@@ -1517,15 +1517,34 @@ const PopularProductsSection = styled(Section)`
 
 const ProductsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
   
+  @media (max-width: 1440px) {
+    max-width: 1200px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  @media (max-width: 1024px) {
+    max-width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1.5rem;
+  }
+  
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    padding: 0 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 1rem;
+    padding: 0 0.5rem;
   }
 `;
 
@@ -1538,6 +1557,7 @@ const ProductCard = styled(motion.div)`
   border: 1px solid rgba(47, 84, 131, 0.08);
   position: relative;
   cursor: pointer;
+  min-width: 0; // Предотвращает переполнение
   
   &:hover {
     transform: translateY(-8px);
@@ -1559,6 +1579,12 @@ const ProductCard = styled(motion.div)`
   
   &:hover:before {
     transform: scaleX(1);
+  }
+  
+  @media (max-width: 768px) {
+    &:hover {
+      transform: translateY(-4px);
+    }
   }
 `;
 
@@ -1582,6 +1608,21 @@ const ProductImage = styled.div`
   ${ProductCard}:hover & img {
     transform: scale(1.05);
   }
+  
+  @media (max-width: 1024px) {
+    height: 180px;
+    padding: 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    height: 160px;
+    padding: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    height: 140px;
+    padding: 0.8rem;
+  }
 `;
 
 const ProductBadge = styled.div`
@@ -1599,6 +1640,18 @@ const ProductBadge = styled.div`
 
 const ProductContent = styled.div`
   padding: 1.5rem;
+  
+  @media (max-width: 1024px) {
+    padding: 1.2rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem;
+  }
 `;
 
 const ProductBrand = styled.div`
@@ -1608,6 +1661,10 @@ const ProductBrand = styled.div`
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+  }
 `;
 
 const ProductName = styled.h3`
@@ -1616,6 +1673,14 @@ const ProductName = styled.h3`
   color: #000000;
   margin: 0 0 0.5rem 0;
   line-height: 1.4;
+  
+  @media (max-width: 1024px) {
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const ProductType = styled.p`
@@ -1623,6 +1688,14 @@ const ProductType = styled.p`
   color: #666;
   margin: 0 0 1rem 0;
   line-height: 1.4;
+  
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const ProductPrice = styled.div`
@@ -1630,18 +1703,34 @@ const ProductPrice = styled.div`
   align-items: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const CurrentPrice = styled.span`
   font-size: 1.4rem;
   font-weight: 700;
   color: #2f5483;
+  
+  @media (max-width: 1024px) {
+    font-size: 1.3rem;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const OriginalPrice = styled.span`
   font-size: 1rem;
   color: #999;
   text-decoration: line-through;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const ProductButton = styled(motion.button)`
