@@ -107,10 +107,6 @@ const TopHeader = styled(motion.div)`
   background: #f8f9fa;
   border-bottom: 1px solid #e9ecef;
   overflow: hidden;
-  
-  @media (max-width: 768px) {
-    display: none;
-  }
 `;
 
 const BottomHeader = styled.div`
