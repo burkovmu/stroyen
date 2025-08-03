@@ -1449,7 +1449,7 @@ function ProductDetailPage() {
               whileTap={{ scale: 0.98 }}
             >
               <FontAwesomeIcon icon={faPaperPlane} />
-              Заказать под заказ
+              Купить под заказ
             </CustomOrderButton>
           </CustomOrderContent>
         </CustomOrderBanner>
