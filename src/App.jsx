@@ -2658,16 +2658,18 @@ function AppContent() {
                   Отправить заявку
                 </CallbackButton>
               </TopHeaderRight>
-              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                <MobileCartButtonWithContext onOpenCart={() => setCartModalOpen(true)} />
-                <MobileMenuButton
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setMobileMenuOpen(true)}
-                >
-                  <FontAwesomeIcon icon={faBars} />
-                </MobileMenuButton>
-              </div>
+              {isMobile && (
+                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                  <MobileCartButtonWithContext onOpenCart={() => setCartModalOpen(true)} />
+                  <MobileMenuButton
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setMobileMenuOpen(true)}
+                  >
+                    <FontAwesomeIcon icon={faBars} />
+                  </MobileMenuButton>
+                </div>
+              )}
             </TopHeaderContent>
           </TopHeader>
           
