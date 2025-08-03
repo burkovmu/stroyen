@@ -940,7 +940,7 @@ const MobileCartButton = styled(motion.button)`
   box-sizing: border-box;
 
   @media (max-width: 768px) {
-    overflow-x: hidden;
+    overflow: visible;
   }
   
   @media (max-width: 768px) {
@@ -949,8 +949,8 @@ const MobileCartButton = styled(motion.button)`
     justify-content: center;
     font-size: 1.1rem;
     padding: 0.6rem;
-    min-width: 40px;
-    min-height: 40px;
+    min-width: 44px;
+    min-height: 44px;
     border-radius: 8px;
     box-shadow: 0 1px 4px rgba(47, 84, 131, 0.15);
     background: rgba(47, 84, 131, 0.9);
@@ -959,8 +959,8 @@ const MobileCartButton = styled(motion.button)`
   @media (max-width: 480px) {
     font-size: 1rem;
     padding: 0.5rem;
-    min-width: 38px;
-    min-height: 38px;
+    min-width: 42px;
+    min-height: 42px;
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(47, 84, 131, 0.1);
   }
@@ -1006,8 +1006,8 @@ const MobileCartCount = styled.div`
     width: 18px;
     height: 18px;
     font-size: 0.65rem;
-    top: -5px;
-    right: -5px;
+    top: -6px;
+    right: -6px;
     border: 1.5px solid #ffffff;
     box-shadow: 0 1px 3px rgba(255, 71, 87, 0.25);
   }
@@ -1016,8 +1016,8 @@ const MobileCartCount = styled.div`
     width: 16px;
     height: 16px;
     font-size: 0.6rem;
-    top: -4px;
-    right: -4px;
+    top: -5px;
+    right: -5px;
     border: 1px solid #ffffff;
     box-shadow: 0 1px 2px rgba(255, 71, 87, 0.2);
   }
