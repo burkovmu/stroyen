@@ -154,16 +154,17 @@ const TopHeaderContent = styled.div`
   }
 
   @media (max-width: 768px) {
-    padding: 1.2rem 1.2rem;
+    padding: 0.8rem 1rem;
     flex-direction: row;
-    gap: 1rem;
-    min-height: 85px;
+    gap: 0.8rem;
+    min-height: 60px;
+    align-items: center;
   }
   
   @media (max-width: 480px) {
-    padding: 1rem 1rem;
-    gap: 0.8rem;
-    min-height: 80px;
+    padding: 0.6rem 0.8rem;
+    gap: 0.6rem;
+    min-height: 55px;
   }
 `;
 
@@ -219,14 +220,14 @@ const Logo = styled(motion.div)`
   
   @media (max-width: 768px) {
     img {
-      height: 38px;
+      height: 32px;
     }
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   
   @media (max-width: 480px) {
     img {
-      height: 35px;
+      height: 28px;
     }
     font-size: 1rem;
   }
@@ -885,17 +886,17 @@ const MobileMenuButton = styled(motion.button)`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
-    padding: 0.5rem;
-    min-width: 38px;
-    min-height: 38px;
+    font-size: 1.1rem;
+    padding: 0.4rem;
+    min-width: 36px;
+    min-height: 36px;
   }
   
   @media (max-width: 480px) {
-    font-size: 1.2rem;
-    padding: 0.4rem;
-    min-width: 34px;
-    min-height: 34px;
+    font-size: 1rem;
+    padding: 0.3rem;
+    min-width: 32px;
+    min-height: 32px;
   }
   
   &:hover {
@@ -915,11 +916,11 @@ const MobileButtonsContainer = styled.div`
   
   @media (max-width: 768px) {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.4rem;
   }
   
   @media (max-width: 480px) {
-    gap: 0.5rem;
+    gap: 0.3rem;
   }
 `;
 
@@ -947,22 +948,22 @@ const MobileCartButton = styled(motion.button)`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
-    padding: 0.5rem;
-    min-width: 42px;
-    min-height: 44px;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(47, 84, 131, 0.15);
+    font-size: 0.9rem;
+    padding: 0.4rem;
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(47, 84, 131, 0.15);
     background: rgba(47, 84, 131, 0.9);
   }
   
   @media (max-width: 480px) {
-    font-size: 0.95rem;
-    padding: 0.4rem;
-    min-width: 40px;
-    min-height: 42px;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(47, 84, 131, 0.1);
+    font-size: 0.85rem;
+    padding: 0.3rem;
+    min-width: 32px;
+    min-height: 32px;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(47, 84, 131, 0.1);
   }
   
   &:hover {
@@ -1003,21 +1004,21 @@ const MobileCartCount = styled.div`
   animation: ${props => props.count > 0 ? 'pulse 0.6s ease-in-out' : 'none'};
   
   @media (max-width: 768px) {
-    width: 16px;
-    height: 16px;
-    font-size: 0.6rem;
-    top: -6px;
-    right: -5px;
-    border: 1.5px solid #ffffff;
-    box-shadow: 0 1px 3px rgba(255, 71, 87, 0.25);
-  }
-  
-  @media (max-width: 480px) {
     width: 14px;
     height: 14px;
     font-size: 0.55rem;
     top: -5px;
     right: -4px;
+    border: 1px solid #ffffff;
+    box-shadow: 0 1px 2px rgba(255, 71, 87, 0.25);
+  }
+  
+  @media (max-width: 480px) {
+    width: 12px;
+    height: 12px;
+    font-size: 0.5rem;
+    top: -4px;
+    right: -3px;
     border: 1px solid #ffffff;
     box-shadow: 0 1px 2px rgba(255, 71, 87, 0.2);
   }
