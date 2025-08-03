@@ -72,7 +72,6 @@ const GlobalBackground = styled.div`
   background: #ffffff;
   min-height: 100vh;
   width: 100%;
-  overflow-x: hidden;
   box-sizing: border-box;
 `;
 
@@ -83,7 +82,6 @@ const AppContainer = styled.div`
   margin: 0 auto;
   padding-top: 0;
   box-sizing: border-box;
-  overflow-x: hidden;
 
   @media (max-width: 1440px) {
     max-width: 1200px;
