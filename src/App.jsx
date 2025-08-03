@@ -1011,6 +1011,7 @@ const MobileMenu = styled(motion.div)`
   background: #ffffff;
   z-index: 2001;
   padding: 2rem;
+  padding-bottom: 4rem;
   box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   display: none;
@@ -1019,12 +1020,14 @@ const MobileMenu = styled(motion.div)`
     display: block;
     width: 100%;
     max-width: 320px;
+    padding-bottom: 5rem;
   }
   
   @media (max-width: 480px) {
     width: 100%;
     max-width: none;
     padding: 1.5rem;
+    padding-bottom: 6rem;
   }
 `;
 
@@ -1192,6 +1195,13 @@ const MobileActionButtons = styled.div`
   flex-direction: column;
   gap: 1rem;
   margin-top: 2rem;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  
+  @media (max-width: 480px) {
+    margin-bottom: 4rem;
+    padding-bottom: 3rem;
+  }
 `;
 
 const MobileActionButton = styled(motion.button)`
