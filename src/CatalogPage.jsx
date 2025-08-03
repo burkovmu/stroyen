@@ -7,6 +7,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faSearch, faShoppingCart, faFilter, faSort, faInfoCircle, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
 
+// Утилита для определения мобильного устройства
+const isMobileDevice = () => {
+  return window.innerWidth <= 768;
+};
+
+// Утилита для получения анимации в зависимости от устройства
+const getAnimationProps = (desktopProps, mobileProps = {}) => {
+  if (isMobileDevice()) {
+    return mobileProps;
+  }
+  return desktopProps;
+};
+
 const CatalogContainer = styled.div`
   background: #ffffff;
   min-height: 100vh;
@@ -1410,7 +1423,7 @@ function CatalogPage() {
               <FilterButton 
                 active={filters.categories.length > 0 || filters.brands.length > 0}
                 onClick={() => setOpenDropdown(openDropdown === 'main' ? null : 'main')}
-                whileHover={{ scale: 1.02 }}
+                {...getAnimationProps({ whileHover: { scale: 1.02 } })}
               >
                 <FontAwesomeIcon icon={faFilter} />
                 Категории и бренды
@@ -1449,7 +1462,7 @@ function CatalogPage() {
               <FilterButton 
                 active={filters.priceRange.min || filters.priceRange.max}
                 onClick={() => setOpenDropdown(openDropdown === 'price' ? null : 'price')}
-                whileHover={{ scale: 1.02 }}
+                {...getAnimationProps({ whileHover: { scale: 1.02 } })}
               >
                 <FontAwesomeIcon icon={faFilter} />
                 Цена
@@ -1480,7 +1493,7 @@ function CatalogPage() {
               <FilterButton 
                 active={filters.phases.length > 0 || filters.voltage.length > 0 || filters.accuracy.length > 0}
                 onClick={() => setOpenDropdown(openDropdown === 'specs' ? null : 'specs')}
-                whileHover={{ scale: 1.02 }}
+                {...getAnimationProps({ whileHover: { scale: 1.02 } })}
               >
                 <FontAwesomeIcon icon={faFilter} />
                 Характеристики
@@ -1626,9 +1639,10 @@ function CatalogPage() {
           {currentProducts.map((product, index) => (
             <ProductCard
               key={product.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              {...getAnimationProps(
+                { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay: index * 0.1 } },
+                { initial: { opacity: 1, y: 0 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+              )}
               onClick={() => navigate(`/product/${product.id}`)}
             >
               <ProductImage>
@@ -1779,15 +1793,17 @@ function CatalogPage() {
       {/* Мобильное меню фильтров */}
       <MobileFiltersOverlay
         isOpen={mobileFiltersOpen}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: mobileFiltersOpen ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
+        {...getAnimationProps(
+          { initial: { opacity: 0 }, animate: { opacity: mobileFiltersOpen ? 1 : 0 }, transition: { duration: 0.3 } },
+          { initial: { opacity: 0 }, animate: { opacity: mobileFiltersOpen ? 1 : 0 }, transition: { duration: 0.1 } }
+        )}
         onClick={closeMobileFilters}
       />
       <MobileFiltersMenu
-        initial={{ x: '-100%' }}
-        animate={{ x: mobileFiltersOpen ? 0 : '-100%' }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        {...getAnimationProps(
+          { initial: { x: '-100%' }, animate: { x: mobileFiltersOpen ? 0 : '-100%' }, transition: { duration: 0.3, ease: "easeInOut" } },
+          { initial: { x: '-100%' }, animate: { x: mobileFiltersOpen ? 0 : '-100%' }, transition: { duration: 0.1, ease: "easeInOut" } }
+        )}
       >
         <MobileFiltersHeader>
           <MobileFiltersTitle>Фильтры</MobileFiltersTitle>
