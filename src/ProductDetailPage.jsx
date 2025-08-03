@@ -350,57 +350,103 @@ const SimilarProductsTitle = styled.h3`
 
 const SimilarProductsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
   }
   
   @media (max-width: 480px) {
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
 `;
 
 const SimilarProductCard = styled.div`
   background: white;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  border: 1px solid rgba(47, 84, 131, 0.08);
+  position: relative;
+  overflow: hidden;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #2f5483, #4a90e2);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
   
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(47, 84, 131, 0.15);
+    border-color: rgba(47, 84, 131, 0.2);
+    
+    &:before {
+      transform: scaleX(1);
+    }
   }
   
   @media (max-width: 768px) {
     padding: 1.2rem;
+    border-radius: 12px;
+    
+    &:hover {
+      transform: translateY(-4px);
+    }
   }
   
   @media (max-width: 480px) {
     padding: 1rem;
+    border-radius: 10px;
   }
 `;
 
 const SimilarProductImage = styled.div`
   width: 100%;
   height: 200px;
-  background: #ffffff;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   color: #2f5483;
   font-size: 2rem;
   font-weight: bold;
+  position: relative;
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+  }
+  
+  ${SimilarProductCard}:hover & img {
+    transform: scale(1.05);
+  }
   
   @media (max-width: 768px) {
     height: 160px;
     font-size: 1.8rem;
+    margin-bottom: 1rem;
   }
   
   @media (max-width: 480px) {
@@ -415,6 +461,7 @@ const SimilarProductName = styled.h4`
   font-weight: 600;
   color: #333;
   margin-bottom: 0.5rem;
+  line-height: 1.4;
   
   @media (max-width: 768px) {
     font-size: 1rem;
@@ -430,6 +477,7 @@ const SimilarProductType = styled.p`
   color: #666;
   font-size: 0.9rem;
   margin-bottom: 1rem;
+  line-height: 1.5;
   
   @media (max-width: 768px) {
     font-size: 0.85rem;
@@ -442,42 +490,55 @@ const SimilarProductType = styled.p`
 `;
 
 const SimilarProductPrice = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 600;
   color: #2f5483;
+  margin-bottom: 1rem;
   
   @media (max-width: 768px) {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
   
   @media (max-width: 480px) {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
   }
 `;
 
 const SimilarProductButton = styled.button`
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.8rem 1.2rem;
   background: linear-gradient(135deg, #2f5483 0%, #1e3a5f 100%);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(47, 84, 131, 0.2);
   
   &:hover {
     background: linear-gradient(135deg, #1e3a5f 0%, #2f5483 100%);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(47, 84, 131, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
   
   @media (max-width: 768px) {
-    padding: 0.7rem;
+    padding: 0.7rem 1rem;
     font-size: 0.9rem;
   }
   
   @media (max-width: 480px) {
-    padding: 0.8rem;
+    padding: 0.8rem 1rem;
     font-size: 0.85rem;
     min-height: 44px;
   }
@@ -1287,12 +1348,6 @@ function ProductDetailPage() {
                       <img 
                         src={similarProduct.mainImage} 
                         alt={similarProduct.name}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'contain',
-                          borderRadius: '8px'
-                        }}
                       />
                     ) : (
                       <div style={{
@@ -1305,7 +1360,6 @@ function ProductDetailPage() {
                         color: '#2f5483',
                         fontSize: '2rem',
                         fontWeight: 'bold',
-                        borderRadius: '8px'
                       }}>
                         {similarProduct.brand}
                       </div>
@@ -1317,6 +1371,7 @@ function ProductDetailPage() {
                     {similarProduct.price.toLocaleString()} ₽
                   </SimilarProductPrice>
                   <SimilarProductButton>
+                    <FontAwesomeIcon icon={faSearch} />
                     Подробнее
                   </SimilarProductButton>
                 </SimilarProductCard>
