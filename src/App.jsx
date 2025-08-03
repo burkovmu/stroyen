@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faPhone, faSearch, faShoppingCart, faShare, faLink, faGlobe, faHashtag, faEnvelope, faClock, faChevronDown, faBars, faPhoneVolume, faPaperPlane, faTimes, faThLarge, faBolt, faIndustry, faNetworkWired } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faPhone, faSearch, faShoppingCart, faShoppingBag, faShare, faLink, faGlobe, faHashtag, faEnvelope, faClock, faChevronDown, faBars, faPhoneVolume, faPaperPlane, faTimes, faThLarge, faBolt, faIndustry, faNetworkWired } from '@fortawesome/free-solid-svg-icons';
 import CatalogFilters from './CatalogFilters';
 import CatalogPage from './CatalogPage';
 import HomePage from './HomePage';
@@ -1347,7 +1347,7 @@ const MobileCartButtonWithContext = ({ onOpenCart }) => {
       whileTap={{ scale: 0.95 }}
       onClick={onOpenCart}
     >
-      <FontAwesomeIcon icon={faShoppingCart} />
+      <FontAwesomeIcon icon={faShoppingBag} />
       {totalItems > 0 && <MobileCartCount count={totalItems}>{totalItems}</MobileCartCount>}
     </MobileCartButton>
   );
@@ -1363,7 +1363,7 @@ const MobileCartButtonInMenuWithContext = ({ onOpenCart }) => {
       whileTap={{ scale: 0.98 }}
       onClick={onOpenCart}
     >
-      <FontAwesomeIcon icon={faShoppingCart} />
+      <FontAwesomeIcon icon={faShoppingBag} />
       Корзина
       {totalItems > 0 && <MobileCartCount count={totalItems}>{totalItems}</MobileCartCount>}
     </MobileCartButtonInMenu>
