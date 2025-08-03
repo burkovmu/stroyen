@@ -2151,6 +2151,12 @@ const FooterBottom = styled.div`
   align-items: center;
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
 `;
 
 const FooterSocial = styled.div`
@@ -2173,6 +2179,17 @@ const SocialLink = styled.a`
     background: rgba(255, 255, 255, 0.2);
     color: #ffffff;
     transform: translateY(-2px);
+  }
+`;
+
+const FooterPrivacyLink = styled(FooterLink)`
+  margin-left: 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  
+  @media (max-width: 768px) {
+    margin-left: 0;
+    display: block;
+    margin-top: 0.5rem;
   }
 `;
 
@@ -2877,9 +2894,9 @@ function AppContent() {
           <FooterBottom>
             <div>
               © 2024 Стройэнергетика. Все права защищены.
-              <FooterLink href="/privacy-policy" style={{ marginLeft: '2rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+              <FooterPrivacyLink href="/privacy-policy">
                 Политика конфиденциальности
-              </FooterLink>
+              </FooterPrivacyLink>
             </div>
             <FooterSocial>
               <SocialLink href="#"><FontAwesomeIcon icon={faShare} /></SocialLink>
