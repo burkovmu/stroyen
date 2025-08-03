@@ -519,6 +519,7 @@ const ProductsGrid = styled.div`
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
     gap: 1rem;
+    padding: 0 1rem;
   }
 `;
 
@@ -629,7 +630,7 @@ const ProductInfo = styled.div`
   }
   
   @media (max-width: 480px) {
-    padding: 0.8rem;
+    padding: 1.2rem;
   }
 `;
 
