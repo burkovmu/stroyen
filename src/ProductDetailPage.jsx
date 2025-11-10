@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -18,6 +18,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
 import ProductGallery from './ProductGallery';
+import RequestQuoteModal from './RequestQuoteModal';
 
 // Контейнер страницы
 const ProductDetailContainer = styled.div`
@@ -1123,6 +1124,8 @@ function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { addToCart } = useCart();
+  const [isQuoteModalOpen, setQuoteModalOpen] = useState(false);
+  const [quoteProductName, setQuoteProductName] = useState('');
 
   // Параллакс-скролл
   const containerRef = useRef(null);
@@ -1170,7 +1173,8 @@ function ProductDetailPage() {
     if (product && product.price != null && product.price > 0) {
       addToCart(product);
     } else if (product) {
-      navigate(`/consultation?product=${encodeURIComponent(product.name)}`);
+      setQuoteProductName(product.name);
+      setQuoteModalOpen(true);
     }
   };
 
@@ -1185,6 +1189,23 @@ function ProductDetailPage() {
   const handleCustomOrder = () => {
     navigate('/consultation');
   };
+
+  const handleRequestQuote = useCallback(() => {
+    if (product) {
+      setQuoteProductName(product.name || '');
+      setQuoteModalOpen(true);
+    }
+  }, [product]);
+
+  const handleQuoteModalClose = useCallback(() => {
+    setQuoteModalOpen(false);
+  }, []);
+
+  const handleQuoteSubmit = useCallback(({ name, phone, productName }) => {
+    const targetProduct = productName || quoteProductName || (product ? product.name : 'выбранного товара');
+    alert(`Спасибо, ${name}! Мы свяжемся с вами по номеру ${phone} по поводу товара «${targetProduct}».`);
+    setQuoteModalOpen(false);
+  }, [product, quoteProductName]);
 
   // Функция для получения похожих товаров
   const getSimilarProducts = () => {
@@ -1242,7 +1263,8 @@ function ProductDetailPage() {
   const hasDiscount = hasPrice && product.originalPrice && product.originalPrice > product.price;
 
   return (
-    <ProductDetailContainer ref={containerRef}>
+    <>
+      <ProductDetailContainer ref={containerRef}>
       <ProductDetailWrapper>
         <Breadcrumbs>
           <BreadcrumbLink onClick={() => navigate('/')}>
@@ -1297,7 +1319,7 @@ function ProductDetailPage() {
                 </AddToCartButton>
               ) : (
                 <RequestQuoteButton
-                  onClick={() => navigate(`/consultation?product=${encodeURIComponent(product.name)}`)}
+                  onClick={handleRequestQuote}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -1514,7 +1536,14 @@ function ProductDetailPage() {
           </CustomOrderContent>
         </CustomOrderBanner>
       </ProductDetailWrapper>
-    </ProductDetailContainer>
+      </ProductDetailContainer>
+      <RequestQuoteModal
+        isOpen={isQuoteModalOpen}
+        productName={product?.name || quoteProductName}
+        onClose={handleQuoteModalClose}
+        onSubmit={handleQuoteSubmit}
+      />
+    </>
   );
 }
 

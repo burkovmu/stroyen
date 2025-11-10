@@ -19,6 +19,7 @@ const getAnimationProps = (desktopProps, mobileProps = {}) => {
 };
 import { faShieldAlt, faTruckFast, faTools, faHeadset, faPercent, faCertificate, faClipboardList, faTruck, faShoppingCart, faComments, faSearch, faPaperPlane, faPhone, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
+import RequestQuoteModal from './RequestQuoteModal';
 
 const Hero = styled(motion.section)`
   height: 700px;
@@ -1971,6 +1972,8 @@ function HomePage() {
   });
   const { getTotalItems, getTotalPrice, addToCart } = useCart();
   const navigate = useNavigate();
+  const [isQuoteModalOpen, setQuoteModalOpen] = useState(false);
+  const [quoteProductName, setQuoteProductName] = useState('');
 
   // Состояние для слайдшоу
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -2127,12 +2130,24 @@ function HomePage() {
   }, [slides.length]);
 
   const handleRequestQuote = useCallback((productName) => {
-    navigate(`/consultation?product=${encodeURIComponent(productName)}`);
-  }, [navigate]);
+    setQuoteProductName(productName || '');
+    setQuoteModalOpen(true);
+  }, []);
 
   const handleAddToCart = useCallback((product) => {
     addToCart(product);
   }, [addToCart]);
+
+  const handleQuoteModalClose = useCallback(() => {
+    setQuoteModalOpen(false);
+  }, []);
+
+  const handleQuoteSubmit = useCallback(({ name, phone, productName }) => {
+    const targetProduct = productName || quoteProductName || 'выбранного товара';
+    // Здесь может быть интеграция с API отправки заявок
+    alert(`Спасибо, ${name}! Мы свяжемся с вами по номеру ${phone} по поводу товара «${targetProduct}».`);
+    setQuoteModalOpen(false);
+  }, [quoteProductName]);
 
   return (
     <>
@@ -2641,6 +2656,12 @@ function HomePage() {
           </ContactForm>
         </ContactContainer>
       </ContactSection>
+      <RequestQuoteModal
+        isOpen={isQuoteModalOpen}
+        productName={quoteProductName}
+        onClose={handleQuoteModalClose}
+        onSubmit={handleQuoteSubmit}
+      />
     </>
   );
 }

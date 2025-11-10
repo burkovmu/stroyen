@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -6,6 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faSearch, faShoppingCart, faFilter, faSort, faInfoCircle, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from './CartContext';
+import RequestQuoteModal from './RequestQuoteModal';
 
 // Утилита для определения мобильного устройства
 const isMobileDevice = () => {
@@ -1120,6 +1121,8 @@ function CatalogPage() {
   const [sortBy, setSortBy] = useState('name');
   const productsPerPage = 12;
   const { addToCart } = useCart();
+  const [isQuoteModalOpen, setQuoteModalOpen] = useState(false);
+  const [quoteProductName, setQuoteProductName] = useState('');
   
   // Состояние фильтров
   const [filters, setFilters] = useState({
@@ -1396,9 +1399,20 @@ function CatalogPage() {
     navigate('/consultation');
   };
 
-  const handleRequestQuote = (productName) => {
-    navigate(`/consultation?product=${encodeURIComponent(productName)}`);
-  };
+  const handleRequestQuote = useCallback((productName) => {
+    setQuoteProductName(productName || '');
+    setQuoteModalOpen(true);
+  }, []);
+
+  const handleQuoteModalClose = useCallback(() => {
+    setQuoteModalOpen(false);
+  }, []);
+
+  const handleQuoteSubmit = useCallback(({ name, phone, productName }) => {
+    const targetProduct = productName || quoteProductName || 'выбранного товара';
+    alert(`Спасибо, ${name}! Мы свяжемся с вами по номеру ${phone} по поводу товара «${targetProduct}».`);
+    setQuoteModalOpen(false);
+  }, [quoteProductName]);
 
   const handleSortChange = (newSortBy) => {
     setSortBy(newSortBy);
@@ -1484,7 +1498,8 @@ function CatalogPage() {
   }
 
   return (
-    <CatalogContainer>
+    <>
+      <CatalogContainer>
 
       <CatalogContent>
         <CatalogHeader>
@@ -2049,7 +2064,14 @@ function CatalogPage() {
           </MobileFilterActionButton>
         </MobileFiltersActions>
       </MobileFiltersMenu>
-    </CatalogContainer>
+      </CatalogContainer>
+      <RequestQuoteModal
+        isOpen={isQuoteModalOpen}
+        productName={quoteProductName}
+        onClose={handleQuoteModalClose}
+        onSubmit={handleQuoteSubmit}
+      />
+    </>
   );
 }
 
