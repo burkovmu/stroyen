@@ -8,7 +8,6 @@ import {
   faCertificate, 
   faTools, 
   faShieldAlt,
-  faFileAlt,
   faPhone,
   faEnvelope,
   faMapMarkerAlt,
@@ -19,10 +18,8 @@ import {
   faCog,
   faChartLine,
   faClipboardList,
-  faExclamationTriangle,
   faInfoCircle,
   faArrowRight,
-  faDownload,
   faPaperPlane,
   faWrench,
   faScrewdriver,
@@ -140,6 +137,20 @@ const SectionTitle = styled.h2`
   }
 `;
 
+const ServiceGroup = styled.div`
+  &:not(:first-of-type) {
+    margin-top: 3rem;
+  }
+`;
+
+const ServiceGroupTitle = styled.h3`
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2f5483;
+  margin-bottom: 2rem;
+  text-align: center;
+`;
+
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -149,6 +160,22 @@ const Grid = styled.div`
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+`;
+
+const FourColumnGrid = styled(Grid)`
+  grid-template-columns: repeat(4, 1fr);
+
+  @media (max-width: 1440px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -422,115 +449,6 @@ const ContactButton = styled(motion.button)`
   }
 `;
 
-const WarningBox = styled(motion.div)`
-  background: #fff3cd;
-  border: 1px solid #ffeaa7;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-`;
-
-const WarningIcon = styled.div`
-  color: #856404;
-  font-size: 1.5rem;
-  flex-shrink: 0;
-`;
-
-const WarningContent = styled.div`
-  flex: 1;
-`;
-
-const WarningTitle = styled.h4`
-  color: #856404;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-`;
-
-const WarningText = styled.p`
-  color: #856404;
-  margin: 0;
-  line-height: 1.5;
-`;
-
-const DocumentSection = styled.div`
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 20px rgba(47, 84, 131, 0.1);
-  border: 1px solid rgba(47, 84, 131, 0.05);
-  margin-bottom: 3rem;
-`;
-
-const DocumentTitle = styled.h3`
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #2f5483;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-`;
-
-const DocumentList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const DocumentItem = styled.li`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
-  margin-bottom: 0.8rem;
-  transition: all 0.3s ease;
-
-  &:hover {
-    border-color: #2f5483;
-    background: rgba(47, 84, 131, 0.05);
-  }
-`;
-
-const DocumentInfo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`;
-
-const DocumentIcon = styled.div`
-  color: #2f5483;
-  font-size: 1.2rem;
-`;
-
-const DocumentText = styled.span`
-  color: #333333;
-  font-weight: 500;
-`;
-
-const DocumentButton = styled(motion.button)`
-  background: #2f5483;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-
-  &:hover {
-    background: #1a2f4b;
-    transform: translateY(-1px);
-  }
-`;
-
 const ServicesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -644,89 +562,177 @@ function InstallationPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        <SectionTitle>Наши услуги по монтажу</SectionTitle>
-        
-        <Grid>
-          <Card
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-          >
-            <CardIcon>
-              <FontAwesomeIcon icon={faBolt} />
-            </CardIcon>
-            <CardTitle>Монтаж электросчетчиков</CardTitle>
-            <CardText>
-              Установка и подключение электросчетчиков различных типов 
-              в соответствии с требованиями ПУЭ и техническими условиями.
-            </CardText>
-            <FeatureList>
-              <FeatureItem>Однофазные и трехфазные счетчики</FeatureItem>
-              <FeatureItem>Многотарифные счетчики</FeatureItem>
-              <FeatureItem>Счетчики с дистанционным считыванием</FeatureItem>
-              <FeatureItem>Подключение к АСКУЭ</FeatureItem>
-            </FeatureList>
-          </Card>
+        <SectionTitle>Наши услуги по монтажу и наладке</SectionTitle>
 
-          <Card
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-          >
-            <CardIcon>
-              <FontAwesomeIcon icon={faCogs} />
-            </CardIcon>
-            <CardTitle>Монтаж трансформаторов</CardTitle>
-            <CardText>
-              Установка и подключение трансформаторов тока и напряжения 
-              для систем учета и защиты электрических сетей.
-            </CardText>
-            <FeatureList>
-              <FeatureItem>Трансформаторы тока (ТТ)</FeatureItem>
-              <FeatureItem>Трансформаторы напряжения (ТН)</FeatureItem>
-              <FeatureItem>Высоковольтные трансформаторы</FeatureItem>
-              <FeatureItem>Проверка и настройка</FeatureItem>
-            </FeatureList>
-          </Card>
+        <ServiceGroup>
+          <ServiceGroupTitle>Монтажные работы</ServiceGroupTitle>
+          <FourColumnGrid>
+            <Card
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CardIcon>
+                <FontAwesomeIcon icon={faBolt} />
+              </CardIcon>
+              <CardTitle>Монтаж электросчетчиков</CardTitle>
+              <CardText>
+                Установка и подключение электросчетчиков различных типов 
+                в соответствии с требованиями ПУЭ и техническими условиями.
+              </CardText>
+              <FeatureList>
+                <FeatureItem>Однофазные и трехфазные счетчики</FeatureItem>
+                <FeatureItem>Многотарифные счетчики</FeatureItem>
+                <FeatureItem>Счетчики с дистанционным считыванием</FeatureItem>
+                <FeatureItem>Подключение к АСКУЭ</FeatureItem>
+              </FeatureList>
+            </Card>
 
-          <Card
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-          >
-            <CardIcon>
-              <FontAwesomeIcon icon={faNetworkWired} />
-            </CardIcon>
-            <CardTitle>Монтаж АСКУЭ</CardTitle>
-            <CardText>
-              Комплексная установка автоматизированных систем коммерческого 
-              учета электроэнергии с передачей данных.
-            </CardText>
-            <FeatureList>
-              <FeatureItem>Устройства сбора и передачи данных</FeatureItem>
-              <FeatureItem>Модемы и каналы связи</FeatureItem>
-              <FeatureItem>Программное обеспечение</FeatureItem>
-              <FeatureItem>Настройка и тестирование</FeatureItem>
-            </FeatureList>
-          </Card>
+            <Card
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CardIcon>
+                <FontAwesomeIcon icon={faCogs} />
+              </CardIcon>
+              <CardTitle>Монтаж трансформаторов</CardTitle>
+              <CardText>
+                Установка и подключение трансформаторов тока и напряжения 
+                для систем учета и защиты электрических сетей.
+              </CardText>
+              <FeatureList>
+                <FeatureItem>Трансформаторы тока (ТТ)</FeatureItem>
+                <FeatureItem>Трансформаторы напряжения (ТН)</FeatureItem>
+                <FeatureItem>Высоковольтные трансформаторы</FeatureItem>
+                <FeatureItem>Проверка и настройка</FeatureItem>
+              </FeatureList>
+            </Card>
 
-          <Card
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-          >
-            <CardIcon>
-              <FontAwesomeIcon icon={faShieldAlt} />
-            </CardIcon>
-            <CardTitle>Монтаж систем защиты</CardTitle>
-            <CardText>
-              Установка и настройка устройств защиты и автоматики 
-              для электрических сетей и оборудования.
-            </CardText>
-            <FeatureList>
-              <FeatureItem>Реле защиты и автоматики</FeatureItem>
-              <FeatureItem>Автоматические выключатели</FeatureItem>
-              <FeatureItem>Устройства плавного пуска</FeatureItem>
-              <FeatureItem>Системы мониторинга</FeatureItem>
-            </FeatureList>
-          </Card>
-        </Grid>
+            <Card
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CardIcon>
+                <FontAwesomeIcon icon={faNetworkWired} />
+              </CardIcon>
+              <CardTitle>Монтаж АСКУЭ</CardTitle>
+              <CardText>
+                Комплексная установка автоматизированных систем коммерческого 
+                учета электроэнергии с передачей данных.
+              </CardText>
+              <FeatureList>
+                <FeatureItem>Устройства сбора и передачи данных</FeatureItem>
+                <FeatureItem>Модемы и каналы связи</FeatureItem>
+                <FeatureItem>Программное обеспечение</FeatureItem>
+                <FeatureItem>Настройка и тестирование</FeatureItem>
+              </FeatureList>
+            </Card>
+
+            <Card
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CardIcon>
+                <FontAwesomeIcon icon={faShieldAlt} />
+              </CardIcon>
+              <CardTitle>Монтаж систем защиты</CardTitle>
+              <CardText>
+                Установка и настройка устройств защиты и автоматики 
+                для электрических сетей и оборудования.
+              </CardText>
+              <FeatureList>
+                <FeatureItem>Реле защиты и автоматики</FeatureItem>
+                <FeatureItem>Автоматические выключатели</FeatureItem>
+                <FeatureItem>Устройства плавного пуска</FeatureItem>
+                <FeatureItem>Системы мониторинга</FeatureItem>
+              </FeatureList>
+            </Card>
+          </FourColumnGrid>
+        </ServiceGroup>
+
+        <ServiceGroup>
+          <ServiceGroupTitle>Наладочные работы</ServiceGroupTitle>
+          <FourColumnGrid>
+            <Card
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CardIcon>
+                <FontAwesomeIcon icon={faBolt} />
+              </CardIcon>
+              <CardTitle>Наладка электросчетчиков</CardTitle>
+              <CardText>
+                Настройка и калибровка электросчетчиков для обеспечения 
+                точности измерений и соответствия требованиям.
+              </CardText>
+              <FeatureList>
+                <FeatureItem>Калибровка измерительных цепей</FeatureItem>
+                <FeatureItem>Настройка тарифных зон</FeatureItem>
+                <FeatureItem>Проверка точности измерений</FeatureItem>
+                <FeatureItem>Настройка интерфейсов связи</FeatureItem>
+              </FeatureList>
+            </Card>
+
+            <Card
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CardIcon>
+                <FontAwesomeIcon icon={faCogs} />
+              </CardIcon>
+              <CardTitle>Наладка трансформаторов</CardTitle>
+              <CardText>
+                Настройка и проверка трансформаторов тока и напряжения 
+                для обеспечения точности измерений и защиты.
+              </CardText>
+              <FeatureList>
+                <FeatureItem>Проверка коэффициентов трансформации</FeatureItem>
+                <FeatureItem>Настройка угловых погрешностей</FeatureItem>
+                <FeatureItem>Калибровка измерительных цепей</FeatureItem>
+                <FeatureItem>Проверка изоляции</FeatureItem>
+              </FeatureList>
+            </Card>
+
+            <Card
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CardIcon>
+                <FontAwesomeIcon icon={faNetworkWired} />
+              </CardIcon>
+              <CardTitle>Наладка АСКУЭ</CardTitle>
+              <CardText>
+                Настройка и оптимизация автоматизированных систем 
+                коммерческого учета электроэнергии.
+              </CardText>
+              <FeatureList>
+                <FeatureItem>Настройка устройств сбора данных</FeatureItem>
+                <FeatureItem>Конфигурация каналов связи</FeatureItem>
+                <FeatureItem>Настройка программного обеспечения</FeatureItem>
+                <FeatureItem>Тестирование системы</FeatureItem>
+              </FeatureList>
+            </Card>
+
+            <Card
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CardIcon>
+                <FontAwesomeIcon icon={faShieldAlt} />
+              </CardIcon>
+              <CardTitle>Наладка систем защиты</CardTitle>
+              <CardText>
+                Настройка и проверка устройств защиты и автоматики 
+                для электрических сетей и оборудования.
+              </CardText>
+              <FeatureList>
+                <FeatureItem>Настройка реле защиты</FeatureItem>
+                <FeatureItem>Проверка уставок срабатывания</FeatureItem>
+                <FeatureItem>Тестирование автоматики</FeatureItem>
+                <FeatureItem>Настройка логики защиты</FeatureItem>
+              </FeatureList>
+            </Card>
+          </FourColumnGrid>
+        </ServiceGroup>
       </Section>
 
       <Section
@@ -922,99 +928,6 @@ function InstallationPage() {
           <InfoBoxItem>Полное документальное сопровождение</InfoBoxItem>
         </InfoBoxList>
       </InfoBox>
-
-      <WarningBox
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1.0 }}
-      >
-        <WarningIcon>
-          <FontAwesomeIcon icon={faExclamationTriangle} />
-        </WarningIcon>
-        <WarningContent>
-          <WarningTitle>Важная информация</WarningTitle>
-          <WarningText>
-            Все монтажные работы выполняются в строгом соответствии с требованиями 
-            ПУЭ, ПТЭЭП и других нормативных документов. Наши специалисты имеют 
-            необходимые допуски и сертификаты для работы с электрооборудованием. 
-            Монтаж выполняется только при наличии технических условий и разрешений 
-            от энергоснабжающей организации.
-          </WarningText>
-        </WarningContent>
-      </WarningBox>
-
-      <DocumentSection
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
-      >
-        <DocumentTitle>
-          <FontAwesomeIcon icon={faFileAlt} />
-          Необходимые документы
-        </DocumentTitle>
-        <DocumentList>
-          <DocumentItem>
-            <DocumentInfo>
-              <DocumentIcon>
-                <FontAwesomeIcon icon={faFileAlt} />
-              </DocumentIcon>
-              <DocumentText>Технические условия</DocumentText>
-            </DocumentInfo>
-            <DocumentButton
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <FontAwesomeIcon icon={faDownload} />
-              Скачать образец
-            </DocumentButton>
-          </DocumentItem>
-          <DocumentItem>
-            <DocumentInfo>
-              <DocumentIcon>
-                <FontAwesomeIcon icon={faFileAlt} />
-              </DocumentIcon>
-              <DocumentText>Договор на монтаж</DocumentText>
-            </DocumentInfo>
-            <DocumentButton
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <FontAwesomeIcon icon={faDownload} />
-              Скачать образец
-            </DocumentButton>
-          </DocumentItem>
-          <DocumentItem>
-            <DocumentInfo>
-              <DocumentIcon>
-                <FontAwesomeIcon icon={faFileAlt} />
-              </DocumentIcon>
-              <DocumentText>Акт выполненных работ</DocumentText>
-            </DocumentInfo>
-            <DocumentButton
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <FontAwesomeIcon icon={faDownload} />
-              Скачать образец
-            </DocumentButton>
-          </DocumentItem>
-          <DocumentItem>
-            <DocumentInfo>
-              <DocumentIcon>
-                <FontAwesomeIcon icon={faFileAlt} />
-              </DocumentIcon>
-              <DocumentText>Гарантийные обязательства</DocumentText>
-            </DocumentInfo>
-            <DocumentButton
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <FontAwesomeIcon icon={faDownload} />
-              Скачать образец
-            </DocumentButton>
-          </DocumentItem>
-        </DocumentList>
-      </DocumentSection>
 
       <ContactSection
         initial={{ opacity: 0, y: 50 }}

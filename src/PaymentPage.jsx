@@ -2,19 +2,16 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faCreditCard, 
-  faMoneyBillWave, 
-  faShieldAlt, 
-  faCheckCircle, 
-  faLock,
+import {
+  faCreditCard,
+  faMoneyBillWave,
+  faCheckCircle,
   faCreditCard as faCard,
   faMobileAlt,
   faBuilding,
   faUser,
   faCalculator,
   faReceipt,
-  faHandshake,
   faPaperPlane,
   faPhone,
   faEnvelope,
@@ -243,54 +240,6 @@ const CardText = styled.p`
   margin-bottom: 1.5rem;
 `;
 
-const SecurityGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
-`;
-
-const SecurityCard = styled(motion.div)`
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 2.5rem;
-  text-align: center;
-  box-shadow: 0 8px 30px rgba(47, 84, 131, 0.1);
-  border: 1px solid rgba(47, 84, 131, 0.05);
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(47, 84, 131, 0.15);
-  }
-`;
-
-const SecurityIcon = styled.div`
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, #2f5483 0%, #1e3a5f 100%);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.5rem;
-  color: white;
-  font-size: 1.8rem;
-`;
-
-const SecurityTitle = styled.h4`
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #2f5483;
-  margin-bottom: 1rem;
-`;
-
-const SecurityDescription = styled.p`
-  font-size: 1rem;
-  color: #666666;
-  line-height: 1.6;
-`;
-
 const ProcessGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -419,54 +368,6 @@ const ContactButton = styled(motion.button)`
   }
 `;
 
-const InfoGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
-`;
-
-const InfoCard = styled(motion.div)`
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 8px 30px rgba(47, 84, 131, 0.1);
-  border: 1px solid rgba(47, 84, 131, 0.05);
-  text-align: center;
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(47, 84, 131, 0.15);
-  }
-`;
-
-const InfoIcon = styled.div`
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #2f5483 0%, #1e3a5f 100%);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.5rem;
-  color: white;
-  font-size: 1.5rem;
-`;
-
-const InfoTitle = styled.h4`
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #2f5483;
-  margin-bottom: 1rem;
-`;
-
-const InfoText = styled.p`
-  font-size: 1rem;
-  color: #666666;
-  line-height: 1.6;
-`;
-
 function PaymentPage() {
   const handleContactClick = () => {
     // Прокрутка к форме обратной связи
@@ -557,37 +458,6 @@ function PaymentPage() {
           <PaymentMethodCard
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <MethodHeader>
-              <MethodIcon>
-                <FontAwesomeIcon icon={faMobileAlt} />
-              </MethodIcon>
-              <MethodTitle>Электронные кошельки</MethodTitle>
-            </MethodHeader>
-            <MethodDescription>
-              Оплата через популярные электронные кошельки и платежные системы.
-            </MethodDescription>
-            <MethodFeatures>
-              <MethodFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Яндекс.Деньги, QIWI
-              </MethodFeature>
-              <MethodFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                WebMoney, PayPal
-              </MethodFeature>
-              <MethodFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Мгновенные платежи
-              </MethodFeature>
-            </MethodFeatures>
-          </PaymentMethodCard>
-
-          <PaymentMethodCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
           >
@@ -616,56 +486,6 @@ function PaymentPage() {
             </MethodFeatures>
           </PaymentMethodCard>
         </PaymentMethodsGrid>
-      </Section>
-
-      <Section>
-        <SectionTitle>Безопасность платежей</SectionTitle>
-        <SecurityGrid>
-          <SecurityCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <SecurityIcon>
-              <FontAwesomeIcon icon={faLock} />
-            </SecurityIcon>
-            <SecurityTitle>SSL-шифрование</SecurityTitle>
-            <SecurityDescription>
-              Все платежи защищены современным SSL-шифрованием. Ваши данные в полной безопасности.
-            </SecurityDescription>
-          </SecurityCard>
-
-          <SecurityCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <SecurityIcon>
-              <FontAwesomeIcon icon={faShieldAlt} />
-            </SecurityIcon>
-            <SecurityTitle>3D Secure</SecurityTitle>
-            <SecurityDescription>
-              Дополнительная защита для карточных платежей с подтверждением через SMS.
-            </SecurityDescription>
-          </SecurityCard>
-
-          <SecurityCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <SecurityIcon>
-              <FontAwesomeIcon icon={faCheckCircle} />
-            </SecurityIcon>
-            <SecurityTitle>Гарантия возврата</SecurityTitle>
-            <SecurityDescription>
-              Полный возврат средств в течение 14 дней при соблюдении условий возврата.
-            </SecurityDescription>
-          </SecurityCard>
-        </SecurityGrid>
       </Section>
 
       <Section>
@@ -711,22 +531,6 @@ function PaymentPage() {
           >
             <ProcessNumber>3</ProcessNumber>
             <ProcessIcon>
-              <FontAwesomeIcon icon={faLock} />
-            </ProcessIcon>
-            <ProcessTitle>Безопасная оплата</ProcessTitle>
-            <ProcessDescription>
-              Совершаете платеж через защищенный платежный шлюз или при получении.
-            </ProcessDescription>
-          </ProcessCard>
-
-          <ProcessCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <ProcessNumber>4</ProcessNumber>
-            <ProcessIcon>
               <FontAwesomeIcon icon={faReceipt} />
             </ProcessIcon>
             <ProcessTitle>Подтверждение</ProcessTitle>
@@ -752,11 +556,10 @@ function PaymentPage() {
             </CardTitle>
             <CardText>
               Оплата производится в российских рублях. При оплате картой комиссия не взимается. 
-              Для юридических лиц возможна оплата по счету с отсрочкой платежа.
+              Для юридических лиц доступно бронирование заказа на 3 дня с оплатой по счету.
             </CardText>
             <CardText>
-              При оплате наличными при получении заказа, оплата производится курьеру. 
-              Обязательно проверьте товар перед оплатой.
+              Мы оформляем электронный документооборот (ЭДО) и предоставляем полный комплект документов: счета, акты, накладные, гарантийные талоны.
             </CardText>
           </ContentCard>
 
@@ -780,56 +583,6 @@ function PaymentPage() {
             </CardText>
           </ContentCard>
         </ContentGrid>
-      </Section>
-
-      <Section>
-        <SectionTitle>Дополнительные услуги</SectionTitle>
-        <InfoGrid>
-          <InfoCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <InfoIcon>
-              <FontAwesomeIcon icon={faCalculator} />
-            </InfoIcon>
-            <InfoTitle>Рассрочка</InfoTitle>
-            <InfoText>
-              Возможность покупки в рассрочку на 3-12 месяцев без переплат и скрытых комиссий.
-            </InfoText>
-          </InfoCard>
-
-          <InfoCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <InfoIcon>
-              <FontAwesomeIcon icon={faHandshake} />
-            </InfoIcon>
-            <InfoTitle>Кредитование</InfoTitle>
-            <InfoText>
-              Партнерство с банками для предоставления кредитов на покупку оборудования.
-            </InfoText>
-          </InfoCard>
-
-          <InfoCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <InfoIcon>
-              <FontAwesomeIcon icon={faReceipt} />
-            </InfoIcon>
-            <InfoTitle>Документооборот</InfoTitle>
-            <InfoText>
-              Полный комплект документов: счета, акты, накладные, гарантийные талоны.
-            </InfoText>
-          </InfoCard>
-        </InfoGrid>
       </Section>
 
       <ContactSection

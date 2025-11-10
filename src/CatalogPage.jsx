@@ -775,6 +775,24 @@ const Price = styled.div`
   }
 `;
 
+const PriceRequest = styled.div`
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #2f5483;
+
+  @media (max-width: 1024px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
+`;
+
 const OriginalPrice = styled.div`
   font-size: 1rem;
   font-weight: 400;
@@ -864,6 +882,50 @@ const AddToCartButton = styled(motion.button)`
     gap: 0.4rem;
   }
   
+  @media (max-width: 480px) {
+    padding: 0.8rem 0.6rem;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+`;
+
+const RequestQuoteButton = styled(motion.button)`
+  flex: 1;
+  background: rgba(47, 84, 131, 0.08);
+  border: 1px dashed #2f5483;
+  padding: 0.8rem;
+  color: #2f5483;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &:hover {
+    background: rgba(47, 84, 131, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(47, 84, 131, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 1024px) {
+    padding: 0.7rem;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+    gap: 0.4rem;
+  }
+
   @media (max-width: 480px) {
     padding: 0.8rem 0.6rem;
     font-size: 0.85rem;
@@ -1231,11 +1293,21 @@ function CatalogPage() {
       }
       
       // Фильтр по цене
-      if (filters.priceRange.min && product.price < parseInt(filters.priceRange.min)) {
-        return false;
+      if (filters.priceRange.min) {
+        if (product.price == null) {
+          return false;
+        }
+        if (product.price < parseInt(filters.priceRange.min, 10)) {
+          return false;
+        }
       }
-      if (filters.priceRange.max && product.price > parseInt(filters.priceRange.max)) {
-        return false;
+      if (filters.priceRange.max) {
+        if (product.price == null) {
+          return false;
+        }
+        if (product.price > parseInt(filters.priceRange.max, 10)) {
+          return false;
+        }
       }
       
       // Фильтр по количеству фаз
@@ -1284,9 +1356,17 @@ function CatalogPage() {
       case 'name':
         return a.name.localeCompare(b.name);
       case 'price-asc':
-        return a.price - b.price;
+        {
+          const priceA = a.price != null ? a.price : Number.POSITIVE_INFINITY;
+          const priceB = b.price != null ? b.price : Number.POSITIVE_INFINITY;
+          return priceA - priceB;
+        }
       case 'price-desc':
-        return b.price - a.price;
+        {
+          const priceA = a.price != null ? a.price : Number.NEGATIVE_INFINITY;
+          const priceB = b.price != null ? b.price : Number.NEGATIVE_INFINITY;
+          return priceB - priceA;
+        }
       default:
         return 0;
     }
@@ -1313,9 +1393,11 @@ function CatalogPage() {
   };
 
   const handleCustomOrder = () => {
-    // Здесь можно добавить логику для открытия формы заказа
-    // Например, открыть модальное окно или перейти на страницу заказа
-    alert('Функция заказа под заказ будет добавлена позже. Свяжитесь с нами по телефону для уточнения деталей.');
+    navigate('/consultation');
+  };
+
+  const handleRequestQuote = (productName) => {
+    navigate(`/consultation?product=${encodeURIComponent(productName)}`);
   };
 
   const handleSortChange = (newSortBy) => {
@@ -1636,19 +1718,27 @@ function CatalogPage() {
         )}
 
         <ProductsGrid>
-          {currentProducts.map((product, index) => (
-            <ProductCard
-              key={product.id}
-              {...getAnimationProps(
-                { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay: index * 0.1 } },
-                { initial: { opacity: 1, y: 0 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0 } }
-              )}
-              onClick={() => navigate(`/product/${product.id}`)}
-            >
-              <ProductImage>
-                {product.mainImage || product.image ? (
+          {currentProducts.map((product, index) => {
+            const hasPrice = typeof product.price === 'number' && product.price > 0;
+            const hasDiscount = hasPrice && product.originalPrice && product.originalPrice > product.price;
+
+            return (
+              <ProductCard
+                key={product.id}
+                {...getAnimationProps(
+                  { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay: index * 0.1 } },
+                  { initial: { opacity: 1, y: 0 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+                )}
+                onClick={() => navigate(`/product/${product.id}`)}
+              >
+            <ProductImage>
+              {(() => {
+                const fallbackImage = '/images/products/default.svg';
+                const imageSrc = product.mainImage
+                  || (product.image ? `/images/products/${product.image}` : fallbackImage);
+                return (
                   <img 
-                    src={product.mainImage || `/images/products/${product.image}`} 
+                    src={imageSrc} 
                     alt={product.name}
                     style={{
                       width: '100%',
@@ -1657,104 +1747,108 @@ function CatalogPage() {
                       borderRadius: '8px'
                     }}
                   />
-                ) : (
-                  <div style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                    color: '#2f5483',
-                    fontSize: '2rem',
-                    fontWeight: 'bold'
-                  }}>
-                    {product.brand}
-                  </div>
-                )}
-                <ProductBadge>{product.brand}</ProductBadge>
-                {product.discount && (
-                  <DiscountBadge>-{product.discount}%</DiscountBadge>
-                )}
-              </ProductImage>
-              
-              <ProductInfo>
-                <ProductCategory>{product.category}</ProductCategory>
-                <ProductTitle>{product.name}</ProductTitle>
-                <ProductDescription>{product.description}</ProductDescription>
+                );
+              })()}
+                  <ProductBadge>{product.brand}</ProductBadge>
+                  {product.discount && (
+                    <DiscountBadge>-{product.discount}%</DiscountBadge>
+                  )}
+                </ProductImage>
                 
-                <ProductSpecs>
-                  {/* Стандартные характеристики для счетчиков */}
-                  {product.specifications.phases && product.specifications.phases !== 'нет' && (
-                    <SpecTag>{product.specifications.phases} фаза</SpecTag>
-                  )}
-                  {product.specifications.voltage && product.specifications.voltage !== 'нет' && (
-                    <SpecTag>{product.specifications.voltage}</SpecTag>
-                  )}
-                  {product.specifications.accuracy && product.specifications.accuracy !== 'нет' && (
-                    <SpecTag>{product.specifications.accuracy} класс</SpecTag>
-                  )}
-                  {product.specifications.tariffs && product.specifications.tariffs !== 'однотарифный' && (
-                    <SpecTag>Многотарифный</SpecTag>
-                  )}
+                <ProductInfo>
+                  <ProductCategory>{product.category}</ProductCategory>
+                  <ProductTitle>{product.name}</ProductTitle>
+                  <ProductDescription>{product.description}</ProductDescription>
                   
-                  {/* Специальные характеристики для устройств сбора данных */}
-                  {product.category === 'Устройства сбора и передачи данных' && (
-                    <>
-                      {product.specifications.power_3phase && (
-                        <SpecTag>3×230/400В</SpecTag>
-                      )}
-                      {product.specifications.interfaces && typeof product.specifications.interfaces === 'object' && (
-                        <SpecTag>Wi-Fi, LTE</SpecTag>
-                      )}
-                      {product.specifications.temperature && (
-                        <SpecTag>-40...+55°C</SpecTag>
-                      )}
-                    </>
-                  )}
-                </ProductSpecs>
-                
-
-                
-                <ProductPrice>
-                  {product.originalPrice ? (
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <OriginalPrice>{product.originalPrice.toLocaleString()} ₽</OriginalPrice>
-                      <Price>{product.price.toLocaleString()} ₽</Price>
-                    </div>
-                  ) : (
-                    <Price>{product.price.toLocaleString()} ₽</Price>
-                  )}
-                </ProductPrice>
-                
-                <ProductButtons>
-                  <AddToCartButton
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      addToCart(product);
-                    }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <FontAwesomeIcon icon={faShoppingCart} />
-                    В корзину
-                  </AddToCartButton>
+                  <ProductSpecs>
+                    {/* Стандартные характеристики для счетчиков */}
+                    {product.specifications.phases && product.specifications.phases !== 'нет' && (
+                      <SpecTag>{product.specifications.phases} фаза</SpecTag>
+                    )}
+                    {product.specifications.voltage && product.specifications.voltage !== 'нет' && (
+                      <SpecTag>{product.specifications.voltage}</SpecTag>
+                    )}
+                    {product.specifications.accuracy && product.specifications.accuracy !== 'нет' && (
+                      <SpecTag>{product.specifications.accuracy} класс</SpecTag>
+                    )}
+                    {product.specifications.tariffs && product.specifications.tariffs !== 'однотарифный' && (
+                      <SpecTag>Многотарифный</SpecTag>
+                    )}
+                    
+                    {/* Специальные характеристики для устройств сбора данных */}
+                    {product.category === 'Устройства сбора и передачи данных' && (
+                      <>
+                        {product.specifications.power_3phase && (
+                          <SpecTag>3×230/400В</SpecTag>
+                        )}
+                        {product.specifications.interfaces && typeof product.specifications.interfaces === 'object' && (
+                          <SpecTag>Wi-Fi, LTE</SpecTag>
+                        )}
+                        {product.specifications.temperature && (
+                          <SpecTag>-40...+55°C</SpecTag>
+                        )}
+                      </>
+                    )}
+                  </ProductSpecs>
                   
-                  <DetailsButton
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/product/${product.id}`);
-                    }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <FontAwesomeIcon icon={faInfoCircle} />
-                    Подробнее
-                  </DetailsButton>
-                </ProductButtons>
-              </ProductInfo>
-            </ProductCard>
-          ))}
+                  <ProductPrice>
+                    {hasPrice ? (
+                      hasDiscount ? (
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <OriginalPrice>{product.originalPrice.toLocaleString()} ₽</OriginalPrice>
+                          <Price>{product.price.toLocaleString()} ₽</Price>
+                        </div>
+                      ) : (
+                        <Price>{product.price.toLocaleString()} ₽</Price>
+                      )
+                    ) : (
+                      <PriceRequest>Цена по запросу</PriceRequest>
+                    )}
+                  </ProductPrice>
+                  
+                  <ProductButtons>
+                    {hasPrice ? (
+                      <AddToCartButton
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addToCart(product);
+                        }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <FontAwesomeIcon icon={faShoppingCart} />
+                        В корзину
+                      </AddToCartButton>
+                    ) : (
+                      <RequestQuoteButton
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRequestQuote(product.name);
+                        }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <FontAwesomeIcon icon={faPaperPlane} />
+                        Запросить предложение
+                      </RequestQuoteButton>
+                    )}
+                    
+                    <DetailsButton
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/product/${product.id}`);
+                      }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <FontAwesomeIcon icon={faInfoCircle} />
+                      Подробнее
+                    </DetailsButton>
+                  </ProductButtons>
+                </ProductInfo>
+              </ProductCard>
+            );
+          })}
         </ProductsGrid>
 
         {hasMoreProducts && (

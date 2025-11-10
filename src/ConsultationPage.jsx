@@ -25,9 +25,6 @@ import {
   faMapMarkerAlt,
   faQuestionCircle,
   faTools,
-  faCog,
-  faCertificate,
-  faUsers,
   faChartLine,
   faRocket,
   faStar
@@ -98,6 +95,14 @@ const Section = styled(motion.section)`
   margin-bottom: 5rem;
 `;
 
+const SectionTitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+`;
+
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 700;
@@ -117,6 +122,18 @@ const SectionTitle = styled.h2`
     background: linear-gradient(to right, #2f5483, rgba(47, 84, 131, 0.3));
     border-radius: 4px;
   }
+`;
+
+const SectionBadge = styled.span`
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: rgba(47, 84, 131, 0.1);
+  color: #2f5483;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 `;
 
 const ServicesGrid = styled.div`
@@ -523,105 +540,12 @@ const ConsultationPage = () => {
           >
             <ServiceHeader>
               <ServiceIcon>
-                <FontAwesomeIcon icon={faCog} />
-              </ServiceIcon>
-              <ServiceTitle>Консультация по обслуживанию</ServiceTitle>
-            </ServiceHeader>
-            <ServiceDescription>
-              Экспертные советы по техническому обслуживанию и ремонту оборудования.
-            </ServiceDescription>
-            <ServiceFeatures>
-              <ServiceFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Плановое обслуживание
-              </ServiceFeature>
-              <ServiceFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Диагностика неисправностей
-              </ServiceFeature>
-              <ServiceFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Рекомендации по эксплуатации
-              </ServiceFeature>
-            </ServiceFeatures>
-          </ServiceCard>
-
-          <ServiceCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <ServiceHeader>
-              <ServiceIcon>
-                <FontAwesomeIcon icon={faCertificate} />
-              </ServiceIcon>
-              <ServiceTitle>Юридическая консультация</ServiceTitle>
-            </ServiceHeader>
-            <ServiceDescription>
-              Консультации по правовым аспектам использования счетчиков электроэнергии.
-            </ServiceDescription>
-            <ServiceFeatures>
-              <ServiceFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Нормативные требования
-              </ServiceFeature>
-              <ServiceFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Сертификация оборудования
-              </ServiceFeature>
-              <ServiceFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Правовые аспекты эксплуатации
-              </ServiceFeature>
-            </ServiceFeatures>
-          </ServiceCard>
-
-          <ServiceCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <ServiceHeader>
-              <ServiceIcon>
-                <FontAwesomeIcon icon={faUsers} />
-              </ServiceIcon>
-              <ServiceTitle>Корпоративные консультации</ServiceTitle>
-            </ServiceHeader>
-            <ServiceDescription>
-              Специализированные консультации для предприятий и организаций.
-            </ServiceDescription>
-            <ServiceFeatures>
-              <ServiceFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Аудит энергопотребления
-              </ServiceFeature>
-              <ServiceFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Оптимизация энергосистем
-              </ServiceFeature>
-              <ServiceFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Внедрение АСКУЭ
-              </ServiceFeature>
-            </ServiceFeatures>
-          </ServiceCard>
-
-          <ServiceCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <ServiceHeader>
-              <ServiceIcon>
                 <FontAwesomeIcon icon={faChartLine} />
               </ServiceIcon>
               <ServiceTitle>Консультации по энергосбережению</ServiceTitle>
             </ServiceHeader>
             <ServiceDescription>
-              Рекомендации по снижению энергопотребления и повышению эффективности.
+              Дополнительная услуга по запросу: рекомендации по снижению энергопотребления и повышению эффективности.
             </ServiceDescription>
             <ServiceFeatures>
               <ServiceFeature>
@@ -642,7 +566,10 @@ const ConsultationPage = () => {
       </Section>
 
       <Section>
-        <SectionTitle>Процесс консультации</SectionTitle>
+        <SectionTitleWrapper>
+          <SectionTitle style={{ marginBottom: 0 }}>Процесс консультации</SectionTitle>
+          <SectionBadge>Доп. услуга</SectionBadge>
+        </SectionTitleWrapper>
         <ProcessGrid>
           <ProcessCard
             initial={{ opacity: 0, y: 30 }}
@@ -830,7 +757,7 @@ const ConsultationPage = () => {
             </InfoIcon>
             <InfoTitle>Сколько длится консультация?</InfoTitle>
             <InfoText>
-              Продолжительность зависит от сложности вопроса. Обычно от 30 минут до 2 часов.
+              Продолжительность зависит от сложности вопроса и длится до 30 минут.
             </InfoText>
           </InfoCard>
 

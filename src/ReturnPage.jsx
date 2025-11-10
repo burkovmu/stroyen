@@ -515,25 +515,25 @@ const ReturnPage = () => {
           >
             <ConditionHeader>
               <ConditionIcon>
-                <FontAwesomeIcon icon={faHandshake} />
+                <FontAwesomeIcon icon={faFileAlt} />
               </ConditionIcon>
-              <ConditionTitle>Обмен товара</ConditionTitle>
+              <ConditionTitle>Необходимые документы</ConditionTitle>
             </ConditionHeader>
             <ConditionDescription>
-              Возможность обмена товара на аналогичный или другой товар из нашего ассортимента.
+              Подготовьте комплект документов, подтверждающих покупку и право на возврат товара.
             </ConditionDescription>
             <ConditionFeatures>
               <ConditionFeature>
                 <FontAwesomeIcon icon={faCheckCircle} />
-                Обмен на аналогичный товар
+                Заявление на возврат
               </ConditionFeature>
               <ConditionFeature>
                 <FontAwesomeIcon icon={faCheckCircle} />
-                Доплата за более дорогой товар
+                Кассовый чек или договор поставки
               </ConditionFeature>
               <ConditionFeature>
                 <FontAwesomeIcon icon={faCheckCircle} />
-                Возврат разницы при обмене на более дешевый
+                Документ, удостоверяющий личность
               </ConditionFeature>
             </ConditionFeatures>
           </ConditionCard>
@@ -655,56 +655,6 @@ const ReturnPage = () => {
       </Section>
 
       <Section>
-        <SectionTitle>Дополнительные услуги</SectionTitle>
-        <InfoGrid>
-          <InfoCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <InfoIcon>
-              <FontAwesomeIcon icon={faTruck} />
-            </InfoIcon>
-            <InfoTitle>Курьерская доставка</InfoTitle>
-            <InfoText>
-              Бесплатная доставка товара для возврата курьером в удобное для вас время.
-            </InfoText>
-          </InfoCard>
-
-          <InfoCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <InfoIcon>
-              <FontAwesomeIcon icon={faCalendarAlt} />
-            </InfoIcon>
-            <InfoTitle>Гибкие сроки</InfoTitle>
-            <InfoText>
-              Возможность продления срока возврата до 30 дней для корпоративных клиентов.
-            </InfoText>
-          </InfoCard>
-
-          <InfoCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <InfoIcon>
-              <FontAwesomeIcon icon={faUser} />
-            </InfoIcon>
-            <InfoTitle>Персональный менеджер</InfoTitle>
-            <InfoText>
-              Назначение персонального менеджера для сопровождения процедуры возврата.
-            </InfoText>
-          </InfoCard>
-        </InfoGrid>
-      </Section>
-
-      <Section>
         <SectionTitle>Часто задаваемые вопросы</SectionTitle>
         <InfoGrid>
           <InfoCard
@@ -733,7 +683,7 @@ const ReturnPage = () => {
             </InfoIcon>
             <InfoTitle>Как происходит возврат денег?</InfoTitle>
             <InfoText>
-              Деньги возвращаются на ту же карту, с которой была совершена покупка.
+              Деньги возвращаются на те же платежные реквизиты, с которых была совершена покупка.
             </InfoText>
           </InfoCard>
 

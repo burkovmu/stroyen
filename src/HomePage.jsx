@@ -1788,6 +1788,20 @@ const OriginalPrice = styled.span`
   }
 `;
 
+const PriceRequestLabel = styled.span`
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #2f5483;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+  }
+`;
+
 const ProductButton = styled(motion.button)`
   width: 100%;
   background: #2f5483;
@@ -1826,6 +1840,51 @@ const ProductButton = styled(motion.button)`
     gap: 0.4rem;
   }
   
+  @media (max-width: 480px) {
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+`;
+
+const ProductSecondaryButton = styled(motion.button)`
+  width: 100%;
+  background: rgba(47, 84, 131, 0.08);
+  border: 1px dashed #2f5483;
+  padding: 0.8rem 1.5rem;
+  color: #2f5483;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(47, 84, 131, 0.1);
+
+  &:hover {
+    background: rgba(47, 84, 131, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(47, 84, 131, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 1024px) {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    gap: 0.4rem;
+  }
+
   @media (max-width: 480px) {
     padding: 0.8rem 1rem;
     font-size: 0.85rem;
@@ -2067,6 +2126,10 @@ function HomePage() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
+  const handleRequestQuote = useCallback((productName) => {
+    navigate(`/consultation?product=${encodeURIComponent(productName)}`);
+  }, [navigate]);
+
   const handleAddToCart = useCallback((product) => {
     addToCart(product);
   }, [addToCart]);
@@ -2198,50 +2261,77 @@ function HomePage() {
           Популярные товары
         </SectionTitle>
         <ProductsGrid>
-          {popularProducts.map((product, index) => (
-            <ProductCard
-              key={product.id}
-              {...getAnimationProps(
-                { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.6, delay: index * 0.1 } },
-                { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
-              )}
-              onClick={() => navigate(`/product/${product.id}`)}
-            >
+          {popularProducts.map((product, index) => {
+            const hasPrice = typeof product.price === 'number' && product.price > 0;
+            const hasDiscount = hasPrice && product.originalPrice && product.originalPrice > product.price;
+
+            return (
+              <ProductCard
+                key={product.id}
+                {...getAnimationProps(
+                  { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.6, delay: index * 0.1 } },
+                  { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+                )}
+                onClick={() => navigate(`/product/${product.id}`)}
+              >
               <ProductImage>
-                {product.mainImage ? (
-                  <img src={product.mainImage} alt={product.name} />
-                ) : (
-                  <img src={`/images/products/${product.image}`} alt={product.name} />
-                )}
-                {product.discount > 0 && (
-                  <ProductBadge>-{product.discount}%</ProductBadge>
-                )}
-              </ProductImage>
-              <ProductContent>
-                <ProductBrand>{product.brand}</ProductBrand>
-                <ProductName>{product.name}</ProductName>
-                <ProductType>{product.type}</ProductType>
-                <ProductPrice>
-                  <CurrentPrice>{product.price.toLocaleString()} ₽</CurrentPrice>
-                  {product.originalPrice > product.price && (
-                    <OriginalPrice>{product.originalPrice.toLocaleString()} ₽</OriginalPrice>
+                {(() => {
+                  const fallbackImage = '/images/products/default.svg';
+                  const imageSrc = product.mainImage
+                    || (product.image ? `/images/products/${product.image}` : fallbackImage);
+                  return <img src={imageSrc} alt={product.name} />;
+                })()}
+                  {product.discount > 0 && (
+                    <ProductBadge>-{product.discount}%</ProductBadge>
                   )}
-                </ProductPrice>
-                <ProductButton
-                  key={`add-to-cart-${product.id}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleAddToCart(product);
-                  }}
-                  {...getAnimationProps({ whileHover: { scale: 1.02 }, whileTap: { scale: 0.98 } })}
-                  style={{ transformOrigin: 'center' }}
-                >
-                  <FontAwesomeIcon icon={faShoppingCart} />
-                  Добавить в корзину
-                </ProductButton>
-              </ProductContent>
-            </ProductCard>
-          ))}
+                </ProductImage>
+                <ProductContent>
+                  <ProductBrand>{product.brand}</ProductBrand>
+                  <ProductName>{product.name}</ProductName>
+                  <ProductType>{product.type}</ProductType>
+                  <ProductPrice>
+                    {hasPrice ? (
+                      <>
+                        <CurrentPrice>{product.price.toLocaleString()} ₽</CurrentPrice>
+                        {hasDiscount && (
+                          <OriginalPrice>{product.originalPrice.toLocaleString()} ₽</OriginalPrice>
+                        )}
+                      </>
+                    ) : (
+                      <PriceRequestLabel>Цена по запросу</PriceRequestLabel>
+                    )}
+                  </ProductPrice>
+                  {hasPrice ? (
+                    <ProductButton
+                      key={`add-to-cart-${product.id}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAddToCart(product);
+                      }}
+                      {...getAnimationProps({ whileHover: { scale: 1.02 }, whileTap: { scale: 0.98 } })}
+                      style={{ transformOrigin: 'center' }}
+                    >
+                      <FontAwesomeIcon icon={faShoppingCart} />
+                      Добавить в корзину
+                    </ProductButton>
+                  ) : (
+                    <ProductSecondaryButton
+                      key={`request-quote-${product.id}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRequestQuote(product.name);
+                      }}
+                      {...getAnimationProps({ whileHover: { scale: 1.02 }, whileTap: { scale: 0.98 } })}
+                      style={{ transformOrigin: 'center' }}
+                    >
+                      <FontAwesomeIcon icon={faPaperPlane} />
+                      Запросить предложение
+                    </ProductSecondaryButton>
+                  )}
+                </ProductContent>
+              </ProductCard>
+            );
+          })}
         </ProductsGrid>
       </PopularProductsSection>
 

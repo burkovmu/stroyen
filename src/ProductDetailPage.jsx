@@ -835,6 +835,12 @@ const CurrentPrice = styled.div`
   color: #000000;
 `;
 
+const PriceRequestLabel = styled.div`
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2f5483;
+`;
+
 
 
 // Спецификации
@@ -962,6 +968,44 @@ const AddToCartButton = styled(motion.button)`
     font-size: 1rem;
   }
   
+  @media (max-width: 480px) {
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+    min-height: 48px;
+  }
+`;
+
+const RequestQuoteButton = styled(motion.button)`
+  flex: 1;
+  background: rgba(47, 84, 131, 0.08);
+  color: #2f5483;
+  border: 1px dashed #2f5483;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(47, 84, 131, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(47, 84, 131, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+  }
+
   @media (max-width: 480px) {
     padding: 1rem 1.2rem;
     font-size: 0.95rem;
@@ -1123,19 +1167,23 @@ function ProductDetailPage() {
   }, [id]);
 
   const handleAddToCart = () => {
-    if (product) {
+    if (product && product.price != null && product.price > 0) {
       addToCart(product);
+    } else if (product) {
+      navigate(`/consultation?product=${encodeURIComponent(product.name)}`);
     }
   };
 
   const handleContact = () => {
-    // Здесь будет логика связи с менеджером
-    alert('Свяжитесь с нами по телефону: +7 (999) 123-45-67');
+    if (product) {
+      navigate(`/consultation?product=${encodeURIComponent(product.name)}`);
+    } else {
+      navigate('/consultation');
+    }
   };
 
   const handleCustomOrder = () => {
-    // Здесь будет логика для заказа под заказ
-    alert('Для заказа под заказ свяжитесь с нами по телефону: +7 (999) 123-45-67');
+    navigate('/consultation');
   };
 
   // Функция для получения похожих товаров
@@ -1190,6 +1238,9 @@ function ProductDetailPage() {
     );
   }
 
+  const hasPrice = typeof product.price === 'number' && product.price > 0;
+  const hasDiscount = hasPrice && product.originalPrice && product.originalPrice > product.price;
+
   return (
     <ProductDetailContainer ref={containerRef}>
       <ProductDetailWrapper>
@@ -1220,25 +1271,40 @@ function ProductDetailPage() {
             <ProductDescription style={{ y: descriptionY }}>{product.description}</ProductDescription>
 
             <PriceSection>
-              {product.originalPrice ? (
-                <>
-                  <OriginalPrice>{product.originalPrice.toLocaleString()} ₽</OriginalPrice>
+              {hasPrice ? (
+                hasDiscount ? (
+                  <>
+                    <OriginalPrice>{product.originalPrice.toLocaleString()} ₽</OriginalPrice>
+                    <CurrentPrice>{product.price.toLocaleString()} ₽</CurrentPrice>
+                  </>
+                ) : (
                   <CurrentPrice>{product.price.toLocaleString()} ₽</CurrentPrice>
-                </>
+                )
               ) : (
-                <CurrentPrice>{product.price.toLocaleString()} ₽</CurrentPrice>
+                <PriceRequestLabel>Цена по запросу</PriceRequestLabel>
               )}
             </PriceSection>
 
             <ActionButtons>
-              <AddToCartButton
-                onClick={handleAddToCart}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <FontAwesomeIcon icon={faShoppingCart} />
-                Добавить в корзину
-              </AddToCartButton>
+              {hasPrice ? (
+                <AddToCartButton
+                  onClick={handleAddToCart}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <FontAwesomeIcon icon={faShoppingCart} />
+                  Добавить в корзину
+                </AddToCartButton>
+              ) : (
+                <RequestQuoteButton
+                  onClick={() => navigate(`/consultation?product=${encodeURIComponent(product.name)}`)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <FontAwesomeIcon icon={faPaperPlane} />
+                  Запросить предложение
+                </RequestQuoteButton>
+              )}
               <ContactButton
                 onClick={handleContact}
                 whileHover={{ scale: 1.02 }}
@@ -1343,44 +1409,38 @@ function ProductDetailPage() {
             <SimilarProductsSection style={{ y: similarProductsY }}>
             <SimilarProductsTitle>Похожие товары</SimilarProductsTitle>
             <SimilarProductsGrid>
-              {similarProducts.map((similarProduct) => (
-                <SimilarProductCard 
-                  key={similarProduct.id}
-                  onClick={() => navigate(`/product/${similarProduct.id}`)}
-                >
-                  <SimilarProductImage>
-                    {similarProduct.mainImage ? (
-                      <img 
-                        src={similarProduct.mainImage} 
-                        alt={similarProduct.name}
-                      />
-                    ) : (
-                      <div style={{
-                        width: '100%',
-                        height: '100%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                        color: '#2f5483',
-                        fontSize: '2rem',
-                        fontWeight: 'bold',
-                      }}>
-                        {similarProduct.brand}
-                      </div>
-                    )}
-                  </SimilarProductImage>
-                  <SimilarProductName>{similarProduct.name}</SimilarProductName>
-                  <SimilarProductType>{similarProduct.type}</SimilarProductType>
-                  <SimilarProductPrice>
-                    {similarProduct.price.toLocaleString()} ₽
-                  </SimilarProductPrice>
-                  <SimilarProductButton>
-                    <FontAwesomeIcon icon={faSearch} />
-                    Подробнее
-                  </SimilarProductButton>
-                </SimilarProductCard>
-              ))}
+              {similarProducts.map((similarProduct) => {
+                const hasSimilarPrice = typeof similarProduct.price === 'number' && similarProduct.price > 0;
+                return (
+                  <SimilarProductCard 
+                    key={similarProduct.id}
+                    onClick={() => navigate(`/product/${similarProduct.id}`)}
+                  >
+                    <SimilarProductImage>
+                    {(() => {
+                      const fallbackImage = '/images/products/default.svg';
+                      const imageSrc = similarProduct.mainImage
+                        || (similarProduct.image ? `/images/products/${similarProduct.image}` : fallbackImage);
+                      return (
+                        <img 
+                          src={imageSrc} 
+                          alt={similarProduct.name}
+                        />
+                      );
+                    })()}
+                    </SimilarProductImage>
+                    <SimilarProductName>{similarProduct.name}</SimilarProductName>
+                    <SimilarProductType>{similarProduct.type}</SimilarProductType>
+                    <SimilarProductPrice>
+                      {hasSimilarPrice ? `${similarProduct.price.toLocaleString()} ₽` : 'Цена по запросу'}
+                    </SimilarProductPrice>
+                    <SimilarProductButton>
+                      <FontAwesomeIcon icon={faSearch} />
+                      Подробнее
+                    </SimilarProductButton>
+                  </SimilarProductCard>
+                );
+              })}
             </SimilarProductsGrid>
           </SimilarProductsSection>
           );

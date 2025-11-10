@@ -16,7 +16,7 @@ const getAnimationProps = (desktopProps, mobileProps = {}) => {
   }
   return desktopProps;
 };
-import { faLocationDot, faPhone, faSearch, faShoppingCart, faShoppingBag, faShare, faLink, faGlobe, faHashtag, faEnvelope, faClock, faChevronDown, faBars, faPhoneVolume, faPaperPlane, faTimes, faThLarge, faBolt, faIndustry, faNetworkWired } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faPhone, faSearch, faShoppingCart, faShoppingBag, faShare, faLink, faGlobe, faHashtag, faEnvelope, faClock, faChevronDown, faBars, faPhoneVolume, faPaperPlane, faTimes, faThLarge, faBolt, faIndustry, faNetworkWired, faTools } from '@fortawesome/free-solid-svg-icons';
 import CatalogFilters from './CatalogFilters';
 import CatalogPage from './CatalogPage';
 import HomePage from './HomePage';
@@ -33,13 +33,11 @@ import PaymentPage from './PaymentPage';
 import WarrantyPage from './WarrantyPage';
 import ReturnPage from './ReturnPage';
 import ConsultationPage from './ConsultationPage';
+import VerificationServicesPage from './VerificationServicesPage';
 import MeterVerificationPage from './MeterVerificationPage';
 import TransformerVerificationPage from './TransformerVerificationPage';
 import InstallationPage from './InstallationPage';
-import CommissioningPage from './CommissioningPage';
 import TestPage from './TestPage';
-import DocumentationPage from './DocumentationPage';
-import CertificatesPage from './CertificatesPage';
 import PartnersPage from './PartnersPage';
 import FAQPage from './FAQPage';
 import PrivacyPolicyPage from './PrivacyPolicyPage';
@@ -1885,15 +1883,20 @@ const PriceListModalCloseButton = styled.button`
 
 const PriceListForm = styled.form`
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 const PriceListFormGroup = styled.div`
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
 const PriceListLabel = styled.label`
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 0;
   font-weight: 500;
   color: #495057;
   font-size: 14px;
@@ -1954,6 +1957,27 @@ const PriceListFormActions = styled.div`
   display: flex;
   gap: 12px;
   margin-top: 24px;
+`;
+
+const PriceListConsentWrapper = styled.label`
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: #555555;
+  cursor: pointer;
+  line-height: 1.5;
+`;
+
+const PriceListCheckbox = styled.input`
+  width: 18px;
+  height: 18px;
+  margin-top: 0.2rem;
+  cursor: pointer;
+`;
+
+const PriceListConsentText = styled.span`
+  display: block;
 `;
 
 const PriceListSubmitButton = styled.button`
@@ -2301,6 +2325,9 @@ function AppContent() {
     message: ''
   });
   const [isPriceListSubmitting, setIsPriceListSubmitting] = useState(false);
+  const [priceListFiles, setPriceListFiles] = useState([]);
+  const [priceListDragOver, setPriceListDragOver] = useState(false);
+  const [priceListConsent, setPriceListConsent] = useState(false);
   
   // Состояния для управления шапкой при скролле
   const [showTopHeader, setShowTopHeader] = useState(true);
@@ -2499,6 +2526,9 @@ function AppContent() {
       message: ''
     });
     setIsPriceListSubmitting(false);
+    setPriceListFiles([]);
+    setPriceListDragOver(false);
+    setPriceListConsent(false);
   };
 
   const handlePriceListFormChange = (field, value) => {
@@ -2506,6 +2536,47 @@ function AppContent() {
       ...prev,
       [field]: value
     }));
+  };
+
+  const handlePriceListFileSelect = (e) => {
+    const files = Array.from(e.target.files);
+    const newFiles = files.map(file => ({
+      id: Date.now() + Math.random(),
+      file,
+      name: file.name,
+      size: file.size,
+      type: file.type
+    }));
+    setPriceListFiles(prev => [...prev, ...newFiles]);
+  };
+
+  const handlePriceListFileRemove = (fileId) => {
+    setPriceListFiles(prev => prev.filter(file => file.id !== fileId));
+  };
+
+  const handlePriceListDragOver = (e) => {
+    e.preventDefault();
+    setPriceListDragOver(true);
+  };
+
+  const handlePriceListDragLeave = (e) => {
+    e.preventDefault();
+    setPriceListDragOver(false);
+  };
+
+  const handlePriceListDrop = (e) => {
+    e.preventDefault();
+    setPriceListDragOver(false);
+
+    const files = Array.from(e.dataTransfer.files);
+    const newFiles = files.map(file => ({
+      id: Date.now() + Math.random(),
+      file,
+      name: file.name,
+      size: file.size,
+      type: file.type
+    }));
+    setPriceListFiles(prev => [...prev, ...newFiles]);
   };
 
   const handlePriceListSubmit = async (e) => {
@@ -2700,10 +2771,8 @@ function AppContent() {
             <TopNavDropdownItem href="/payment">Оплата</TopNavDropdownItem>
             <TopNavDropdownItem href="/warranty">Гарантия</TopNavDropdownItem>
             <TopNavDropdownItem href="/return">Возврат</TopNavDropdownItem>
-            <TopNavDropdownItem href="/services/meter-verification">Поверка счетчиков электрической энергии</TopNavDropdownItem>
-            <TopNavDropdownItem href="/services/transformer-verification">Поверка трансформаторов тока (напряжения)</TopNavDropdownItem>
+            <TopNavDropdownItem href="/services/verification">Поверка оборудования</TopNavDropdownItem>
             <TopNavDropdownItem href="/services/installation">Монтаж оборудования</TopNavDropdownItem>
-            <TopNavDropdownItem href="/services/commissioning">Наладка оборудования</TopNavDropdownItem>
           </TopNavDropdownContent>
           
           <TopNavDropdownContent 
@@ -2719,8 +2788,6 @@ function AppContent() {
             }}
           >
             <TopNavDropdownItem href="/about">О компании</TopNavDropdownItem>
-            <TopNavDropdownItem href="/docs">Документация</TopNavDropdownItem>
-            <TopNavDropdownItem href="/certificates">Сертификаты</TopNavDropdownItem>
             <TopNavDropdownItem href="/partners">Партнеры</TopNavDropdownItem>
             <TopNavDropdownItem href="/faq">FAQ</TopNavDropdownItem>
           </TopNavDropdownContent>
@@ -2781,6 +2848,16 @@ function AppContent() {
                       <CatalogItemText>
                         <CatalogItemTitle>Устройства сбора данных</CatalogItemTitle>
                         <CatalogItemDescription>RTU и системы мониторинга</CatalogItemDescription>
+                      </CatalogItemText>
+                    </CatalogItem>
+                    
+                    <CatalogItem href="/catalog?category=Поверочные установки и эталоны">
+                      <CatalogItemIcon>
+                        <FontAwesomeIcon icon={faTools} />
+                      </CatalogItemIcon>
+                      <CatalogItemText>
+                        <CatalogItemTitle>Поверочные комплексы</CatalogItemTitle>
+                        <CatalogItemDescription>Эталоны, лаборатории, УППУ</CatalogItemDescription>
                       </CatalogItemText>
                     </CatalogItem>
                   </CatalogDropdownContent>
@@ -2852,13 +2929,11 @@ function AppContent() {
                 <Route path="/warranty" element={<WarrantyPage />} />
                 <Route path="/return" element={<ReturnPage />} />
 <Route path="/consultation" element={<ConsultationPage />} />
+<Route path="/services/verification" element={<VerificationServicesPage />} />
 <Route path="/services/meter-verification" element={<MeterVerificationPage />} />
 <Route path="/services/transformer-verification" element={<TransformerVerificationPage />} />
 <Route path="/services/installation" element={<InstallationPage />} />
-<Route path="/services/commissioning" element={<CommissioningPage />} />
 <Route path="/test" element={<TestPage />} />
-        <Route path="/docs" element={<DocumentationPage />} />
-        <Route path="/certificates" element={<CertificatesPage />} />
         <Route path="/partners" element={<PartnersPage />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
@@ -2901,16 +2976,12 @@ function AppContent() {
               <FooterLink href="/payment">Оплата</FooterLink>
               <FooterLink href="/warranty">Гарантия</FooterLink>
               <FooterLink href="/return">Возврат</FooterLink>
-              <FooterLink href="/services/meter-verification">Поверка счетчиков</FooterLink>
-              <FooterLink href="/services/transformer-verification">Поверка трансформаторов</FooterLink>
+              <FooterLink href="/services/verification">Поверка электрооборудования</FooterLink>
               <FooterLink href="/services/installation">Монтаж оборудования</FooterLink>
-              <FooterLink href="/services/commissioning">Наладка оборудования</FooterLink>
             </FooterColumn>
             <FooterColumn>
               <FooterTitle>Информация</FooterTitle>
               <FooterLink href="/about">О компании</FooterLink>
-              <FooterLink href="/docs">Документация</FooterLink>
-              <FooterLink href="/certificates">Сертификаты</FooterLink>
               <FooterLink href="/partners">Партнеры</FooterLink>
               <FooterLink href="/faq">FAQ</FooterLink>
             </FooterColumn>
@@ -3031,6 +3102,7 @@ function AppContent() {
               <MobileMenuDropdownItem href="/catalog?category=Однофазные счетчики" onClick={closeMobileMenu}>Однофазные счетчики</MobileMenuDropdownItem>
               <MobileMenuDropdownItem href="/catalog?category=Трехфазные счетчики" onClick={closeMobileMenu}>Трехфазные счетчики</MobileMenuDropdownItem>
               <MobileMenuDropdownItem href="/catalog?category=Устройства сбора и передачи данных" onClick={closeMobileMenu}>Устройства сбора и передачи данных</MobileMenuDropdownItem>
+              <MobileMenuDropdownItem href="/catalog?category=Поверочные установки и эталоны" onClick={closeMobileMenu}>Поверочные комплексы</MobileMenuDropdownItem>
             </MobileMenuDropdownContent>
           </MobileMenuDropdown>
         </MobileMenuSection>
@@ -3042,10 +3114,8 @@ function AppContent() {
           <MobileMenuItem href="/payment" onClick={closeMobileMenu}>Оплата</MobileMenuItem>
           <MobileMenuItem href="/warranty" onClick={closeMobileMenu}>Гарантия</MobileMenuItem>
           <MobileMenuItem href="/return" onClick={closeMobileMenu}>Возврат</MobileMenuItem>
-          <MobileMenuItem href="/services/meter-verification" onClick={closeMobileMenu}>Поверка счетчиков электрической энергии</MobileMenuItem>
-          <MobileMenuItem href="/services/transformer-verification" onClick={closeMobileMenu}>Поверка трансформаторов тока (напряжения)</MobileMenuItem>
+          <MobileMenuItem href="/services/verification" onClick={closeMobileMenu}>Поверка электрооборудования</MobileMenuItem>
           <MobileMenuItem href="/services/installation" onClick={closeMobileMenu}>Монтаж оборудования</MobileMenuItem>
-          <MobileMenuItem href="/services/commissioning" onClick={closeMobileMenu}>Наладка оборудования</MobileMenuItem>
         </MobileMenuSection>
         
         <MobileMenuSection>
@@ -3060,8 +3130,6 @@ function AppContent() {
             Прайс-лист
           </MobileMenuItem>
           <MobileMenuItem href="/about" onClick={closeMobileMenu}>О компании</MobileMenuItem>
-          <MobileMenuItem href="/docs" onClick={closeMobileMenu}>Документация</MobileMenuItem>
-          <MobileMenuItem href="/certificates" onClick={closeMobileMenu}>Сертификаты</MobileMenuItem>
           <MobileMenuItem href="/partners" onClick={closeMobileMenu}>Партнеры</MobileMenuItem>
           <MobileMenuItem href="/faq" onClick={closeMobileMenu}>FAQ</MobileMenuItem>
           <MobileMenuItem href="/contacts" onClick={closeMobileMenu}>Контакты</MobileMenuItem>
@@ -3423,6 +3491,65 @@ function AppContent() {
                 />
               </PriceListFormGroup>
 
+              <PriceListFormGroup>
+                <PriceListLabel>Прикрепить файлы</PriceListLabel>
+                <FileUploadArea
+                  className={priceListDragOver ? 'drag-over' : ''}
+                  onDragOver={handlePriceListDragOver}
+                  onDragLeave={handlePriceListDragLeave}
+                  onDrop={handlePriceListDrop}
+                  onClick={() => document.getElementById('price-file-input').click()}
+                >
+                  <FileUploadText>
+                    Перетащите файлы сюда или нажмите для выбора
+                  </FileUploadText>
+                  <FileUploadSubtext>
+                    Поддерживаемые форматы: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, ZIP
+                  </FileUploadSubtext>
+                  <FileInput
+                    id="price-file-input"
+                    type="file"
+                    multiple
+                    onChange={handlePriceListFileSelect}
+                    accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.zip"
+                  />
+                </FileUploadArea>
+
+                {priceListFiles.length > 0 && (
+                  <FileList>
+                    {priceListFiles.map((file) => (
+                      <FileItem key={file.id}>
+                        <FileItemInfo>
+                          <FileItemName>{file.name}</FileItemName>
+                          <FileItemSize>({formatFileSize(file.size)})</FileItemSize>
+                        </FileItemInfo>
+                        <FileRemoveButton
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => handlePriceListFileRemove(file.id)}
+                        >
+                          ×
+                        </FileRemoveButton>
+                      </FileItem>
+                    ))}
+                  </FileList>
+                )}
+              </PriceListFormGroup>
+
+              <PriceListFormGroup>
+                <PriceListConsentWrapper>
+                  <PriceListCheckbox
+                    type="checkbox"
+                    checked={priceListConsent}
+                    onChange={(e) => setPriceListConsent(e.target.checked)}
+                    required
+                  />
+                  <PriceListConsentText>
+                    Я согласен(а) на обработку персональных данных
+                  </PriceListConsentText>
+                </PriceListConsentWrapper>
+              </PriceListFormGroup>
+
               <PriceListFormActions>
                 <PriceListCancelButton
                   type="button"
@@ -3432,7 +3559,7 @@ function AppContent() {
                 </PriceListCancelButton>
                 <PriceListSubmitButton
                   type="submit"
-                  disabled={isPriceListSubmitting}
+                  disabled={isPriceListSubmitting || !priceListConsent}
                 >
                   {isPriceListSubmitting ? 'Отправка...' : 'Отправить заявку'}
                 </PriceListSubmitButton>

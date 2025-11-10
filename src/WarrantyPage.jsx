@@ -3,15 +3,9 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faShieldAlt, 
   faTools, 
   faCheckCircle, 
-  faClock, 
   faPhone, 
-  faEnvelope,
-  faUser,
-  faCertificate,
-  faHandshake,
   faPaperPlane,
   faExclamationTriangle,
   faInfoCircle,
@@ -108,99 +102,6 @@ const SectionTitle = styled.h2`
     height: 4px;
     background: linear-gradient(to right, #2f5483, rgba(47, 84, 131, 0.3));
     border-radius: 4px;
-  }
-`;
-
-const WarrantyTypesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
-`;
-
-const WarrantyTypeCard = styled(motion.div)`
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 2.5rem;
-  box-shadow: 0 8px 30px rgba(47, 84, 131, 0.1);
-  border: 1px solid rgba(47, 84, 131, 0.05);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(47, 84, 131, 0.15);
-  }
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(to right, #2f5483, #1e3a5f);
-  }
-`;
-
-const TypeHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-`;
-
-const TypeIcon = styled.div`
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #2f5483 0%, #1e3a5f 100%);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.5rem;
-`;
-
-const TypeTitle = styled.h3`
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #2f5483;
-  margin: 0;
-`;
-
-const TypeDuration = styled.div`
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #2f5483;
-  margin-bottom: 1rem;
-`;
-
-const TypeDescription = styled.p`
-  font-size: 1rem;
-  color: #666666;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-`;
-
-const TypeFeatures = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const TypeFeature = styled.li`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  color: #666666;
-  margin-bottom: 0.5rem;
-
-  svg {
-    color: #2f5483;
-    font-size: 0.9rem;
   }
 `;
 
@@ -498,107 +399,6 @@ function WarrantyPage() {
       </PageHeader>
 
       <Section>
-        <SectionTitle>Виды гарантии</SectionTitle>
-        <WarrantyTypesGrid>
-          <WarrantyTypeCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <TypeHeader>
-              <TypeIcon>
-                <FontAwesomeIcon icon={faShieldAlt} />
-              </TypeIcon>
-              <TypeTitle>Стандартная гарантия</TypeTitle>
-            </TypeHeader>
-            <TypeDuration>2-5 лет</TypeDuration>
-            <TypeDescription>
-              Базовая гарантия производителя на все счетчики электроэнергии.
-            </TypeDescription>
-            <TypeFeatures>
-              <TypeFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Бесплатный ремонт
-              </TypeFeature>
-              <TypeFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Замена неисправных деталей
-              </TypeFeature>
-              <TypeFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Техническая поддержка
-              </TypeFeature>
-            </TypeFeatures>
-          </WarrantyTypeCard>
-
-          <WarrantyTypeCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <TypeHeader>
-              <TypeIcon>
-                <FontAwesomeIcon icon={faCertificate} />
-              </TypeIcon>
-              <TypeTitle>Расширенная гарантия</TypeTitle>
-            </TypeHeader>
-            <TypeDuration>8-12 лет</TypeDuration>
-            <TypeDescription>
-              Дополнительная гарантия на счетчики премиум-класса с расширенным покрытием.
-            </TypeDescription>
-            <TypeFeatures>
-              <TypeFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Полный ремонт и обслуживание
-              </TypeFeature>
-              <TypeFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Выезд специалиста на место
-              </TypeFeature>
-              <TypeFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Приоритетная поддержка
-              </TypeFeature>
-            </TypeFeatures>
-          </WarrantyTypeCard>
-
-          <WarrantyTypeCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <TypeHeader>
-              <TypeIcon>
-                <FontAwesomeIcon icon={faHandshake} />
-              </TypeIcon>
-              <TypeTitle>Максимальная гарантия</TypeTitle>
-            </TypeHeader>
-            <TypeDuration>16 лет</TypeDuration>
-            <TypeDescription>
-              Максимальная гарантия на профессиональное оборудование с полным сервисным обслуживанием.
-            </TypeDescription>
-            <TypeFeatures>
-              <TypeFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Полная замена оборудования
-              </TypeFeature>
-              <TypeFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Круглосуточная поддержка
-              </TypeFeature>
-              <TypeFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Плановое обслуживание
-              </TypeFeature>
-            </TypeFeatures>
-          </WarrantyTypeCard>
-        </WarrantyTypesGrid>
-      </Section>
-
-      <Section>
         <SectionTitle>Процесс гарантийного обслуживания</SectionTitle>
         <ProcessGrid>
           <ProcessCard
@@ -692,11 +492,11 @@ function WarrantyPage() {
             viewport={{ once: true }}
           >
             <ServiceIcon>
-              <FontAwesomeIcon icon={faCog} />
+              <FontAwesomeIcon icon={faClipboardList} />
             </ServiceIcon>
-            <ServiceTitle>Техническое обслуживание</ServiceTitle>
+            <ServiceTitle>Поверка средств измерения</ServiceTitle>
             <ServiceDescription>
-              Плановое техническое обслуживание оборудования для предотвращения поломок и продления срока службы.
+              Проведение поверки средств измерения после ремонта с оформлением всей необходимой документации.
             </ServiceDescription>
           </ServiceCard>
 

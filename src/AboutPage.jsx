@@ -428,6 +428,52 @@ const ContactButton = styled(motion.button)`
   }
 `;
 
+const CompanyInfoContainer = styled(motion.div)`
+  max-width: 1000px;
+  margin: 0 auto 3rem;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 12px 40px rgba(47, 84, 131, 0.12);
+  border: 1px solid rgba(47, 84, 131, 0.08);
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+`;
+
+const CompanyParagraph = styled.p`
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: #4a4a4a;
+  margin-bottom: 1.5rem;
+`;
+
+const CompanyList = styled.ul`
+  margin: 1.5rem 0 2rem;
+  padding-left: 1.5rem;
+  display: grid;
+  gap: 0.75rem;
+`;
+
+const CompanyListItem = styled.li`
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #4a4a4a;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -1rem;
+    top: 0.65rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2f5483;
+  }
+`;
+
 function AboutPage() {
   const [activeTab, setActiveTab] = useState('about');
 
@@ -446,12 +492,52 @@ function AboutPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <PageTitle>О компании Стройэнергетика</PageTitle>
+        <PageTitle>Энергетические решения</PageTitle>
         <PageSubtitle>
-          Более 20 лет опыта в поставке и установке счетчиков электроэнергии. 
-          Мы являемся официальным дилером ведущих производителей и гарантируем качество каждого продукта.
+          Мы создаём комплексные решения по учёту и распределению электроэнергии для предприятий, девелоперов и управляющих компаний.
+          Сопровождаем проекты на всех этапах: от аудита и подбора оборудования до монтажа, пусконаладки и сервисной поддержки.
         </PageSubtitle>
       </PageHeader>
+
+      <Section>
+        <SectionTitle>О компании</SectionTitle>
+        <CompanyInfoContainer
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <CompanyParagraph>
+            Компания «Стройэнергетика» уже более 10 лет поставляет и внедряет решения в сфере энергетики и автоматизации. Мы помогаем предприятиям, управляющим компаниям и частным заказчикам оптимизировать энергопотребление, обеспечивая полный цикл — от консультации до внедрения и сопровождения.
+          </CompanyParagraph>
+          <CompanyParagraph>
+            Мы являемся официальным партнёром ведущих производителей и работаем исключительно с сертифицированным оборудованием. Это гарантирует соответствие продукции актуальным стандартам, точность показаний и безопасную эксплуатацию.
+          </CompanyParagraph>
+          <CompanyParagraph>Основные направления деятельности:</CompanyParagraph>
+          <CompanyList>
+            <CompanyListItem>поставка и продажа энергетического и электротехнического оборудования;</CompanyListItem>
+            <CompanyListItem>установка и подключение комплексных систем «под ключ»;</CompanyListItem>
+            <CompanyListItem>проектирование и внедрение автоматизированных систем учёта и управления энергоресурсами;</CompanyListItem>
+            <CompanyListItem>техническое обслуживание и сервисная поддержка реализованных решений;</CompanyListItem>
+            <CompanyListItem>экспертные консультации и подбор оптимальных технологий под задачи клиента.</CompanyListItem>
+          </CompanyList>
+          <CompanyParagraph>
+            Выбирая нас, клиенты получают не просто оборудование, а готовое инженерное решение, позволяющее эффективно использовать энергоресурсы и снижать издержки.
+          </CompanyParagraph>
+          <CompanyParagraph>
+            Мы работаем напрямую с производителями, предлагаем выгодные условия, короткие сроки поставки и гибкий подход к каждому проекту.
+          </CompanyParagraph>
+          <CompanyParagraph>
+            Команда «Стройэнергетики» — это опытные специалисты, которые внимательно следят за развитием отрасли и расширяют линейку продукции. Благодаря этому наши клиенты всегда получают доступ к современным, энергоэффективным и точным решениям.
+          </CompanyParagraph>
+          <CompanyParagraph>
+            Мы реализуем проекты по всей России и готовы предложить индивидуальные условия для постоянных партнёров, строительных компаний и промышленных предприятий.
+          </CompanyParagraph>
+          <CompanyParagraph>
+            «Стройэнергетика» — ваш надёжный поставщик и партнёр в сфере энергоучёта и автоматизации. С нами вы уверены в качестве оборудования, стабильности работы систем и экспертной поддержке на каждом этапе.
+          </CompanyParagraph>
+        </CompanyInfoContainer>
+      </Section>
 
       <Section>
         <SectionTitle>Наши достижения</SectionTitle>
@@ -465,7 +551,7 @@ function AboutPage() {
             <StatIcon>
               <FontAwesomeIcon icon={faTrophy} />
             </StatIcon>
-            <StatNumber>20+</StatNumber>
+            <StatNumber>10+</StatNumber>
             <StatLabel>Лет опыта</StatLabel>
           </StatCard>
 
@@ -504,8 +590,8 @@ function AboutPage() {
             <StatIcon>
               <FontAwesomeIcon icon={faShieldAlt} />
             </StatIcon>
-            <StatNumber>16</StatNumber>
-            <StatLabel>Лет гарантии</StatLabel>
+            <StatNumber>Гарантия</StatNumber>
+            <StatLabel>На всё оборудование</StatLabel>
           </StatCard>
         </StatsGrid>
       </Section>
@@ -622,7 +708,7 @@ function AboutPage() {
       </Section>
 
       <Section>
-        <SectionTitle>История компании</SectionTitle>
+        <SectionTitle>Как мы работаем</SectionTitle>
         <Timeline>
           <TimelineItem
             initial={{ opacity: 0, x: -50 }}
@@ -632,10 +718,10 @@ function AboutPage() {
           >
             <TimelineDot />
             <TimelineContent side="left">
-              <TimelineYear>2010</TimelineYear>
-              <TimelineTitle>Основание компании</TimelineTitle>
+              <TimelineYear>Шаг 1</TimelineYear>
+              <TimelineTitle>Анализ задач</TimelineTitle>
               <TimelineDescription>
-                Создание компании Стройэнергетика с целью обеспечения качественными счетчиками электроэнергии.
+                Выясняем специфику объекта и потребности клиента, подбираем оптимальные технологии.
               </TimelineDescription>
             </TimelineContent>
           </TimelineItem>
@@ -648,10 +734,10 @@ function AboutPage() {
           >
             <TimelineDot />
             <TimelineContent side="right">
-              <TimelineYear>2015</TimelineYear>
-              <TimelineTitle>Расширение партнерств</TimelineTitle>
+              <TimelineYear>Шаг 2</TimelineYear>
+              <TimelineTitle>Подбор оборудования</TimelineTitle>
               <TimelineDescription>
-                Подписание договоров с ведущими производителями счетчиков электроэнергии.
+                Предлагаем сертифицированные решения от проверенных производителей.
               </TimelineDescription>
             </TimelineContent>
           </TimelineItem>
@@ -664,10 +750,10 @@ function AboutPage() {
           >
             <TimelineDot />
             <TimelineContent side="left">
-              <TimelineYear>2020</TimelineYear>
-              <TimelineTitle>Цифровизация</TimelineTitle>
+              <TimelineYear>Шаг 3</TimelineYear>
+              <TimelineTitle>Поставка и логистика</TimelineTitle>
               <TimelineDescription>
-                Внедрение современных цифровых технологий и онлайн-сервисов для клиентов.
+                Организуем поставку в оговорённые сроки, держим клиента в курсе статуса.
               </TimelineDescription>
             </TimelineContent>
           </TimelineItem>
@@ -680,10 +766,26 @@ function AboutPage() {
           >
             <TimelineDot />
             <TimelineContent side="right">
-              <TimelineYear>2024</TimelineYear>
-              <TimelineTitle>Лидерство в отрасли</TimelineTitle>
+              <TimelineYear>Шаг 4</TimelineYear>
+              <TimelineTitle>Монтаж и запуск</TimelineTitle>
               <TimelineDescription>
-                Становление одним из ведущих поставщиков счетчиков электроэнергии в регионе.
+                Выполняем установку, подключение и пусконаладку «под ключ».
+              </TimelineDescription>
+            </TimelineContent>
+          </TimelineItem>
+
+          <TimelineItem
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <TimelineDot />
+            <TimelineContent side="right">
+              <TimelineYear>Шаг 5</TimelineYear>
+              <TimelineTitle>Сервис и сопровождение</TimelineTitle>
+              <TimelineDescription>
+                Обеспечиваем техническое обслуживание, консультации и поддержку 24/7.
               </TimelineDescription>
             </TimelineContent>
           </TimelineItem>

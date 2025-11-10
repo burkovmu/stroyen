@@ -213,14 +213,32 @@ const ProductGallery = ({ product }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Получаем изображения из продукта
-  const images = product?.images || [];
-  const mainImage = product?.mainImage || product?.image || '';
+  const placeholderImage = '/images/products/default.svg';
 
-  // Если нет изображений, используем заглушку
-  const displayImages = images.length > 0 ? images : [mainImage];
+  const normalizeImagePath = (path) => {
+    if (!path) return '';
+    if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/')) {
+      return path;
+    }
+    return `/images/products/${path}`;
+  };
+
+  const rawImages = Array.isArray(product?.images) ? product.images : [];
+  const normalizedImages = rawImages
+    .map(normalizeImagePath)
+    .filter(Boolean);
+
+  const fallbackImage =
+    normalizeImagePath(product?.mainImage) ||
+    normalizeImagePath(product?.image) ||
+    placeholderImage;
+
+  const displayImages = normalizedImages.length > 0
+    ? normalizedImages
+    : [fallbackImage];
 
   const handleImageClick = (index) => {
+    if (displayImages.length === 0) return;
     setCurrentImageIndex(index);
     setIsModalOpen(true);
   };
@@ -262,16 +280,10 @@ const ProductGallery = ({ product }) => {
     <GalleryContainer>
       {/* Главное изображение */}
       <MainImageContainer onClick={() => handleImageClick(currentImageIndex)}>
-        {displayImages[currentImageIndex] ? (
-          <MainImage 
-            src={displayImages[currentImageIndex]} 
-            alt={product?.name || 'Товар'}
-          />
-        ) : (
-          <PlaceholderImage>
-            <FontAwesomeIcon icon={faTimes} />
-          </PlaceholderImage>
-        )}
+        <MainImage 
+          src={displayImages[currentImageIndex]} 
+          alt={product?.name || 'Товар'}
+        />
       </MainImageContainer>
 
       {/* Миниатюры */}
@@ -285,13 +297,7 @@ const ProductGallery = ({ product }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {image ? (
-                <ThumbnailImage src={image} alt={`${product?.name || 'Товар'} ${index + 1}`} />
-              ) : (
-                <ThumbnailPlaceholder>
-                  <FontAwesomeIcon icon={faTimes} />
-                </ThumbnailPlaceholder>
-              )}
+              <ThumbnailImage src={image || placeholderImage} alt={`${product?.name || 'Товар'} ${index + 1}`} />
             </Thumbnail>
           ))}
         </ThumbnailsContainer>

@@ -13,6 +13,7 @@ import {
   faMobileAlt,
   faFax
 } from '@fortawesome/free-solid-svg-icons';
+import { faTelegram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 const PageContainer = styled.div`
   padding: 200px 0 5rem;
@@ -413,6 +414,38 @@ function ContactsPage() {
               </ContactValue>
               <ContactDescription>Основной номер для связи</ContactDescription>
 
+            </ContactContent>
+          </ContactItem>
+
+          <ContactItem
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
+          >
+            <ContactIcon>
+              <FontAwesomeIcon icon={faTelegram} />
+            </ContactIcon>
+            <ContactContent>
+              <ContactLabel>Telegram</ContactLabel>
+              <ContactValue>
+                <ContactLink href="https://t.me/stroienergetika" target="_blank" rel="noopener noreferrer">@stroienergetika</ContactLink>
+              </ContactValue>
+              <ContactDescription>Быстрые ответы и оперативные консультации</ContactDescription>
+            </ContactContent>
+          </ContactItem>
+
+          <ContactItem
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
+          >
+            <ContactIcon>
+              <FontAwesomeIcon icon={faWhatsapp} />
+            </ContactIcon>
+            <ContactContent>
+              <ContactLabel>WhatsApp</ContactLabel>
+              <ContactValue>
+                <ContactLink href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">+7 (999) 123-45-67</ContactLink>
+              </ContactValue>
+              <ContactDescription>Пишите нам в мессенджере 24/7</ContactDescription>
             </ContactContent>
           </ContactItem>
 

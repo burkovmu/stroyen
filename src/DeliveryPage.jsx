@@ -167,13 +167,6 @@ const OptionTitle = styled.h3`
   margin: 0;
 `;
 
-const OptionPrice = styled.div`
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #2f5483;
-  margin-bottom: 1rem;
-`;
-
 const OptionDescription = styled.p`
   font-size: 1rem;
   color: #666666;
@@ -461,9 +454,8 @@ function DeliveryPage() {
               </OptionIcon>
               <OptionTitle>Стандартная доставка</OptionTitle>
             </OptionHeader>
-            <OptionPrice>от 500 ₽</OptionPrice>
             <OptionDescription>
-              Доставка в течение 2-3 рабочих дней по Москве и Московской области.
+              Сроки доставки обсуждаются индивидуально и зависят от адреса и текущей загрузки службы.
             </OptionDescription>
             <OptionFeatures>
               <OptionFeature>
@@ -493,9 +485,8 @@ function DeliveryPage() {
               </OptionIcon>
               <OptionTitle>Экспресс доставка</OptionTitle>
             </OptionHeader>
-            <OptionPrice>от 1000 ₽</OptionPrice>
             <OptionDescription>
-              Доставка в день заказа или на следующий день по Москве.
+              Оформление доставки в день обращения с приоритетной обработкой вашего заказа.
             </OptionDescription>
             <OptionFeatures>
               <OptionFeature>
@@ -525,7 +516,6 @@ function DeliveryPage() {
               </OptionIcon>
               <OptionTitle>Доставка с установкой</OptionTitle>
             </OptionHeader>
-            <OptionPrice>от 2000 ₽</OptionPrice>
             <OptionDescription>
               Полный комплекс услуг: доставка, установка и настройка оборудования.
             </OptionDescription>
@@ -634,8 +624,8 @@ function DeliveryPage() {
               возможна по предварительной договоренности за дополнительную плату.
             </CardText>
             <CardText>
-              При заказе на сумму от 50 000 ₽ доставка по Москве осуществляется бесплатно. 
-              Для регионов стоимость доставки рассчитывается индивидуально.
+              Условия доставки по Москве согласуются индивидуально с учетом параметров заказа. 
+              Для регионов подбираем оптимальное решение и согласуем детали вместе с вами.
             </CardText>
           </ContentCard>
 
@@ -650,65 +640,11 @@ function DeliveryPage() {
               Получение заказа
             </CardTitle>
             <CardText>
-              При получении заказа необходимо предъявить паспорт и документ, подтверждающий 
-              право на получение товара (доверенность, если заказ получает не покупатель).
-            </CardText>
-            <CardText>
-              Обязательно проверьте целостность упаковки и комплектность товара перед подписанием 
-              документов о получении.
+              При получении предъявите паспорт. Если заказ забирает представитель, необходима доверенность. 
+              Отсутствие документов может стать причиной отказа в выдаче.
             </CardText>
           </ContentCard>
         </ContentGrid>
-      </Section>
-
-      <Section>
-        <SectionTitle>Дополнительные услуги</SectionTitle>
-        <InfoGrid>
-          <InfoCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <InfoIcon>
-              <FontAwesomeIcon icon={faCalculator} />
-            </InfoIcon>
-            <InfoTitle>Расчет стоимости</InfoTitle>
-            <InfoText>
-              Бесплатный расчет стоимости доставки и установки. Учитываем все нюансы вашего объекта.
-            </InfoText>
-          </InfoCard>
-
-          <InfoCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <InfoIcon>
-              <FontAwesomeIcon icon={faRoute} />
-            </InfoIcon>
-            <InfoTitle>Доставка в регионы</InfoTitle>
-            <InfoText>
-              Доставляем по всей России через надежных транспортных партнеров. Сроки и стоимость уточняйте.
-            </InfoText>
-          </InfoCard>
-
-          <InfoCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <InfoIcon>
-              <FontAwesomeIcon icon={faCreditCard} />
-            </InfoIcon>
-            <InfoTitle>Оплата при получении</InfoTitle>
-            <InfoText>
-              Возможность оплаты наличными или картой при получении заказа. Безопасно и удобно.
-            </InfoText>
-          </InfoCard>
-        </InfoGrid>
       </Section>
 
       <ContactSection
