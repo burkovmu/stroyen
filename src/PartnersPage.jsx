@@ -151,10 +151,8 @@ const PartnerCard = styled(motion.div)`
 `;
 
 const PartnerLogo = styled.div`
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, #2f5483, #1a2f4b);
-  border-radius: 50%;
+  width: 180px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -162,6 +160,13 @@ const PartnerLogo = styled.div`
   color: white;
   font-size: 2rem;
   font-weight: bold;
+  overflow: hidden;
+`;
+
+const PartnerLogoImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 `;
 
 const PartnerName = styled.h3`
@@ -383,7 +388,7 @@ function PartnersPage() {
     console.log('Отправить заявку');
   };
 
-  const partners = [
+  const allPartners = [
     {
       id: 1,
       name: 'Энергомера',
@@ -441,6 +446,26 @@ function PartnersPage() {
       website: 'https://www.powertech.com'
     }
   ];
+
+  const featuredPartners = [
+    ...allPartners
+      .filter((partner) => partner.name === 'АГАТ')
+      .map((partner) => ({
+        ...partner,
+        logo: '/images/partners/agat.jpg'
+      })),
+    {
+      id: 'mars-energo',
+      name: 'МАРС ЭНЕРГО',
+      description: 'Инжиниринговая компания, специализирующаяся на решениях для энергетики и промышленной автоматизации',
+      country: 'Россия',
+      website: 'https://marsenergo.ru',
+      logo: '/images/partners/mars-energo.png'
+    }
+  ];
+
+  const partners = featuredPartners;
+  // Для возврата к исходному списку партнеров замените featuredPartners на allPartners.
 
   return (
     <PageContainer>
@@ -520,7 +545,18 @@ function PartnersPage() {
               transition={{ duration: 0.3 }}
             >
               <PartnerLogo>
-                {partner.name.split(' ').map(word => word[0]).join('')}
+                {partner.logo ? (
+                  <PartnerLogoImage
+                    src={partner.logo}
+                    alt={`Логотип ${partner.name}`}
+                    loading="lazy"
+                  />
+                ) : (
+                  partner.name
+                    .split(' ')
+                    .map((word) => word[0])
+                    .join('')
+                )}
               </PartnerLogo>
               <PartnerName>{partner.name}</PartnerName>
               <PartnerDescription>{partner.description}</PartnerDescription>
