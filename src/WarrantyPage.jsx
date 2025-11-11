@@ -507,21 +507,6 @@ function WarrantyPage() {
             viewport={{ once: true }}
           >
             <ServiceIcon>
-              <FontAwesomeIcon icon={faMapMarkerAlt} />
-            </ServiceIcon>
-            <ServiceTitle>Выезд специалиста</ServiceTitle>
-            <ServiceDescription>
-              Выезд квалифицированного специалиста на место установки оборудования для диагностики и ремонта.
-            </ServiceDescription>
-          </ServiceCard>
-
-          <ServiceCard
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <ServiceIcon>
               <FontAwesomeIcon icon={faHeadset} />
             </ServiceIcon>
             <ServiceTitle>Техническая поддержка</ServiceTitle>

@@ -491,7 +491,7 @@ function DeliveryPage() {
             <OptionFeatures>
               <OptionFeature>
                 <FontAwesomeIcon icon={faCheckCircle} />
-                Доставка в течение 24 часов
+                Отправка в течение 24 часов
               </OptionFeature>
               <OptionFeature>
                 <FontAwesomeIcon icon={faCheckCircle} />

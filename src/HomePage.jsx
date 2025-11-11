@@ -2418,7 +2418,7 @@ function HomePage() {
             </AdvantageIcon>
             <AdvantageTitle>Гарантия качества</AdvantageTitle>
             <AdvantageDescription>
-              Все счетчики проходят тщательную проверку и имеют официальную гарантию производителя сроком до 5 лет
+              Все счетчики проходят тщательную проверку и имеют официальную гарантию производителя
             </AdvantageDescription>
           </AdvantageCard>
 

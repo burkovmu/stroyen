@@ -468,20 +468,20 @@ function PaymentPage() {
               <MethodTitle>Безналичный расчет</MethodTitle>
             </MethodHeader>
             <MethodDescription>
-              Оплата по счету для юридических лиц и ИП. Работаем с НДС и без НДС.
+              Оплата по счету для юридических лиц. Работаем в рамках вашей налоговой системы.
             </MethodDescription>
             <MethodFeatures>
+              <MethodFeature>
+                <FontAwesomeIcon icon={faCheckCircle} />
+                Договор
+              </MethodFeature>
               <MethodFeature>
                 <FontAwesomeIcon icon={faCheckCircle} />
                 Счет на оплату
               </MethodFeature>
               <MethodFeature>
                 <FontAwesomeIcon icon={faCheckCircle} />
-                НДС и без НДС
-              </MethodFeature>
-              <MethodFeature>
-                <FontAwesomeIcon icon={faCheckCircle} />
-                Договор поставки
+                Закрывающие документы
               </MethodFeature>
             </MethodFeatures>
           </PaymentMethodCard>
@@ -535,7 +535,7 @@ function PaymentPage() {
             </ProcessIcon>
             <ProcessTitle>Подтверждение</ProcessTitle>
             <ProcessDescription>
-              Получаете подтверждение оплаты и документы на email или SMS.
+              Получаете подтверждение оплаты и документы на email или в ЭДО.
             </ProcessDescription>
           </ProcessCard>
         </ProcessGrid>
